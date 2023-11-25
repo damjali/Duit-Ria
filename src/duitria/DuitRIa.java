@@ -14,7 +14,7 @@ public class DuitRIa {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Testing2");
+        System.out.println("Testing2 and bruh moment");
     }
     
 }
