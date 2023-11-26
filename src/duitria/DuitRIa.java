@@ -16,5 +16,6 @@ public class DuitRIa {
     public static void main(String[] args) {
         System.out.println("Testing2 and bruh moment");
         //hello adam boleh nampak x 
+        //wow
     }
 }
