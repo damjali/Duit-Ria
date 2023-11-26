@@ -21,5 +21,6 @@ public class DuitRIa {
         //update 2 from amir
         // update 3 from adam
         // bruh moment
+        //bruh moment 2
     }
 }
