@@ -18,5 +18,6 @@ public class DuitRIa {
         //hello adam boleh nampak x 
         //wow
         //update 1
+        //update 2 from amir
     }
 }
