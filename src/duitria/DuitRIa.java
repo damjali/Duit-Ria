@@ -25,5 +25,6 @@ public class DuitRIa {
         //update 4 from aliya
 
         //Test 2 Aniq
+        System.out.println("Rill");
     }
 }
