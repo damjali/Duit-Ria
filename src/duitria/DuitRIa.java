@@ -10,21 +10,7 @@ package duitria;
  */
 public class DuitRIa {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        System.out.println("Testing2 and bruh moment");
-        //hello adam boleh nampak x 
-        //wow
-        //update 1
-        //update 2 from amir
-        // update 3 from adam
-        // bruh moment
-        //bruh moment 2
-        //update 4 from aliya
-
-        //Test 2 Aniq
-        System.out.println("Rill");
+        System.out.println("This is the main program");
     }
 }
