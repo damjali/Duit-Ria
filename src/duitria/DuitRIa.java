@@ -6,9 +6,6 @@ package duitria;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.GroupLayout;
-
 import java.util.Random;
 //start game 
 //about game 
@@ -186,6 +183,19 @@ public class DuitRIa {
         } else if (currentTile instanceof FateCard) {
             FateCard fateCard = (FateCard) currentTile;
             System.out.println(player.name + " drew a Fate card:" + fateCard.description);
+        } else if (currentTile instanceof Jail) {
+            System.out.println(player.name + " is visitng the jail");
+        } else if (currentTile instanceof Tax) {
+            Tax tax = (Tax) currentTile;
+            System.out.println(player.name + " has to pay the tax for RM" + tax.cost);
+        } else if (currentTile instanceof Go) {
+            Go go = (Go) currentTile;
+            System.out.println(player.name + " has passed the Go Tile." + player.name + " has received RM" + go.payment);
+        } else if (currentTile instanceof FreeParking) {
+            System.out.println(player.name + " is resting.");
+        } else if (currentTile instanceof GoToJail) {
+            GoToJail goToJail = (GoToJail) currentTile;
+            System.out.println(player.name + " landed on " + goToJail.name);
         }
         System.out.println(player.name + "'s turn is over. Press Enter to continue");
         keyboard.nextLine();
