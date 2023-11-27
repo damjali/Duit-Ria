@@ -31,25 +31,27 @@ class Player {
         this.position = position;
     }
 }
-
 class Tile {
     String name;
     int cost;
     int rent;
-    public Tile(String name, int cost, int rent) {
+    Player owner;
+    int houseCost;
+    int houseAmount;
+    public Tile(String name, int cost, int rent,int houseCost) {
         this.name = name;
         this.cost = cost;
         this.rent = rent;
+        this.houseCost = houseCost;
+        this.owner = null;
     }
 }
-
 class FateCard {
     String description;
     public FateCard(String description) {
         this.description = description;
     }
 }
-
 class Tax {
     String name;
     int cost;
@@ -58,7 +60,6 @@ class Tax {
         this.cost = cost;
     }
 }
-
 class Go {
     String name;
     int payment;
@@ -67,21 +68,18 @@ class Go {
         this.payment = payment;
     }
 }
-
 class FreeParking {
     String description;
     public FreeParking(String description) {
         this.description = description;
     }
 }
-
 class Jail {
     String name;
     public Jail(String name) {
         this.name = name;
     }
 }
-
 class GoToJail {
     String name;
     public GoToJail(String name) {
@@ -118,45 +116,45 @@ public class DuitRIa {
     }
     private void initializeTile() {
         tiles.add(new Go("Go",2000000));
-        tiles.add(new Tile("Petaling Street",600000 ,60000));
+        tiles.add(new Tile("Petaling Street",600000 ,60000 ,200000));
         tiles.add(new FateCard("Fate"));
-        tiles.add(new Tile("Jonker Street",600000 ,60000));
+        tiles.add(new Tile("Jonker Street",600000 ,60000 ,200000));
         tiles.add(new Tax("Tax",2000000 ));
-        tiles.add(new Tile("KLIA",2000000 ,200000));
-        tiles.add(new Tile("Masjid Jamek",1000000 ,100000));
+        tiles.add(new Tile("KLIA",2000000 ,200000 ,200000));
+        tiles.add(new Tile("Masjid Jamek",1000000 ,100000 ,200000));
         tiles.add(new FateCard("Fate"));
-        tiles.add(new Tile("Batu Caves",1000000 ,100000));
-        tiles.add(new Tile("Siri Maha Mariamman Temple",1200000 ,120000));
+        tiles.add(new Tile("Batu Caves",1000000 ,100000 ,200000));
+        tiles.add(new Tile("Siri Maha Mariamman Temple",1200000 ,120000 ,200000));
         tiles.add(new Jail("Jail"));
-        tiles.add(new Tile("National Museum",1400000 ,140000));
-        tiles.add(new Tile("Tenaga Nasional Berhad",1500000 ,150000));
-        tiles.add(new Tile("Royal Palace",1400000 ,140000));
-        tiles.add(new Tile("Merdeka Square",1400000 ,140000));
-        tiles.add(new Tile("KLIA 2",2000000 ,200000));
-        tiles.add(new Tile("A'Famosa Resort",1700000 ,170000));
+        tiles.add(new Tile("National Museum",1400000 ,140000 ,200000));
+        tiles.add(new Tile("Tenaga Nasional Berhad",1500000 ,150000 ,200000));
+        tiles.add(new Tile("Royal Palace",1400000 ,140000 ,200000));
+        tiles.add(new Tile("Merdeka Square",1400000 ,140000 ,200000));
+        tiles.add(new Tile("KLIA 2",2000000 ,200000 ,200000));
+        tiles.add(new Tile("A'Famosa Resort",1700000 ,170000 ,200000));
         tiles.add(new FateCard("Fate"));
-        tiles.add(new Tile("Kellie Castle",1800000 ,180000));
-        tiles.add(new Tile("Stadthuys",2000000 ,200000));
+        tiles.add(new Tile("Kellie Castle",1800000 ,180000 ,200000));
+        tiles.add(new Tile("Stadthuys",2000000 ,200000 ,200000));
         tiles.add(new FreeParking("This is a free resting place"));
-        tiles.add(new Tile("Fraser's Hill",2200000 ,220000));
+        tiles.add(new Tile("Fraser's Hill",2200000 ,220000 ,200000));
         tiles.add(new FateCard("Fate"));
-        tiles.add(new Tile("Cameron Highlands",2200000 ,220000));
-        tiles.add(new Tile("Genting Highland",2400000 ,240000));
-        tiles.add(new Tile("KL Sentral Station",2000000 ,200000));
-        tiles.add(new Tile("Pahang National Park",2600000 ,260000));
-        tiles.add(new Tile("Jabatan Bekalan Air",2600000 ,150000));
-        tiles.add(new Tile("Gunung Mulu National Park",2700000 ,260000));
-        tiles.add(new Tile("Kinabalu National Park",600000 ,270000));
+        tiles.add(new Tile("Cameron Highlands",2200000 ,220000 ,200000));
+        tiles.add(new Tile("Genting Highland",2400000 ,240000 ,200000));
+        tiles.add(new Tile("KL Sentral Station",2000000 ,200000 ,200000));
+        tiles.add(new Tile("Pahang National Park",2600000 ,260000 ,200000));
+        tiles.add(new Tile("Jabatan Bekalan Air",2600000 ,150000 ,200000));
+        tiles.add(new Tile("Gunung Mulu National Park",2700000 ,260000 ,200000));
+        tiles.add(new Tile("Kinabalu National Park",600000 ,270000 ,200000));
         tiles.add(new GoToJail("Fate"));
-        tiles.add(new Tile("Tioman Islands",3000000 ,300000));
-        tiles.add(new Tile("Perhentian Islands",3000000 ,300000));
+        tiles.add(new Tile("Tioman Islands",3000000 ,300000 ,200000));
+        tiles.add(new Tile("Perhentian Islands",3000000 ,300000 ,200000));
         tiles.add(new FateCard("Fate"));
-        tiles.add(new Tile("Sepadan Islands",3200000 ,320000));
-        tiles.add(new Tile("Pudu Sentral Station",2000000 ,200000));
+        tiles.add(new Tile("Sepadan Islands",3200000 ,320000 ,200000));
+        tiles.add(new Tile("Pudu Sentral Station",2000000 ,200000 ,200000));
         tiles.add(new FateCard("Fate"));
-        tiles.add(new Tile("KLCC",3500000 ,350000));
+        tiles.add(new Tile("KLCC",3500000 ,350000 ,200000));
         tiles.add(new Tax("Tax",2000000));
-        tiles.add(new Tile("Sepang II Circuit",4000000 ,400000));
+        tiles.add(new Tile("Sepang II Circuit",4000000 ,400000 ,200000));
     }
     private void displayBoard() {
         System.out.println("Current Board State: ");
@@ -174,14 +172,34 @@ public class DuitRIa {
         if (currentTile instanceof Tile) {
             Tile propertyTile = (Tile) currentTile;
             System.out.println(player.name + " landed on " + propertyTile.name);
-            System.out.print("Do you want to buy " + propertyTile.name + "? (Y/N):");
-            String buyChoice = keyboard.nextLine();
-            if (buyChoice.equalsIgnoreCase("Y")) {
-                if (propertyTile.cost > player.money) {
-                    System.out.println("Not enough money to buy " + propertyTile.name);
-                } else {
-                    System.out.println(player.name + " bought " + propertyTile.name + " for RM" + propertyTile.cost);
-                    player.money -= propertyTile.cost;
+            if (propertyTile.owner == null) {
+                System.out.print("Do you want to buy " + propertyTile.name + " for RM" + propertyTile.cost + "? (Y/N):");
+                String choice = keyboard.nextLine();
+                if (choice.equalsIgnoreCase("Y")) {
+                    if (propertyTile.cost > player.money) {
+                        System.out.println("Not enough money to buy " + propertyTile.name + ".");
+                    } else {
+                        System.out.println(player.name + " bought " + propertyTile.name + ".");
+                        player.money -= propertyTile.cost;
+                    }
+                }
+            } else if (propertyTile.owner != player) {
+                int rentAmount = propertyTile.rent;
+                System.out.println(propertyTile.name + " is owned by " + propertyTile.owner.name + ".");
+                System.out.println(player.name + " has to pay rent of RM" + rentAmount + ".");
+                player.money -= rentAmount;
+                propertyTile.owner.money += rentAmount;
+            } else {
+                if (propertyTile.houseAmount != 4) {
+                    System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
+                    String choice = keyboard.nextLine();
+                    if (choice.equalsIgnoreCase("Y")) {
+                        int housePrice = propertyTile.houseCost;
+                        System.out.println("You can buy " + (4 - propertyTile.houseAmount) + " more houses.");
+                        System.out.print("How many do you want to buy? : ");
+                        int houseAmount = keyboard.nextInt();
+                        keyboard.nextLine();
+                    }
                 }
             }
         } else if (currentTile instanceof FateCard) {
