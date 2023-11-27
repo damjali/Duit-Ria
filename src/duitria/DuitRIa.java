@@ -48,8 +48,47 @@ class Tile {
 
 class FateCard {
     String description;
-    public FateCard(String description){
+    public FateCard(String description) {
         this.description = description;
+    }
+}
+
+class Tax {
+    String name;
+    int cost;
+    public Tax(String name, int cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+}
+
+class Go {
+    String name;
+    int payment;
+    public Go(String name, int payment) {
+        this.name = name;
+        this.payment = payment;
+    }
+}
+
+class FreeParking {
+    String description;
+    public FreeParking(String description) {
+        this.description = description;
+    }
+}
+
+class Jail {
+    String name;
+    public Jail(String name) {
+        this.name = name;
+    }
+}
+
+class GoToJail {
+    String name;
+    public GoToJail(String name) {
+        this.name = name;
     }
 }
 public class DuitRIa {
@@ -81,11 +120,11 @@ public class DuitRIa {
         }
     }
     private void initializeTile() {
-        tiles.add(new Go("Go",2000000 ,0 ));
+        tiles.add(new Go("Go",2000000 ));
         tiles.add(new Tile("Petaling Street",600000 ,60000 ));
         tiles.add(new FateCard("Fate"));
         tiles.add(new Tile("Jonker Street",600000 ,60000 ));
-        tiles.add(new Tax("Tax"));
+        tiles.add(new Tax("Tax",2000000 ));
         tiles.add(new Tile("KLIA",2000000 ,200000 ));
         tiles.add(new Tile("Masjid Jamek",1000000 ,100000 ));
         tiles.add(new FateCard("Fate"));
@@ -101,7 +140,7 @@ public class DuitRIa {
         tiles.add(new FateCard("Fate"));
         tiles.add(new Tile("Kellie Castle",1800000 ,180000 ));
         tiles.add(new Tile("Stadthuys",2000000 ,200000 ));
-        tiles.add(new FreeParking("Fate"));
+        tiles.add(new FreeParking("This is a free resting place"));
         tiles.add(new Tile("Fraser's Hill",2200000 ,220000 ));
         tiles.add(new FateCard("Fate"));
         tiles.add(new Tile("Cameron Highlands",2200000 ,220000 ));
@@ -111,7 +150,7 @@ public class DuitRIa {
         tiles.add(new Tile("Jabatan Bekalan Air",2600000 ,150000 ));
         tiles.add(new Tile("Gunung Mulu National Park",2700000 ,260000 ));
         tiles.add(new Tile("Kinabalu National Park",600000 ,270000 ));
-        tiles.add(new GotToJail("Fate"));
+        tiles.add(new GoToJail("Fate"));
         tiles.add(new Tile("Tioman Islands",3000000 ,300000 ));
         tiles.add(new Tile("Perhentian Islands",3000000 ,300000 ));
         tiles.add(new FateCard("Fate"));
@@ -119,7 +158,7 @@ public class DuitRIa {
         tiles.add(new Tile("Pudu Sentral Station",2000000 ,200000 ));
         tiles.add(new FateCard("Fate"));
         tiles.add(new Tile("KLCC",3500000 ,350000 ));
-        tiles.add(new Tax("Tax"));
+        tiles.add(new Tax("Tax",2000000 ));
         tiles.add(new Tile("Sepang II Circuit",4000000 ,400000 ));
     }
     private void displayBoard() {
