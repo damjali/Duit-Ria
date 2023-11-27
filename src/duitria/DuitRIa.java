@@ -34,16 +34,28 @@ class Player {
 class Tile {
     String name;
     int cost;
-    int rent;
+    int baseRent;
     Player owner;
     int houseCost;
-    int houseAmount;
-    public Tile(String name, int cost, int rent,int houseCost) {
+    int numOfHouse;
+    public Tile(String name, int cost, int baseRent,int houseCost) {
         this.name = name;
         this.cost = cost;
-        this.rent = rent;
+        this.baseRent = baseRent;
         this.houseCost = houseCost;
         this.owner = null;
+        this.numOfHouse = 0;
+    }
+    public int calculateRent() {
+        int calculatedRent = 0;
+        if (numOfHouse == 0) {
+            calculatedRent = baseRent;
+        } else if (numOfHouse == 1) {
+            calculatedRent = baseRent * 2;
+        } else if (numOfHouse >= 2 && numOfHouse <= 4) {
+            calculatedRent = (baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1)));
+        }
+        return calculatedRent;
     }
 }
 class FateCard {
@@ -176,7 +188,7 @@ public class DuitRIa {
                 System.out.print("Do you want to buy " + propertyTile.name + " for RM" + propertyTile.cost + "? (Y/N):");
                 String choice = keyboard.nextLine();
                 if (choice.equalsIgnoreCase("Y")) {
-                    if (propertyTile.cost > player.money) {
+                    if (propertyTile.cost >= player.money) {
                         System.out.println("Not enough money to buy " + propertyTile.name + ".");
                     } else {
                         System.out.println(player.name + " bought " + propertyTile.name + ".");
@@ -184,21 +196,37 @@ public class DuitRIa {
                     }
                 }
             } else if (propertyTile.owner != player) {
-                int rentAmount = propertyTile.rent;
+                int rentAmount = propertyTile.baseRent + propertyTile.calculateRent();
                 System.out.println(propertyTile.name + " is owned by " + propertyTile.owner.name + ".");
                 System.out.println(player.name + " has to pay rent of RM" + rentAmount + ".");
                 player.money -= rentAmount;
                 propertyTile.owner.money += rentAmount;
             } else {
-                if (propertyTile.houseAmount != 4) {
+                if (propertyTile.numOfHouse >= 0 && propertyTile.numOfHouse <= 4) {
                     System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
                     String choice = keyboard.nextLine();
                     if (choice.equalsIgnoreCase("Y")) {
+                        boolean buyHouseCheck = true;
                         int housePrice = propertyTile.houseCost;
-                        System.out.println("You can buy " + (4 - propertyTile.houseAmount) + " more houses.");
-                        System.out.print("How many do you want to buy? : ");
-                        int houseAmount = keyboard.nextInt();
-                        keyboard.nextLine();
+                        System.out.println("You can buy " + (4 - propertyTile.numOfHouse) + " more houses.");
+                        while (buyHouseCheck) {
+                            System.out.print("How many do you want to buy? : ");
+                            int numOfHouse = keyboard.nextInt();
+                            keyboard.nextLine();
+                            if (numOfHouse >= 0 && numOfHouse <= propertyTile.numOfHouse) {
+                                if (housePrice * numOfHouse >= player.money) {
+                                    System.out.println("You don't have enough money to buy that amount of houses.");
+                                    buyHouseCheck = false;
+                                } else {
+                                    System.out.println("You bought the house for RM" + housePrice * numOfHouse);
+                                    propertyTile.numOfHouse += numOfHouse;
+                                    player.money -= housePrice * numOfHouse;
+                                    buyHouseCheck = false;
+                                }
+                            } else {
+                                System.out.println("Please buy in the amount of available houses.");
+                            }
+                        }
                     }
                 }
             }
