@@ -174,11 +174,15 @@ public class DuitRIa {
         if (currentTile instanceof Tile) {
             Tile propertyTile = (Tile) currentTile;
             System.out.println(player.name + " landed on " + propertyTile.name);
-            if (propertyTile.cost > player.money) {
-                System.out.println("Not enough money to buy " + propertyTile.name);
-            } else {
-                System.out.println(player.name + " bought " + propertyTile.name + " for RM" + propertyTile.cost);
-                player.money -= propertyTile.cost;
+            System.out.print("Do you want to buy " + propertyTile.name + "? (Y/N):");
+            String buyChoice = keyboard.nextLine();
+            if (buyChoice.equalsIgnoreCase("Y")) {
+                if (propertyTile.cost > player.money) {
+                    System.out.println("Not enough money to buy " + propertyTile.name);
+                } else {
+                    System.out.println(player.name + " bought " + propertyTile.name + " for RM" + propertyTile.cost);
+                    player.money -= propertyTile.cost;
+                }
             }
         } else if (currentTile instanceof FateCard) {
             FateCard fateCard = (FateCard) currentTile;
