@@ -43,15 +43,22 @@ class Tile {
     }
 }
 
-class Fate {
+class FateCard {
     String name;
-    public Fate(String name){
+    public FateCard(String name) {
         this.name = name;
+    }
+}
+
+class Fate {
+    String description;
+    public Fate(String description){
+        this.description = description;
     }
 }
 public class DuitRIa {
     private List<Player> players;
-    private List<Tile> tiles;
+    private List<Object> tiles;
     private int currentPlayerIndex;
     private Scanner keyboard;
     private Random rand;
@@ -78,8 +85,9 @@ public class DuitRIa {
         }
     }
     private void initializeTile() {
-        tiles.add(new Tile("Go",-2000000 ,0 ));
+        tiles.add(new Tile("Go",2000000 ,0 ));
         tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FateCard("Fate"));
     }
     private void displayBoard() {
         System.out.println("Current Board State: ");
@@ -93,13 +101,19 @@ public class DuitRIa {
         int diceRoll = diceRoll1 + diceRoll2;
         System.out.println(player.name + " rolled a " + diceRoll);
         player.position = (player.position + diceRoll) % tiles.size();
-        Tile currentTile = tiles.get(player.position);
-        System.out.println(player.name + " landed on " + currentTile.name);
-        if (currentTile.cost > player.money) {
-            System.out.println("Not enough money to buy " + currentTile.name);
-        } else {
-            System.out.println(player.name + " bought " + currentTile.name + " for RM" + currentTile.cost);
-            player.money -= currentTile.cost;
+        Object currentTile = tiles.get(player.position);
+        if (currentTile instanceof Tile) {
+            Tile propertyTile = (Tile) currentTile;
+            System.out.println(player.name + " landed on " + propertyTile.name);
+            if (propertyTile.cost > player.money) {
+                System.out.println("Not enough money to buy " + propertyTile.name);
+            } else {
+                System.out.println(player.name + " bought " + propertyTile.name + " for RM" + propertyTile.cost);
+                player.money -= propertyTile.cost;
+            }
+        } else if (currentTile instanceof FateCard) {
+            FateCard fateCard = (FateCard) currentTile;
+            System.out.println(player.name + " drew a Fate card:" + fateCard.description);
         }
         System.out.println(player.name + "'s turn is over. Press Enter to continue");
         keyboard.nextLine();
