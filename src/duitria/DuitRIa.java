@@ -127,7 +127,7 @@ public class DuitRIa {
         tiles.add(new FateCard("Fate"));
         tiles.add(new Tile("Batu Caves",1000000 ,100000));
         tiles.add(new Tile("Siri Maha Mariamman Temple",1200000 ,120000));
-        tiles.add(new Jail("Fate"));
+        tiles.add(new Jail("Jail"));
         tiles.add(new Tile("National Museum",1400000 ,140000));
         tiles.add(new Tile("Tenaga Nasional Berhad",1500000 ,150000));
         tiles.add(new Tile("Royal Palace",1400000 ,140000));
@@ -186,7 +186,8 @@ public class DuitRIa {
             }
         } else if (currentTile instanceof FateCard) {
             FateCard fateCard = (FateCard) currentTile;
-            System.out.println(player.name + " drew a Fate card:" + fateCard.description);
+            System.out.println(player.name + " drew a Fate card:" + fateCardOutcome(player));
+
         } else if (currentTile instanceof Jail) {
             System.out.println(player.name + " is visitng the jail");
         } else if (currentTile instanceof Tax) {
@@ -215,6 +216,46 @@ public class DuitRIa {
             performTurn(currentPlayer);
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
+    }
+    private String fateCardOutcome(Player player) {
+        int randNum = rand.nextInt(10);
+        switch(randNum) {
+            case 0:
+            player.position = 0;
+            return "Advance to Go.";
+            case 1:
+            int nearestRailroad1 = player.position - 25;
+            int nearestRailroad2 = player.position - 35;
+            if (nearestRailroad1 < nearestRailroad2)
+                player.position = 25;
+            else
+                player.position = 35;
+            return "Advance to the nearest railroad.";
+            case 2:
+            return "It is your birthday! Collect RM100,000 from everyone.";
+            case 3:
+            player.money += 2000000;
+            return "Bank error in your favor. Collect RM2,000,000.";
+            case 4:
+            player.position -= 3;
+            return "Go back 3 spaces.";
+            case 5:
+            player.position = 10;
+            return "Go to Jail.";
+            case 6:
+            player.money;
+            return "Make general repair on all your property. RM200,000 for each house.";
+            case 7:
+            player.money -= 250000;
+            return "Pay hospital fees of RM250,000.";
+            case 8:
+            player.money -= 100000;
+            return "Pay school fees of RM100,000.";
+            case 9:
+            player.money -= 100000;
+            return "Pay speeding fine of RM100,000.";
+        }
+        return null;
     }
     public static void main(String[] args) {
         DuitRIa game = new DuitRIa();
