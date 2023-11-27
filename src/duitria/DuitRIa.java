@@ -25,10 +25,12 @@ class Player {
     String name;
     int money;
     int position;
+    boolean jailCheck;
     public Player(String name, int money, int position) {
         this.name = name;
         this.money = money;
         this.position = position;
+        this.jailCheck = false;
     }
 }
 class Tile {
@@ -60,42 +62,54 @@ class Tile {
 }
 class FateCard {
     String description;
+    Player owner;
     public FateCard(String description) {
         this.description = description;
+        this.owner = null;
     }
 }
 class Tax {
     String name;
     int cost;
+    Player owner;
     public Tax(String name, int cost) {
         this.name = name;
         this.cost = cost;
+        this.owner = null;
     }
 }
 class Go {
     String name;
     int payment;
+    Player owner;
     public Go(String name, int payment) {
         this.name = name;
         this.payment = payment;
+        this.owner = null;
     }
 }
 class FreeParking {
     String description;
+    Player owner;
     public FreeParking(String description) {
         this.description = description;
+        this.owner = null;
     }
 }
 class Jail {
     String name;
+    Player owner;
     public Jail(String name) {
         this.name = name;
+        this.owner = null;
     }
 }
 class GoToJail {
     String name;
+    Player owner;
     public GoToJail(String name) {
         this.name = name;
+        this.owner = null;
     }
 }
 public class DuitRIa {
@@ -134,7 +148,7 @@ public class DuitRIa {
         tiles.add(new Tax("Tax",2000000 ));
         tiles.add(new Tile("KLIA",2000000 ,200000 ,200000));
         tiles.add(new Tile("Masjid Jamek",1000000 ,100000 ,200000));
-        tiles.add(new FateCard("Fate"));
+        tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("Batu Caves",1000000 ,100000 ,200000));
         tiles.add(new Tile("Siri Maha Mariamman Temple",1200000 ,120000 ,200000));
         tiles.add(new Jail("Jail"));
@@ -144,12 +158,12 @@ public class DuitRIa {
         tiles.add(new Tile("Merdeka Square",1400000 ,140000 ,200000));
         tiles.add(new Tile("KLIA 2",2000000 ,200000 ,200000));
         tiles.add(new Tile("A'Famosa Resort",1700000 ,170000 ,200000));
-        tiles.add(new FateCard("Fate"));
+        tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("Kellie Castle",1800000 ,180000 ,200000));
         tiles.add(new Tile("Stadthuys",2000000 ,200000 ,200000));
         tiles.add(new FreeParking("This is a free resting place"));
         tiles.add(new Tile("Fraser's Hill",2200000 ,220000 ,200000));
-        tiles.add(new FateCard("Fate"));
+        tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("Cameron Highlands",2200000 ,220000 ,200000));
         tiles.add(new Tile("Genting Highland",2400000 ,240000 ,200000));
         tiles.add(new Tile("KL Sentral Station",2000000 ,200000 ,200000));
@@ -160,10 +174,10 @@ public class DuitRIa {
         tiles.add(new GoToJail("Fate"));
         tiles.add(new Tile("Tioman Islands",3000000 ,300000 ,200000));
         tiles.add(new Tile("Perhentian Islands",3000000 ,300000 ,200000));
-        tiles.add(new FateCard("Fate"));
+        tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("Sepadan Islands",3200000 ,320000 ,200000));
         tiles.add(new Tile("Pudu Sentral Station",2000000 ,200000 ,200000));
-        tiles.add(new FateCard("Fate"));
+        tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("KLCC",3500000 ,350000 ,200000));
         tiles.add(new Tax("Tax",2000000));
         tiles.add(new Tile("Sepang II Circuit",4000000 ,400000 ,200000));
@@ -232,21 +246,42 @@ public class DuitRIa {
             }
         } else if (currentTile instanceof FateCard) {
             FateCard fateCard = (FateCard) currentTile;
-            System.out.println(player.name + " drew a Fate card:" + fateCardOutcome(player));
+            System.out.println(player.name + " drew a " + fateCard.description + ":" + fateCardOutcome(player));
 
         } else if (currentTile instanceof Jail) {
-            System.out.println(player.name + " is visitng the jail");
+            if (player.jailCheck) {
+                System.out.println(player.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000");
+                diceRoll1 = rand.nextInt(6) + 1;
+                diceRoll2 = rand.nextInt(6) + 1;
+                if (diceRoll1 == diceRoll2) {
+                    System.out.println(player.name + " managed to roll a double of " + diceRoll1 + "!");
+                    player.jailCheck = false;
+                    diceRoll = diceRoll1 + diceRoll2;
+                    player.position += diceRoll;
+                } else {
+                    System.out.println("Sorry " + player.name + ", you rolled a " + diceRoll1 + " and " + diceRoll2 + ".");
+                    player.jailCheck = false;
+                    diceRoll = diceRoll1 + diceRoll2;
+                    player.money -= 250000;
+                    player.position += diceRoll;
+                }
+            } else {
+                System.out.println(player.name + " is visitng the jail.");
+            }
         } else if (currentTile instanceof Tax) {
             Tax tax = (Tax) currentTile;
-            System.out.println(player.name + " has to pay the tax for RM" + tax.cost);
+            System.out.println(player.name + " has to pay the tax for RM" + tax.cost + ".");
         } else if (currentTile instanceof Go) {
             Go go = (Go) currentTile;
-            System.out.println(player.name + " has passed the Go Tile." + player.name + " has received RM" + go.payment);
+            System.out.println(player.name + " has passed the Go Tile." + player.name + " has received RM" + go.payment + ".");
+            player.money += 2000000;
         } else if (currentTile instanceof FreeParking) {
             System.out.println(player.name + " is resting.");
         } else if (currentTile instanceof GoToJail) {
             GoToJail goToJail = (GoToJail) currentTile;
-            System.out.println(player.name + " landed on " + goToJail.name);
+            System.out.println(player.name + " has to go to " + goToJail.name + ".");
+            player.jailCheck = true;
+            player.position = 10;
         }
         System.out.println(player.name + "'s turn is over. Press Enter to continue");
         keyboard.nextLine();
@@ -268,6 +303,7 @@ public class DuitRIa {
         switch(randNum) {
             case 0:
             player.position = 0;
+            player.money += 2000000;
             return "Advance to Go.";
             case 1:
             int nearestRailroad1 = player.position - 25;
@@ -278,6 +314,11 @@ public class DuitRIa {
                 player.position = 35;
             return "Advance to the nearest railroad.";
             case 2:
+            player.money += (100000 * players.size());
+            for (Player otherPlayer : players) {
+                if (!otherPlayer.equals(player))
+                    otherPlayer.money -= 100000;
+            }
             return "It is your birthday! Collect RM100,000 from everyone.";
             case 3:
             player.money += 2000000;
@@ -287,9 +328,21 @@ public class DuitRIa {
             return "Go back 3 spaces.";
             case 5:
             player.position = 10;
+            player.jailCheck = true;
             return "Go to Jail.";
             case 6:
-            player.money;
+            int generalRepairTotal = 0;
+            for (Object i : tiles) {
+                int count = (int) i;
+                Object currentTile = tiles.get(count);
+                if (currentTile instanceof Tile) {
+                    Tile propertyTile = (Tile) tiles;
+                    if (propertyTile.owner.equals(player)) {
+                        generalRepairTotal += (propertyTile.numOfHouse * 200000);
+                        System.out.println(propertyTile.name + " costs RM" + (propertyTile.numOfHouse * 200000) + ".");
+                    }
+                }
+            }
             return "Make general repair on all your property. RM200,000 for each house.";
             case 7:
             player.money -= 250000;
