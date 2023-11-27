@@ -44,15 +44,8 @@ class Tile {
 }
 
 class FateCard {
-    String name;
-    public FateCard(String name) {
-        this.name = name;
-    }
-}
-
-class Fate {
     String description;
-    public Fate(String description){
+    public FateCard(String description){
         this.description = description;
     }
 }
@@ -88,6 +81,43 @@ public class DuitRIa {
         tiles.add(new Tile("Go",2000000 ,0 ));
         tiles.add(new Tile("Petaling Street",600000 ,5000 ));
         tiles.add(new FateCard("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tax("Tax"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FateCard("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Jail("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FateCard("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FreeParking("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FateCard("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new GotToJail("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FateCard("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new FateCard("Fate"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
+        tiles.add(new Tax("Tax"));
+        tiles.add(new Tile("Petaling Street",600000 ,5000 ));
     }
     private void displayBoard() {
         System.out.println("Current Board State: ");
