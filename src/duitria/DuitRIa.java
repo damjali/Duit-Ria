@@ -26,11 +26,13 @@ class Player {
     int money;
     int position;
     boolean jailCheck;
+    int turn;
     public Player(String name, int money, int position) {
         this.name = name;
         this.money = money;
         this.position = position;
         this.jailCheck = false;
+        this.turn = 0;
     }
 }
 class Tile {
@@ -379,6 +381,10 @@ public class DuitRIa {
             System.out.println("You can't afford to pay that much!");
             
         }
+    }
+    private void sortPlayers() {
+        int diceRoll1 = rand.nextInt(6) + 1;
+        int diceRoll2 = rand.nextInt(6) + 1;
     }
     public static void main(String[] args) {
         DuitRIa game = new DuitRIa();
