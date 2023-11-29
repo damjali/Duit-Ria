@@ -26,12 +26,14 @@ class Player {
     int money;
     int position;
     boolean jailCheck;
+    int diceRoll;
     int turn;
-    public Player(String name, int money, int position) {
+    public Player(String name, int money, int position, int diceRoll) {
         this.name = name;
         this.money = money;
         this.position = position;
         this.jailCheck = false;
+        this.diceRoll = diceRoll;
         this.turn = 0;
     }
 }
@@ -120,6 +122,7 @@ public class DuitRIa {
             initializePlayers(playerNum);
         else
             System.err.println("Error: Enter number 2-4");
+        sortPlayers(playerNum);
         currentPlayerIndex = 0;
         initializeTile();
     }
@@ -127,7 +130,9 @@ public class DuitRIa {
         for (int i = 1; i <= playerNum; i++) {
             System.out.print("Player " + i + " name : ");
             String name = keyboard.nextLine();
-            players.add(new Player(name,15000000,0));
+            int diceRoll1 = rand.nextInt(6) + 1;
+            int diceRoll2 = rand.nextInt(6) + 1;
+            players.add(new Player(name ,15000000 ,0 ,diceRoll1 + diceRoll2));
         }
     }
     private void initializeTile() {
@@ -382,9 +387,13 @@ public class DuitRIa {
             
         }
     }
-    private void sortPlayers() {
-        int diceRoll1 = rand.nextInt(6) + 1;
-        int diceRoll2 = rand.nextInt(6) + 1;
+    private void sortPlayers(int playerNum) {
+        for(int i =0; i < playerNum; i++) {
+            int diceRoll1 = rand.nextInt(6) + 1;
+            int diceRoll2 = rand.nextInt(6) + 1;
+            int diceRoll = diceRoll1 + diceRoll2;
+            
+        }
     }
     public static void main(String[] args) {
         DuitRIa game = new DuitRIa();
