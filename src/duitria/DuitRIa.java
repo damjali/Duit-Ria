@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package duitria;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
 //start game 
 //about game 
 //create players (num of players,name of players) 
@@ -27,12 +24,14 @@ class Player {
     int position;
     boolean jailCheck;
     int turn;
+    int diceRoll;
     public Player(String name, int money, int position) {
         this.name = name;
         this.money = money;
         this.position = position;
         this.jailCheck = false;
         this.turn = 0;
+        this.diceRoll = 0;
     }
 }
 class Tile {
@@ -103,6 +102,7 @@ class GoToJail {
     }
 }
 public class DuitRIa {
+    private List<Player> sortedPlayerTurn;
     private List<Player> players;
     private List<Object> tiles;
     private int currentPlayerIndex;
@@ -120,8 +120,7 @@ public class DuitRIa {
             initializePlayers(playerNum);
         else
             System.err.println("Error: Enter number 2-4");
-        sortPlayers(playerNum);
-        currentPlayerIndex = 0;
+        sortedPlayerTurn() = sortedPlayerTurn();
         initializeTile();
     }
     private void initializePlayers(int playerNum) {
@@ -384,13 +383,22 @@ public class DuitRIa {
             
         }
     }
-    private void sortPlayers(int playerNum) {
-        for(int i =0; i < playerNum; i++) {
-            int diceRoll1 = rand.nextInt(6) + 1;
-            int diceRoll2 = rand.nextInt(6) + 1;
-            int diceRoll = diceRoll1 + diceRoll2;
-            players[i].diceValue = diceRoll;
+    private List<Player> sortedPlayerTurn() {
+        Map<Player, Integer> playerTurn = new HashMap<>();
+        Set<Integer> uniqueDiceRoll = new HashSet<>();
+        for (Player player : players) {
+            int diceRoll1, diceRoll2;
+            do {
+                diceRoll1 = rand.nextInt(6) + 1;
+                diceRoll2 = rand.nextInt(6) + 1;
+            } while (uniqueDiceRoll.contains(diceRoll1 + diceRoll2));
+            player.diceRoll = diceRoll1 + diceRoll2;
+            uniqueDiceRoll.add(diceRoll1 + diceRoll2);
+            playerTurn.put(player,diceRoll1 + diceRoll2)
         }
+        List<Player> sortedPlayerTurn = new ArrayList<>(playerTurn.keySet());
+        Collections.sort(sortedPlayerTurn, Collections.reverseOrder());
+        return sortedPlayerTurn;
     }
     public static void main(String[] args) {
         DuitRIa game = new DuitRIa();
