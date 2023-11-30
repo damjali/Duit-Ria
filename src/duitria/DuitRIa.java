@@ -26,14 +26,12 @@ class Player {
     int money;
     int position;
     boolean jailCheck;
-    int diceRoll;
     int turn;
-    public Player(String name, int money, int position, int diceRoll) {
+    public Player(String name, int money, int position) {
         this.name = name;
         this.money = money;
         this.position = position;
         this.jailCheck = false;
-        this.diceRoll = diceRoll;
         this.turn = 0;
     }
 }
@@ -130,9 +128,7 @@ public class DuitRIa {
         for (int i = 1; i <= playerNum; i++) {
             System.out.print("Player " + i + " name : ");
             String name = keyboard.nextLine();
-            int diceRoll1 = rand.nextInt(6) + 1;
-            int diceRoll2 = rand.nextInt(6) + 1;
-            players.add(new Player(name ,15000000 ,0 ,diceRoll1 + diceRoll2));
+            players.add(new Player(name ,15000000 ,0));
         }
     }
     private void initializeTile() {
@@ -382,6 +378,7 @@ public class DuitRIa {
             }
         }
         System.out.println("You have a total asset of " + tileCount + " land(s) and " + houseCount + " house(s).");
+        System.out.println("How much do you want to sell?");
         if (tileCount == 0 && houseCount == 0) {
             System.out.println("You can't afford to pay that much!");
             
@@ -392,7 +389,7 @@ public class DuitRIa {
             int diceRoll1 = rand.nextInt(6) + 1;
             int diceRoll2 = rand.nextInt(6) + 1;
             int diceRoll = diceRoll1 + diceRoll2;
-            
+            players[i].diceValue = diceRoll;
         }
     }
     public static void main(String[] args) {
