@@ -101,14 +101,14 @@ class GoToJail {
         this.name = name;
     }
 }
-public class DuitRIa {
+public class testBefore {
     private List<Player> sortedPlayerTurn;
     private List<Player> players;
     private List<Object> tiles;
     private int currentPlayerIndex;
     private Scanner keyboard;
     private Random rand;
-    public DuitRIa() {
+    public testBefore() {
         keyboard = new Scanner(System.in);
         players = new ArrayList<>();
         tiles = new ArrayList<>();
@@ -401,7 +401,7 @@ public class DuitRIa {
         return sortedPlayerTurn;
     }
     public static void main(String[] args) {
-        DuitRIa game = new DuitRIa();
+        testBefore game = new testBefore();
         game.playGame();
     }
 }
