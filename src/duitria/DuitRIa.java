@@ -5,7 +5,6 @@
 package duitria;
 import java.util.*;
 public class DuitRIa {
-    private List<Player> sortedPlayerTurn;
     private List<Player> players;
     private List<Object> tiles;
     private int currentPlayerIndex;
@@ -64,7 +63,7 @@ public class DuitRIa {
         tiles.add(new Tile("Jabatan Bekalan Air",2600000 ,150000 ,200000));
         tiles.add(new Tile("Gunung Mulu National Park",2700000 ,260000 ,200000));
         tiles.add(new Tile("Kinabalu National Park",600000 ,270000 ,200000));
-        tiles.add(new GoToJail("Fate"));
+        tiles.add(new GoToJail("Jail"));
         tiles.add(new Tile("Tioman Islands",3000000 ,300000 ,200000));
         tiles.add(new Tile("Perhentian Islands",3000000 ,300000 ,200000));
         tiles.add(new FateCard("Fate Card"));
@@ -100,6 +99,7 @@ public class DuitRIa {
                     } else {
                         System.out.println(player.name + " bought " + propertyTile.name + ".");
                         player.money -= propertyTile.cost;
+                        propertyTile.owner = player;
                     }
                 }
             } else if (propertyTile.owner != player) {
@@ -120,7 +120,7 @@ public class DuitRIa {
                             System.out.print("How many do you want to buy? : ");
                             int numOfHouse = keyboard.nextInt();
                             keyboard.nextLine();
-                            if (numOfHouse >= 0 && numOfHouse <= propertyTile.numOfHouse) {
+                            if (numOfHouse >= 0 && numOfHouse <= (4 - propertyTile.numOfHouse)) {
                                 if (housePrice * numOfHouse >= player.money) {
                                     System.out.println("You don't have enough money to buy that amount of houses.");
                                     buyHouseCheck = false;
@@ -139,28 +139,10 @@ public class DuitRIa {
             }
         } else if (currentTile instanceof FateCard) {
             FateCard fateCard = (FateCard) currentTile;
-            System.out.println(player.name + " drew a " + fateCard.description + ":");
+            System.out.print(player.name + " drew a " + fateCard.description + ": ");
             fateCardOutcome(player);
         } else if (currentTile instanceof Jail) {
-            if (player.jailCheck) {
-                System.out.println(player.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000");
-                diceRoll1 = rand.nextInt(6) + 1;
-                diceRoll2 = rand.nextInt(6) + 1;
-                if (diceRoll1 == diceRoll2) {
-                    System.out.println(player.name + " managed to roll a double of " + diceRoll1 + "!");
-                    player.jailCheck = false;
-                    diceRoll = diceRoll1 + diceRoll2;
-                    player.position += diceRoll;
-                } else {
-                    System.out.println("Sorry " + player.name + ", you rolled a " + diceRoll1 + " and " + diceRoll2 + ".");
-                    player.money -= 250000;
-                    player.jailCheck = false;
-                    diceRoll = diceRoll1 + diceRoll2;
-                    player.position += diceRoll;
-                }
-            } else {
                 System.out.println(player.name + " is visitng the jail.");
-            }
         } else if (currentTile instanceof Tax) {
             Tax tax = (Tax) currentTile;
             System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
@@ -176,16 +158,34 @@ public class DuitRIa {
             player.jailCheck = true;
             player.position = 10;
         }
-        System.out.println(player.name + "'s turn is over. Press Enter to continue");
-        keyboard.nextLine();
+        System.out.println(player.name + "'s turn is over.\n");
     }
     private void playGame() {
+        int diceRoll1, diceRoll2, diceRoll;
         keyboard = new Scanner(System.in);
         boolean gameRunning = true;
         while (gameRunning) {
             Player currentPlayer = players.get(currentPlayerIndex);
             displayBoard();
-            System.out.println("It's " + currentPlayer.name + "'s turn. Press Enter to roll the dice.");
+            if (currentPlayer.jailCheck) {
+                System.out.println(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000");
+                diceRoll1 = rand.nextInt(6) + 1;
+                diceRoll2 = rand.nextInt(6) + 1;
+                if (diceRoll1 == diceRoll2) {
+                    System.out.println(currentPlayer.name + " managed to roll a double of " + diceRoll1 + "!");
+                    currentPlayer.jailCheck = false;
+                    diceRoll = diceRoll1 + diceRoll2;
+                    currentPlayer.position += diceRoll;
+                    //something wrong here, player still roll another one and did not use the double roll as the new position
+                } else {
+                    System.out.println("Sorry " + currentPlayer.name + ", you rolled a " + diceRoll1 + " and " + diceRoll2 + ".");
+                    currentPlayer.money -= 250000;
+                    currentPlayer.jailCheck = false;
+                    diceRoll = diceRoll1 + diceRoll2;
+                    currentPlayer.position += diceRoll;
+                }
+            }
+            System.out.print("It's " + currentPlayer.name + "'s turn. Press Enter to roll the dice.");
             keyboard.nextLine();
             performTurn(currentPlayer);
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
@@ -195,12 +195,12 @@ public class DuitRIa {
         int randNum = rand.nextInt(10);
         switch(randNum) {
             case 0:
-            System.out.print("Advance to Go and collect RM2,000,000.");
+            System.out.println("Advance to Go and collect RM2,000,000.");
             player.position = 0;
             player.money += 2000000;
             break;
             case 1:
-            System.out.print("Advance to the nearest railroad.");
+            System.out.println("Advance to the nearest railroad.");
             int nearestRailroad1 = player.position - 25;
             int nearestRailroad2 = player.position - 35;
             if (nearestRailroad1 < nearestRailroad2)
@@ -209,7 +209,7 @@ public class DuitRIa {
                 player.position = 35;
             break;
             case 2:
-            System.out.print("It is your birthday! Collect RM100,000 from everyone.");
+            System.out.println("It is your birthday! Collect RM100,000 from everyone.");
             int birthdayMoney = 0;
             player.money += (100000 * players.size());
             for (Player otherPlayer : players) {
@@ -221,26 +221,26 @@ public class DuitRIa {
             System.out.printf("You collected RM%,d from everyone.\n", birthdayMoney);
             break;
             case 3:
-            System.out.print("Bank error in your favor. Collect RM2,000,000.");
+            System.out.println("Bank error in your favor. Collect RM2,000,000.");
             player.money += 2000000;
             break;
             case 4:
-            System.out.print("Go back 3 spaces.");
+            System.out.println("Go back 3 spaces.");
             player.position -= 3;
             break;
             case 5:
-            System.out.print("Go to Jail.");
+            System.out.println("Go to Jail.");
             player.position = 10;
             player.jailCheck = true;
             break;
             case 6:
-            System.out.print("Make general repair on all your property. RM200,000 for each house.");
+            System.out.println("Make general repair on all your property. RM200,000 for each house.");
             int generalRepairTotal = 0;
             for (int count = 0; count < tiles.size(); count++) {
                 Object currentTile = tiles.get(count);
                 if (currentTile instanceof Tile) {
                     Tile propertyTile = (Tile) tiles;
-                    if (propertyTile.owner.equals(player)) {
+                    if (propertyTile.owner == player) {
                         generalRepairTotal += (propertyTile.numOfHouse * 200000);
                         System.out.printf(Locale.US, propertyTile.name + " costs RM%,d.\n", (propertyTile.numOfHouse * 200000));
                     }
@@ -255,15 +255,15 @@ public class DuitRIa {
             }
             break;
             case 7:
-            System.out.print("Pay hospital fees of RM250,000.");
+            System.out.println("Pay hospital fees of RM250,000.");
             player.money -= 250000;
             break;
             case 8:
-            System.out.print("Pay school fees of RM100,000.");
+            System.out.println("Pay school fees of RM100,000.");
             player.money -= 100000;
             break;
             case 9:
-            System.out.print("Pay speeding fine of RM100,000.");
+            System.out.println("Pay speeding fine of RM100,000.");
             player.money -= 100000;
             break;
             default:
