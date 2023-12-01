@@ -1,4 +1,5 @@
 package duitria;
+
 class Player {
     String name;
     int money;

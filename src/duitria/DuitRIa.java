@@ -4,20 +4,6 @@
  */
 package duitria;
 import java.util.*;
-//start game 
-//about game 
-//create players (num of players,name of players) 
-//board game 
-//go 
-//asset (houses and hotels included) 
-//fate card 
-//jail 
-//free parking 
-//go to jail 
-//replay 
-//end game (bankcrupt, end game) 
-//save file (optional) 
-//player wins 
 public class DuitRIa {
     private List<Player> sortedPlayerTurn;
     private List<Player> players;
@@ -300,8 +286,9 @@ public class DuitRIa {
             
         }
     }
-    private List<Player> sortedPlayerTurn() {
-        Map<Player, Integer> playerTurn = new HashMap<>();
+    private void sortedPlayerTurn() {
+        int count = 1;
+        Map<String, Integer> playerTurn = new HashMap<>();
         Set<Integer> uniqueDiceRoll = new HashSet<>();
         for (Player player : players) {
             int diceRoll1, diceRoll2;
@@ -311,11 +298,12 @@ public class DuitRIa {
             } while (uniqueDiceRoll.contains(diceRoll1 + diceRoll2));
             player.diceRoll = diceRoll1 + diceRoll2;
             uniqueDiceRoll.add(diceRoll1 + diceRoll2);
-            playerTurn.put(player,diceRoll1 + diceRoll2);
+            playerTurn.put(player.name,diceRoll1 + diceRoll2);
         }
-        List<Player> sortedPlayerTurn = new ArrayList<>(playerTurn.keySet());
-        Collections.sort(sortedPlayerTurn, Collections.reverseOrder());
-        return sortedPlayerTurn;
+        players.sort(Comparator.comparingInt(p -> playerTurn.get(p.name)));
+        for(Player player : players) {
+            System.out.println("Player " + count + " is " + player.name + ".");
+        }
     }
     public static void main(String[] args) {
         DuitRIa game = new DuitRIa();
