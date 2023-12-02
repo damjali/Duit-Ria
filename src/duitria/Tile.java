@@ -7,11 +7,11 @@ class Tile {
     Player owner;
     int houseCost;
     int numOfHouse;
-    public Tile(String name, int cost, int baseRent,int houseCost) {
+    public Tile(String name, int cost, int baseRent) {
         this.name = name;
         this.cost = cost;
         this.baseRent = baseRent;
-        this.houseCost = houseCost;
+        this.houseCost = 200000;
         this.owner = null;
         this.numOfHouse = 0;
     }
@@ -25,6 +25,18 @@ class Tile {
             calculatedRent = (baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1)));
         }
         return calculatedRent;
+    }
+}
+class SpecialTile {
+    String name;
+    int cost;
+    int baseRent;
+    Player owner;
+    public SpecialTile(String name, int cost, int baseRent) {
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.owner = null;
     }
 }
 class Tax {
@@ -44,9 +56,9 @@ class Go {
     }
 }
 class FateCard {
-    String description;
-    public FateCard(String description) {
-        this.description = description;
+    String name;
+    public FateCard(String name) {
+        this.name = name;
     }
 }
 class FreeParking {
