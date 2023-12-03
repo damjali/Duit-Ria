@@ -8,6 +8,7 @@ class Player {
     int turn;           // 
     int diceRoll;       // 
     boolean playerLoan; // check if player is under a loan
+    boolean bankruptcy; // 
     public Player(String name) {
         this.name = name;
         this.money = 15000000;
@@ -16,5 +17,6 @@ class Player {
         this.turn = 0;
         this.diceRoll = 0;
         this.playerLoan = false;
+        this.bankruptcy = false;
     }
 }

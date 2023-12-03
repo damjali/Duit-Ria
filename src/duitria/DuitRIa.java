@@ -81,6 +81,7 @@ public class DuitRIa {
     }
     private void performTurn(Player player, int diceRoll) {
         if (diceRoll == 0) {
+            int previousPlayerPosition = player.position; // make a tile check to see if player passed go or not here
             keyboard = new Scanner(System.in);
             int diceRoll1 = rand.nextInt(6) + 1;
             int diceRoll2 = rand.nextInt(6) + 1;
@@ -459,6 +460,8 @@ public class DuitRIa {
                     currentPlayer.position += diceRoll;
                     playerTurn(currentPlayer, diceRoll);
                 }
+            } else if (currentPlayer.bankruptcy) {
+                System.out.println(currentPlayer.name + " has already declared bankrupty.");
             } else {
                 playerTurn(currentPlayer,0);
             }
