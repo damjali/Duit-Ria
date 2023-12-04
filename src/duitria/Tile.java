@@ -4,13 +4,15 @@ class Tile {
     String name;
     int cost;
     int baseRent;
+    String tileColour;
     Player owner;
     int houseCost;
     int numOfHouse;
-    public Tile(String name, int cost, int baseRent) {
+    public Tile(String name, int cost, int baseRent, String tileColour) {
         this.name = name;
         this.cost = cost;
         this.baseRent = baseRent;
+        this.tileColour = tileColour;
         this.houseCost = 200000;
         this.owner = null;
         this.numOfHouse = 0;
