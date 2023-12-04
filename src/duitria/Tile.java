@@ -62,9 +62,9 @@ class FateCard {
     }
 }
 class FreeParking {
-    String description;
-    public FreeParking(String description) {
-        this.description = description;
+    String name;
+    public FreeParking(String name) {
+        this.name = name;
     }
 }
 class Jail {

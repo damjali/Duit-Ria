@@ -53,7 +53,7 @@ public class DuitRIa {
         tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("Kellie Castle",1800000 ,180000));
         tiles.add(new Tile("Stadthuys",2000000 ,200000));
-        tiles.add(new FreeParking("This is a free resting place"));
+        tiles.add(new FreeParking("Free Parking"));
         tiles.add(new Tile("Fraser's Hill",2200000 ,220000));
         tiles.add(new FateCard("Fate Card"));
         tiles.add(new Tile("Cameron Highlands",2200000 ,220000));
@@ -62,7 +62,7 @@ public class DuitRIa {
         tiles.add(new Tile("Pahang National Park",2600000 ,260000));
         tiles.add(new Tile("Jabatan Bekalan Air",2600000 ,150000));
         tiles.add(new Tile("Gunung Mulu National Park",2700000 ,260000));
-        tiles.add(new Tile("Kinabalu National Park",600000 ,270000));
+        tiles.add(new Tile("Kinabalu National Park", 600000 ,270000));
         tiles.add(new GoToJail("Jail"));
         tiles.add(new Tile("Tioman Islands",3000000 ,300000));
         tiles.add(new Tile("Perhentian Islands",3000000 ,300000));
@@ -206,6 +206,8 @@ public class DuitRIa {
             System.out.printf(Locale.US, player.name + " has passed the Go Tile." + player.name + " has received RM%,d.\n", go.payment);
             player.money += go.payment;
         } else if (currentTile instanceof FreeParking) {
+            FreeParking freeParking = (FreeParking) currentTile;
+            System.out.println(player.name + " landed on the " + freeParking.name);
             System.out.println(player.name + " is resting.");
         } else if (currentTile instanceof GoToJail) {
             GoToJail goToJail = (GoToJail) currentTile;
@@ -233,7 +235,7 @@ public class DuitRIa {
                 player.position = 35;
             break;
             case 2:
-            System.out.println("It is your birthday! Collect RM100,000 from everyone.");
+            System.out.println("It is your birthday! Collect RM100,000 from everyone."); //tukar balik
             int birthdayMoney = 0;
             player.money += (100000 * players.size());
             for (Player otherPlayer : players) {
@@ -443,7 +445,8 @@ public class DuitRIa {
             Player currentPlayer = players.get(currentPlayerIndex);
             displayBoard();
             if (currentPlayer.jailCheck) {
-                System.out.println(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000.");
+                System.out.println(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000. Press Enter to roll the dice.");
+                keyboard.nextLine();
                 diceRoll1 = rand.nextInt(6) + 1;
                 diceRoll2 = rand.nextInt(6) + 1;
                 if (diceRoll1 == diceRoll2) {
