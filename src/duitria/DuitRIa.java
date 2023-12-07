@@ -11,6 +11,7 @@ public class DuitRIa {
         System.out.println("This is the main program");
         //HomeScreenGUI  frame = new HomeScreenGUI ();
         mainBoard frame = new mainBoard();
+        //main frame = new main();
         
     }
 }
