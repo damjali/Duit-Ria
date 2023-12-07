@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package duitria;
 import java.util.*;
 public class DuitRIa {
@@ -15,13 +11,16 @@ public class DuitRIa {
         players = new ArrayList<>();
         tiles = new ArrayList<>();
         rand = new Random();
-        System.out.print("How many players are playing: ");
-        int playerNum = keyboard.nextInt();
-        keyboard.nextLine();
-        if (playerNum >= 2 && playerNum <= 4)
-            initializePlayers(playerNum);
-        else
+        while (true) {
+            System.out.print("How many players are playing: ");
+            int playerNum = keyboard.nextInt();
+            keyboard.nextLine();
+            if (playerNum >= 2 && playerNum <= 4) {
+                initializePlayers(playerNum);
+                break;
+            } else
             System.err.println("Error: Enter number 2-4");
+        }
         sortedPlayerTurn();
         initializeTile();
     }
@@ -90,6 +89,15 @@ public class DuitRIa {
             player.position = (player.position + diceRoll) % tiles.size();
         }
         Object currentTile = tiles.get(player.position);
+        duitriaBoard(player, currentTile, previousPlayerPosition, diceRoll);
+        System.out.println(player.name + "'s turn is over.\n");
+    }
+    private void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
+        if (previousPlayerPosition + diceRoll >= 40) {
+            Go go = (Go) tiles.get(0);
+            System.out.printf(Locale.US, player.name + " has passed the Go Tile. " + player.name + " has received RM%,d.\n", go.payment);
+            player.money += go.payment;
+        }
         if (currentTile instanceof Tile) {
             Tile propertyTile = (Tile) currentTile;
             System.out.println(player.name + " landed on " + propertyTile.name + ".");
@@ -201,10 +209,6 @@ public class DuitRIa {
             Tax tax = (Tax) currentTile;
             System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
             player.money -= tax.cost;
-        } else if (previousPlayerPosition + diceRoll >= 40 && currentTile instanceof Go) {// fix that player will receive RM2M everytime they pass the go tile, not land on go tile
-            Go go = (Go) currentTile;
-            System.out.printf(Locale.US, player.name + " has passed the Go Tile. " + player.name + " has received RM%,d.\n", go.payment);
-            player.money += go.payment;
         } else if (currentTile instanceof FreeParking) {
             FreeParking freeParking = (FreeParking) currentTile;
             System.out.println(player.name + " landed on the " + freeParking.name);
@@ -215,7 +219,6 @@ public class DuitRIa {
             player.jailCheck = true;
             player.position = 10;
         }
-        System.out.println(player.name + "'s turn is over.\n");
     }
     private void fateCardOutcome(Player player) {
         int randNum = rand.nextInt(10);
@@ -229,10 +232,15 @@ public class DuitRIa {
             System.out.println("Advance to the nearest railroad."); //add buy option for the railroads
             int nearestRailroad1 = player.position - 25;
             int nearestRailroad2 = player.position - 35;
-            if (nearestRailroad1 < nearestRailroad2)
+            if (Math.abs(nearestRailroad1) < Math.abs(nearestRailroad2)) {
                 player.position = 25;
-            else
+                Object currentTile = tiles.get(player.position);
+                duitriaBoard(player, currentTile, 0, 0);
+            } else {
                 player.position = 35;
+                Object currentTile = tiles.get(player.position);
+                duitriaBoard(player, currentTile, 0, 0);
+            }
             break;
             case 2:
             System.out.println("It is your birthday! Collect RM100,000 from everyone."); //tukar balik
@@ -421,7 +429,7 @@ public class DuitRIa {
             uniqueDiceRoll.add(diceRoll1 + diceRoll2);
             playerTurn.put(player.name,diceRoll1 + diceRoll2);
         }
-        players.sort(Comparator.comparingInt(p -> playerTurn.get(p.name)));
+        players.sort(Comparator.comparingInt(player -> playerTurn.get(player.name)));
         for(Player player : players) {
             System.out.println("Player " + count + " is " + player.name + ".");
             count++;
@@ -445,7 +453,7 @@ public class DuitRIa {
             Player currentPlayer = players.get(currentPlayerIndex);
             displayBoard();
             if (currentPlayer.jailCheck) {
-                System.out.println(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000. Press Enter to roll the dice.");
+                System.out.print(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000. Press Enter to roll the dice.");
                 keyboard.nextLine();
                 diceRoll1 = rand.nextInt(6) + 1;
                 diceRoll2 = rand.nextInt(6) + 1;
