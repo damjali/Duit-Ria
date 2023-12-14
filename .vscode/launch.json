@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DuitRIa",
+            "request": "launch",
+            "mainClass": "duitria.DuitRIa",
+            "projectName": "Duit-Ria-2_972e16ac"
+        },
+        {
+            "type": "java",
             "name": "GUI",
             "request": "launch",
             "mainClass": "duitria.GUI",
