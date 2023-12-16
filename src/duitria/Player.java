@@ -9,6 +9,8 @@ class Player {
     int diceRoll;       // 
     boolean playerLoan; // check if player is under a loan
     boolean bankruptcy; // 
+    boolean buyProperty;//
+    boolean buyHouse;   //
     public Player(String name) {
         this.name = name;
         this.money = 15000000;
@@ -18,5 +20,7 @@ class Player {
         this.diceRoll = 0;
         this.playerLoan = false;
         this.bankruptcy = false;
+        this.buyProperty = false;
+        this.buyHouse = false;
     }
 }
