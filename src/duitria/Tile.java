@@ -17,15 +17,16 @@ class Tile {
         this.owner = null;
         this.numOfHouse = 0;
     }
-    public int calculateRent() {
+    public int calculateRent(Boolean doubleRent) {
         int calculatedRent = 0;
-        if (numOfHouse == 0) {
-            calculatedRent = baseRent;
-        } else if (numOfHouse == 1) {
-            calculatedRent = baseRent * 2;
-        } else if (numOfHouse >= 2 && numOfHouse <= 4) {
-            calculatedRent = (baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1)));
-        }
+        if (doubleRent)
+            calculatedRent += baseRent;
+        if (numOfHouse == 0)
+            calculatedRent += baseRent;
+        else if (numOfHouse == 1)
+            calculatedRent += (baseRent * 2);
+        else if (numOfHouse >= 2 && numOfHouse <= 4)
+            calculatedRent += ((baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1))));
         return calculatedRent;
     }
 }

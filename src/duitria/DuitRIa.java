@@ -48,10 +48,10 @@ public class DuitRIa {
         tiles.add(new Tile("Royal Palace",1400000 ,140000 ,"Brown"));
         tiles.add(new Tile("Merdeka Square",1400000 ,140000 ,"Brown"));
         tiles.add(new SpecialTile("KLIA 2",2000000 ,200000));
-        tiles.add(new Tile("A'Famosa Resort",1700000 ,170000, "Blue"));
+        tiles.add(new Tile("A'Famosa Resort",1700000 ,170000, "Light Blue"));
         tiles.add(new FateCard("Fate Card"));
-        tiles.add(new Tile("Kellie Castle",1800000 ,180000, "Blue"));
-        tiles.add(new Tile("Stadthuys",2000000 ,200000, "Blue"));
+        tiles.add(new Tile("Kellie Castle",1800000 ,180000, "Light Blue"));
+        tiles.add(new Tile("Stadthuys",2000000 ,200000, "Light Blue"));
         tiles.add(new FreeParking("Free Parking"));
         tiles.add(new Tile("Fraser's Hill",2200000 ,220000, "Purple"));
         tiles.add(new FateCard("Fate Card"));
@@ -124,7 +124,32 @@ public class DuitRIa {
                     }
                 }
             } else if (propertyTile.owner != player) {
-                int rentAmount = propertyTile.baseRent + propertyTile.calculateRent();
+                int colourCount = 0;
+                Boolean doubleRent = false;
+                for (Object otherTile : tiles) {
+                    if (otherTile instanceof Tile) {
+                        Tile otherPropertyTile = (Tile) otherTile;
+                        if (otherPropertyTile.tileColour == propertyTile.tileColour)
+                            colourCount++;
+                    }
+                }
+                switch (propertyTile.tileColour) {
+                    case "Green":
+                    case "Yellow":
+                        if (colourCount == 2)
+                            doubleRent = true;
+                        break;
+                    case "Blue":
+                    case "Brown":
+                    case "Light Blue":
+                    case "Purple":
+                    case "Orange":
+                    case "Red":
+                        if (colourCount == 3)
+                            doubleRent = true;
+                        break;
+                }
+                int rentAmount = propertyTile.baseRent + propertyTile.calculateRent(doubleRent);
                 System.out.println(propertyTile.name + " is owned by " + propertyTile.owner.name + ".");
                 System.out.printf(player.name + " has to pay rent of RM%,d.\n", rentAmount);
                 if (rentAmount >= player.money) {
