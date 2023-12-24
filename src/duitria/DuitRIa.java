@@ -10,7 +10,7 @@ public class DuitRIa {
     public static void main(String[] args) {
         System.out.println("This is the main program");
         //HomeScreenGUI  frame = new HomeScreenGUI ();
-        mainBoard frame = new mainBoard();
+        GameStart frame = new GameStart();
         //main frame = new main();
         
     }
