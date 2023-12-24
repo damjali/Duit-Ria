@@ -6,6 +6,7 @@ import javax.swing.*;
 
 public class GameRules {
     GameRules(){
+
         Scanner user_input = new Scanner(System.in);
         JFrame window = new JFrame("Game Rules");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,17 +42,27 @@ public class GameRules {
                         
                         C. Game rules/mechanics: 
                         
-                      
+
                         1. Number of players: 2 - 4 
+                        
                         2. Two unbiased six-sided dice is used. 
+                        
                         3. Every player begins at “GO” tile. 
+                        
                         4. Starting by every player rolls the dice, highest number go first while lowest number go last. 
+                        
                         5. Number of steps taken by player is determined by the dice, one roll (each dice) per player's turn, no special move or 'roll the dice twice'. 
+                        
                         6. Property Ownership: 
+                        
                         7. Players can purchase unowned properties that they land on. They can pass to next turn if they choose not to purchase it. If you land on the owned property again, you can enhance them by building houses. 
+                        
                         8. Landing on an already owned properties required the active player to pay rent to the owner. 
-                        9. When you land on either of the card spaces, card will select randomly, thus you must follow the instructions and return the card. 
+                        
+                        9. When you land on either of the card spaces, card will select randomly, thus you must follow the instructions and return the card.
+                        
                         10. If you land at TAX you will be deducted RM 2M from your account.
+                        
                         11. You land in Jail when :
                         
                         	(I) you lands on the space marked "Go to Jail"; 
@@ -61,17 +72,24 @@ public class GameRules {
                         on your next turn. 
                         
                         You get out of Jail by :
-                        	(I) throwing doubles on your next turns(only once); if you succeed in doing this you immediately move forward the number of spaces shown by your doubles throw. If you do not throw doubles by your turn, you must pay the RM 250K fine. You then get out of Jail and immediately move forward the number of spaces shown by your throw. Even though you are in Jail, you may sell property, and collect rents.
+                        
+                        	throwing doubles on your next turns(only once); if you succeed in doing this you immediately move forward the number of spaces shown by your doubles throw. If you do not throw doubles by your turn, you must pay the RM 250K fine. You then get out of Jail and immediately move forward the number of spaces shown by your throw. Even though you are in Jail, you may sell property, and collect rents.
                         
                         12. FREE PARKING: A player landing on this place does not receive any money, property, or reward of any kind. This is just a "free" resting place.
+                        
                         13. GO: Each time a players lands on or passes over GO, whether by throwing the dice or  drawing a card, the player will get RM 2M. The RM 2M is paid only once each time round the board.
+                        
                         14. PAYING RENT: When you land on property owned by another player, the owner collects rent from you in accordance with the list printed on its Title Deed card. It is even more advantageous to have houses or hotels on properties because rents are much higher than unimproved properties. 
+                        
                         15. HOUSES: For the first round, the players only must go through all unimproved properties until arriving “GO” for the second round. Second round, you can only buy an unowned property from the Creator. For the third round and upper, you may buy houses and erect them on those properties(player can chose how many houses that he/she want to buy but limit to 4 for each land). 
                         The price you must pay for each house is shown on your Title Deed card for the property on which you erect the house. The owner still collects double rent from an opponent who lands on the unimproved properties of his/her complete color-group.You can buy or erect more than one house on any one property of any color-group up to limit 4 houses to a property. You may have to choose either want to build houses evenly for every property or want to build randomly houses to property of any color-group.As you build randomly, you must total down all of houses that you want to sell.
+                        
                         16. SELLING PROPERTIES : Player can sell any unimproved properties, railroads and utilities (include buildings) that they have to the Creator for one-half the price paid for them but cannot sell it to other players. To sell buildings, they have to follow the order of building in which have to sell the hotel, houses and properties accordingly.
+                        
                         17. BANKRUPTCY: You are declared bankrupt if you owe more than you can pay either to another player or to the Creator. If your debt is to another player, you must tum over to 
                         that player all that you have of value and retire from the game. In making this settlement, if you own houses or hotels, you must return these to the Creator in exchange for money to the 
                         extent of one-half the amount paid for them; this cash is given to the Creator. Should you owe the Creator, instead of another player, more than you can pay (because of taxes or penalties) even by selling off buildings, you must turn over all assets to the Creator. A bankrupt player must immediately retire from the game. The last player left in the game wins.
+                        
                         18. MISCELLANEOUS : Money can be loaned to a player only by the Creator. No player may borrow from or lend money to another player.
                         
                         
