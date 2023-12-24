@@ -3,15 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package duitria;
-
+import java.io.*;
 
 public class DuitRIa {
 
     public static void main(String[] args) {
-        System.out.println("This is the main program");
-        //HomeScreenGUI  frame = new HomeScreenGUI ();
-        GameStart frame = new GameStart();
-        //main frame = new main();
-        
-    }
+        GameStart.main(args);
+    
 }
+}
+
+
+    
