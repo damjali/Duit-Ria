@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GameStart",
+            "request": "launch",
+            "mainClass": "duitria.GameStart",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
             "name": "DuitRIa",
             "request": "launch",
             "mainClass": "duitria.DuitRIa",
