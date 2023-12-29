@@ -33,7 +33,7 @@ public class Board {
     
     //frame.getContentPane().setBackground(new Color(225,0,0));
     JPanel panelBoard = new JPanel();
-    panelBoard.setBackground(Color.GREEN);
+    panelBoard.setBackground(new Color(0xA3FF9B));
     panelBoard.setBounds(640-333, 360-351, 666, 666);
     frame.add(panelBoard);
     panelBoard.setLayout(null);
@@ -134,7 +134,13 @@ public class Board {
     panelGameRule.setBorder(border);
     panelGameRule.setLayout(null);
     frame.add(panelGameRule);
-        
+    
+    //Initialize Player Log History Panel
+    playerLogHistory playerLog1 = new playerLogHistory(1000,143,frame);
+    playerLogHistory playerLog2 = new playerLogHistory(1000,250,frame);
+    playerLogHistory playerLog3 = new playerLogHistory(1000,356,frame);
+    playerLogHistory playerLog4 = new playerLogHistory(1000,463,frame);
+    playerLogHistory playerLog5 = new playerLogHistory(1000,570,frame);
     
     
     /*
@@ -237,6 +243,21 @@ public class Board {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBounds(a, b, 250, 116);
+            this.setBorder(border);
+            this.setLayout(null);
+            frame.add(this);
+         });
+     }
+
+}
+
+ class playerLogHistory extends JPanel{
+     
+     playerLogHistory(int a, int b, JFrame frame){
+         SwingUtilities.invokeLater(() -> {
+            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+            this.setBackground(Color.LIGHT_GRAY);
+            this.setBounds(a, b, 280, 100);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
