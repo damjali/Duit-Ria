@@ -11,10 +11,13 @@ import javax.swing.BorderFactory;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import javax.swing.SwingUtilities;
 
 public class Board {
     public static void main(String[] args) {
         
+        
+    SwingUtilities.invokeLater(() -> {
     //Creating Frame
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JFrame frame = new JFrame(); //Creates a frame
@@ -76,18 +79,62 @@ public class Board {
     panelJail.setLayout(null);
     panelBoard.add(panelJail);
     
-    
-    miniTilesUpAndBotom tile1 = new miniTilesUpAndBotom(511,561, panelBoard);
-    miniTilesUpAndBotom fate1 = new miniTilesUpAndBotom(461,561, panelBoard);
-    miniTilesUpAndBotom tile2 = new miniTilesUpAndBotom(411,561, panelBoard);
-    miniTilesUpAndBotom tax1 = new miniTilesUpAndBotom(361,561, panelBoard);
-    miniTilesUpAndBotom tile3 = new miniTilesUpAndBotom(311,561, panelBoard);
-    miniTilesUpAndBotom tile4 = new miniTilesUpAndBotom(261,561, panelBoard);
-    miniTilesUpAndBotom fate2 = new miniTilesUpAndBotom(211,561, panelBoard);
-    miniTilesUpAndBotom tile5 = new miniTilesUpAndBotom(161,561, panelBoard);
-    miniTilesUpAndBotom tile6 = new miniTilesUpAndBotom(111,561, panelBoard);
-    
 
+    miniTilesUpAndBotom tile22 = new miniTilesUpAndBotom(512,0, panelBoard);
+    miniTilesUpAndBotom tile21 = new miniTilesUpAndBotom(463,0, panelBoard);
+    miniTilesUpAndBotom tile20 = new miniTilesUpAndBotom(414,0, panelBoard);
+    miniTilesUpAndBotom tile19 = new miniTilesUpAndBotom(365,0, panelBoard);
+    miniTilesUpAndBotom tile18 = new miniTilesUpAndBotom(316,0, panelBoard);
+    miniTilesUpAndBotom tile17 = new miniTilesUpAndBotom(267,0, panelBoard);
+    miniTilesUpAndBotom tile16 = new miniTilesUpAndBotom(202,0, panelBoard,66,105);
+    miniTilesUpAndBotom fate4 = new miniTilesUpAndBotom(153,0, panelBoard);
+    miniTilesUpAndBotom tile15 = new miniTilesUpAndBotom(104,0, panelBoard);
+    
+    miniTilesUpAndBotom tile1 = new miniTilesUpAndBotom(512,561, panelBoard);
+    miniTilesUpAndBotom fate1 = new miniTilesUpAndBotom(463,561, panelBoard);
+    miniTilesUpAndBotom tile2 = new miniTilesUpAndBotom(414,561, panelBoard);
+    miniTilesUpAndBotom tax = new miniTilesUpAndBotom(365,561, panelBoard);
+    miniTilesUpAndBotom tile3 = new miniTilesUpAndBotom(316,561, panelBoard);
+    miniTilesUpAndBotom tile4 = new miniTilesUpAndBotom(267,561, panelBoard);
+    miniTilesUpAndBotom fate2 = new miniTilesUpAndBotom(202,561, panelBoard,66,105);
+    miniTilesUpAndBotom tile5 = new miniTilesUpAndBotom(153,561, panelBoard);
+    miniTilesUpAndBotom tile6 = new miniTilesUpAndBotom(104,561, panelBoard);
+
+    miniTilesLeftAndRight tile7 = new miniTilesLeftAndRight(0,512, panelBoard);
+    miniTilesLeftAndRight fate8 = new miniTilesLeftAndRight(0,463, panelBoard);
+    miniTilesLeftAndRight tile9 = new miniTilesLeftAndRight(0,414, panelBoard);
+    miniTilesLeftAndRight tile10 = new miniTilesLeftAndRight(0,365, panelBoard);
+    miniTilesLeftAndRight tile11 = new miniTilesLeftAndRight(0,316, panelBoard);
+    miniTilesLeftAndRight tile12 = new miniTilesLeftAndRight(0,267, panelBoard);
+    miniTilesLeftAndRight fate3 = new miniTilesLeftAndRight(0,202, panelBoard,105,66);
+    miniTilesLeftAndRight tile13 = new miniTilesLeftAndRight(0,153, panelBoard);
+    miniTilesLeftAndRight tile14 = new miniTilesLeftAndRight(0,104, panelBoard);
+    
+    miniTilesLeftAndRight tile28 = new miniTilesLeftAndRight(561,512, panelBoard);
+    miniTilesLeftAndRight tax2 = new miniTilesLeftAndRight(561,463, panelBoard);
+    miniTilesLeftAndRight tile27 = new miniTilesLeftAndRight(561,414, panelBoard);
+    miniTilesLeftAndRight fate6 = new miniTilesLeftAndRight(561,365, panelBoard);
+    miniTilesLeftAndRight tile26 = new miniTilesLeftAndRight(561,316, panelBoard);
+    miniTilesLeftAndRight tile25 = new miniTilesLeftAndRight(561,267, panelBoard);
+    miniTilesLeftAndRight fate5 = new miniTilesLeftAndRight(561,202, panelBoard,105,66);
+    miniTilesLeftAndRight tile24 = new miniTilesLeftAndRight(561,153, panelBoard);
+    miniTilesLeftAndRight tile23 = new miniTilesLeftAndRight(561,104, panelBoard);
+
+    
+    //INITIALIZE PLAYER CARD PANEL
+    playerCard playerCard1 = new playerCard(0,26,frame);
+    playerCard playerCard2 = new playerCard(0,163,frame);
+    playerCard playerCard3 = new playerCard(0,300,frame);
+    playerCard playerCard4 = new playerCard(0,436,frame);
+    
+    //INITIALIZE GAME RULE PANEL
+    JPanel panelGameRule = new JPanel();
+    panelGameRule.setBounds(1050, 26, 216, 60);
+    panelGameRule.setBackground(Color.LIGHT_GRAY);
+    panelGameRule.setBorder(border);
+    panelGameRule.setLayout(null);
+    frame.add(panelGameRule);
+        
     
     
     /*
@@ -130,18 +177,70 @@ public class Board {
     panel2.setBounds(640, 0, 640, 720);
     frame.add(panel2);
 */
-    
+    });
 }
 }
 
  class miniTilesUpAndBotom extends JPanel{
      
      miniTilesUpAndBotom(int a, int b, JPanel panelBoard){
+         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBounds(a, b, 50, 105);
             this.setBackground(Color.WHITE);
             this.setBorder(border);
             this.setLayout(null);
             panelBoard.add(this);
+         });
      }
+     
+     miniTilesUpAndBotom(int a, int b, JPanel panelBoard, int c, int d){
+         SwingUtilities.invokeLater(() -> {
+            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+            this.setBounds(a, b, c, d);
+            this.setBackground(Color.WHITE);
+            this.setBorder(border);
+            this.setLayout(null);
+            panelBoard.add(this);
+         });
+     }
+}
+
+ class miniTilesLeftAndRight extends JPanel{
+     
+     miniTilesLeftAndRight(int a, int b, JPanel panelBoard){
+         SwingUtilities.invokeLater(() -> {
+            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+            this.setBounds(a, b, 105, 50);
+            this.setBackground(Color.WHITE);
+            this.setBorder(border);
+            this.setLayout(null);
+            panelBoard.add(this);
+         });
+     }
+     miniTilesLeftAndRight(int a, int b, JPanel panelBoard, int c, int d){
+         SwingUtilities.invokeLater(() -> {
+            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+            this.setBounds(a, b, c, d);
+            this.setBackground(Color.WHITE);
+            this.setBorder(border);
+            this.setLayout(null);
+            panelBoard.add(this);
+         });
+     }
+}
+
+ class playerCard extends JPanel{
+     
+     playerCard(int a, int b, JFrame frame){
+         SwingUtilities.invokeLater(() -> {
+            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+            this.setBackground(Color.LIGHT_GRAY);
+            this.setBounds(a, b, 250, 116);
+            this.setBorder(border);
+            this.setLayout(null);
+            frame.add(this);
+         });
+     }
+
 }
