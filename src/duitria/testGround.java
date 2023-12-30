@@ -39,6 +39,17 @@ class Lan {
         f.setVisible(true);
     }
 }
+class ButtonTest {
+    JFrame frame;
+    JButton button;
+    ButtonTest() {
+        frame = new JFrame("Button Test");
+        button = new JButton("1 + 1 = ");
+        button.addActionListener(null);
+        button.setBounds(0, 0, 220, 50);
+
+    }
+}
 public class testGround {
     public static void main(String[] args) {
         /*

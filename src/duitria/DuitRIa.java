@@ -136,17 +136,11 @@ public class DuitRIa {
                     }
                 }
                 switch (propertyTile.tileColour) {
-                    case "Green":
-                    case "Yellow":
+                    case "Green", "Yellow":
                         if (colourCount == 2)
                             doubleRent = true;
                         break;
-                    case "Blue":
-                    case "Brown":
-                    case "Light Blue":
-                    case "Purple":
-                    case "Orange":
-                    case "Red":
+                    case "Blue", "Brown", "Light Blue", "Purple", "Orange", "Red":
                         if (colourCount == 3)
                             doubleRent = true;
                         break;
@@ -418,7 +412,7 @@ public class DuitRIa {
             if (houseCount > 0) { //might house sell first and then land so correction needed
                 System.out.println("You have a total asset of " + tileCount + " land(s) and " + houseCount + " house(s).");
                 System.out.println("Each and every property sold back to the creator, the owner will only get one-half(1/2) of it back.");
-                System.out.printf(Locale.US, "You have a total of RM%,d in land(s) and RM%,d in house(s) (after creator cut).", (tileCost * 0.5), (houseCost * 0.5));
+                System.out.printf(Locale.US, "You have a total of RM%,d in land(s) and RM%,d in house(s) (after Creator's cut).\n", (tileCost * 0.5), (houseCost * 0.5));
                 System.out.printf(Locale.US, "You have to sell atleast RM%,d.\n", cost);
                 System.out.println("How much house(s) do you want to sell? :");
                 int houseSell = keyboard.nextInt();
@@ -433,7 +427,7 @@ public class DuitRIa {
                         if (choice.equalsIgnoreCase("Y")) {
                             continue;
                         } else {
-                            playerLoan();
+                            playerLoan(player);
                             propertySellCheck = false;
                         }
                     } else {
@@ -463,7 +457,7 @@ public class DuitRIa {
                             if (choice.equalsIgnoreCase("Y")) {
                                 continue;
                             } else {
-                                playerLoan();
+                                playerLoan(player);
                                 propertySellCheck = false;
                             }
                     } else {
@@ -474,16 +468,44 @@ public class DuitRIa {
                 }
             } else {
                 System.out.println("You can't afford to pay that much!");
-                playerLoan();
+                playerLoan(player);
             }
         }
     }
-    private void playerLoan() {
-        System.out.println("Do you want to make a loan? :");
-        String choice = keyboard.nextLine();
+    private void playerLoan(Player player) {
+        if (!player.hasLoan) {
+            System.out.println("Do you want to make a loan? (Y/N) :");
+            String choice = keyboard.nextLine();
             if (choice.equalsIgnoreCase("Y")) { //make loan algorithm
-                System.out.println();
+                System.out.print("How much do you want to loan?: RM");
+                player.loanAmount = keyboard.nextDouble();
+                System.out.printf(Locale.US, "You have submitted a loan for RM%,.f2.\n", player.loanAmount);
+                player.hasLoan = true;
+            } else {
+                // bankcruptcy 
             }
+        } else {
+            System.out.printf(player.name + " already has a loan of RM%,.2f.\n", player.loanAmount);
+            System.out.println("Do you want to pay the loan now? (Y/N): ");
+            String choice = keyboard.nextLine();
+            if (choice.equalsIgnoreCase("Y")) {
+                double interestRate = 1.1;
+                double payment = player.loanAmount * interestRate;
+                System.out.printf(Locale.US, "The total payment is: RM%,.2f.\n", payment);
+                if (player.money <= payment) {
+                    System.out.println("You don't have enough money to pay your loan.");
+                    // bankcruptcy
+                } else {
+                    player.money -= payment;
+                    System.out.println(player.name + "has successfully paid his loan.");
+                }
+            } else {
+                System.out.println("Your loan will continue on for another " + player.loanPeriod + " moves.");
+            }
+        }
+    }
+    private void bankrupt(Player player) {
+        
     }
     private void sortedPlayerTurn() {
         int count = 1;

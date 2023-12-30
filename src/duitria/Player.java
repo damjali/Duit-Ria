@@ -2,25 +2,30 @@ package duitria;
 
 class Player {
     String name;
-    int money;
+    double money;
+    double loanAmount;
+    int loanPeriod;
     int position;       // 
-    boolean jailCheck;  // check if player in jail or not
     int turn;           // 
     int diceRoll;       // 
+    boolean jailCheck;  // check if player in jail or not
     boolean playerLoan; // check if player is under a loan
     boolean bankruptcy; // 
     boolean buyProperty;//
     boolean buyHouse;   //
+    boolean hasLoan;    //
     public Player(String name) {
         this.name = name;
-        this.money = 15000000;
-        this.position = 0;
-        this.jailCheck = false;
-        this.turn = 0;
-        this.diceRoll = 0;
-        this.playerLoan = false;
-        this.bankruptcy = false;
-        this.buyProperty = false;
-        this.buyHouse = false;
+        money = 15000000;
+        loanAmount = 0;
+        position = 0;
+        turn = 0;
+        diceRoll = 0;
+        jailCheck = false;
+        playerLoan = false;
+        bankruptcy = false;
+        buyProperty = false;
+        buyHouse = false;
+        hasLoan = false;
     }
 }
