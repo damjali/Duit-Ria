@@ -42,6 +42,7 @@ public class GameRules {
                         
                         C. Game rules/mechanics: 
                         
+                      
 
                         1. Number of players: 2 - 4 
                         

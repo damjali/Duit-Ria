@@ -12,9 +12,12 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import javax.swing.SwingUtilities;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Board {
-    public static void main(String[] args) {
+public class Board  {
+    public static void main (String[] args) {
         
         
     SwingUtilities.invokeLater(() -> {
@@ -142,6 +145,16 @@ public class Board {
     playerLogHistory playerLog4 = new playerLogHistory(1000,463,frame);
     playerLogHistory playerLog5 = new playerLogHistory(1000,570,frame);
     
+    //Initialize Roll panel Button
+    JPanel panelRoll = new JPanel();
+    JButton buttonRoll = new JButton();
+    panelRoll.setBounds(75 , 568, 100,100);
+    buttonRoll.setBounds(0 , 0, 100,100);
+    panelRoll.setBackground(Color.WHITE);
+    panelRoll.setBorder(border);
+    panelRoll.setLayout(null);
+    panelRoll.add(buttonRoll);
+    frame.add(panelRoll);
     
     /*
     JLabel labelFree = new JLabel();
@@ -170,14 +183,7 @@ public class Board {
     panelGO.add(labelGO);
     */
     
- 
-    
-    
-    
-    
-   
-    
-    
+
     /*JPanel panel2 = new JPanel();
     panel2.setBackground(Color.BLUE);
     panel2.setBounds(640, 0, 640, 720);
@@ -185,6 +191,11 @@ public class Board {
 */
     });
 }
+    /*
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource()==buttonRoll){
+    }
+*/
 }
 
  class miniTilesUpAndBotom extends JPanel{
