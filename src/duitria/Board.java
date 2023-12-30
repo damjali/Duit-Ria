@@ -158,8 +158,7 @@ public class Board extends JFrame implements ActionListener {
     panelRoll.setBounds(75 , 568, 100,100);
     buttonRoll.setBounds(0 , 0, 100,100);
     buttonRoll.addActionListener(this);
-    ImageIcon imageRoll = labelIcon.getResizedImage("src\\duitria\\Icons\\dice.png", 100, 100);
-    buttonRoll.setIcon(imageRoll);
+    buttonRoll.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\dice.png", 100, 100));
     panelRoll.setBackground(Color.WHITE);
     panelRoll.setBorder(border);
     panelRoll.setLayout(null);
@@ -294,7 +293,7 @@ public class Board extends JFrame implements ActionListener {
 
 }
 
-class labelIcon{
+class imageicon{
 
     public static ImageIcon getResizedImage(String path, int width, int height){
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(path)
