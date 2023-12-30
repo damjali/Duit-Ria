@@ -1,4 +1,6 @@
 
+<<<<<<< HEAD
+=======
 package duitria;
 
 import java.awt.Color;
@@ -280,3 +282,5 @@ public class Board extends JFrame implements ActionListener {
      }
 
 }
+
+>>>>>>> 38ad7b725869d10af1d0f66221f44b2ad17a6836
