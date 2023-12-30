@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 public class Board extends JFrame implements ActionListener {
     
     JButton buttonRoll = new JButton();
+    JButton buttonGameRules = new JButton();
     
     Board() {
         
@@ -138,6 +139,9 @@ public class Board extends JFrame implements ActionListener {
     panelGameRule.setBackground(Color.LIGHT_GRAY);
     panelGameRule.setBorder(border);
     panelGameRule.setLayout(null);
+    buttonGameRules.setBounds(0, 0, 216, 60);
+    buttonGameRules.addActionListener(this);
+    panelGameRule.add(buttonGameRules);
     this.add(panelGameRule);
     
     //Initialize Player Log History Panel
@@ -198,7 +202,12 @@ public class Board extends JFrame implements ActionListener {
         if(e.getSource()==buttonRoll){
             System.out.println("Bruh Moment");
         }
+    
+        if(e.getSource()==buttonGameRules){
+           GameRules gamerules = new GameRules();
+        }
     }
+
 
 }
 
