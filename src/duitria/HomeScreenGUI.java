@@ -2,11 +2,13 @@ package duitria;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.SwingUtilities;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
@@ -16,12 +18,16 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 
 public class HomeScreenGUI extends JFrame implements ActionListener {
+
+  
     
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStartGame = new JButton();
     JButton buttonGameRules = new JButton();
     
     HomeScreenGUI (){
+
+    SwingUtilities.invokeLater(() -> {
         
      this.setSize(1280, 720);
      this.setVisible(true);
@@ -30,11 +36,17 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      this.setTitle("DuitRIA");
      this.setResizable(false);
      this.setLayout(null);
-     
+      
      JPanel panelImage = new JPanel();
      panelImage.setBackground(Color.BLACK);
      panelImage.setBounds(0, 0, 640, 720);
+     JLabel labelIcon = new JLabel();
+     labelIcon.setBounds(0, 0, 640, 720);
+     labelIcon.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\logo-color.png", 640, 720));
+     panelImage.add(labelIcon);
      this.add(panelImage);
+     
+     
      
      JPanel panelButtons = new JPanel();
      panelButtons.setBackground(Color.BLACK);
@@ -55,7 +67,8 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
 
         
     
-    }
+    });
+}
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==buttonStartGame){
             Board board = new Board();
@@ -66,5 +79,26 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
         }
     }
 
+
+    
+
+
+class imageicon{
+
+    public static ImageIcon getResizedImage(String path, int width, int height){
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path)
+                                .getImage()
+                                .getScaledInstance(
+                                    width, 
+                                    height, 
+                                    Image.SCALE_SMOOTH));
+    
+    return imageIcon;
+    }
+    
 }
+
+}
+
+
  
