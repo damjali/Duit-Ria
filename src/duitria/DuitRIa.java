@@ -8,7 +8,8 @@ import java.io.*;
 public class DuitRIa {
 
     public static void main(String[] args) {
-        GameStart.main(args);
+        System.out.println("Bruh moment");
+        //Board board = new Board();
     
 }
 }
