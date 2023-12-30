@@ -16,29 +16,31 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Board  {
-    public static void main (String[] args) {
+public class Board extends JFrame implements ActionListener {
+    
+    JButton buttonRoll = new JButton();
+    
+    Board() {
         
         
     SwingUtilities.invokeLater(() -> {
     //Creating Frame
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    JFrame frame = new JFrame(); //Creates a frame
-    frame.setVisible(true); //make frame visible
-    frame.setSize(1280,720); //set width and height
-    frame.setTitle("Frame1"); //change the title
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit when close
-    frame.setResizable(false); //prevents frame from being resized
+    this.setVisible(true); //make frame visible
+    this.setSize(1280,720); //set width and height
+    this.setTitle("Frame1"); //change the title
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit when close
+    this.setResizable(false); //prevents frame from being resized
     ImageIcon image = new ImageIcon("logo.png"); //create an image icon
-    frame.setIconImage(image.getImage()); //set the icon image to image
-    frame.getContentPane().setBackground(Color.WHITE);
-    frame.setLayout(null);
+    this.setIconImage(image.getImage()); //set the icon image to image
+    this.getContentPane().setBackground(Color.WHITE);
+    this.setLayout(null);
     
     //frame.getContentPane().setBackground(new Color(225,0,0));
     JPanel panelBoard = new JPanel();
     panelBoard.setBackground(new Color(0xA3FF9B));
     panelBoard.setBounds(640-333, 360-351, 666, 666);
-    frame.add(panelBoard);
+    this.add(panelBoard);
     panelBoard.setLayout(null);
     panelBoard.setBorder(border);
     
@@ -125,10 +127,10 @@ public class Board  {
 
     
     //INITIALIZE PLAYER CARD PANEL
-    playerCard playerCard1 = new playerCard(0,26,frame);
-    playerCard playerCard2 = new playerCard(0,163,frame);
-    playerCard playerCard3 = new playerCard(0,300,frame);
-    playerCard playerCard4 = new playerCard(0,436,frame);
+    playerCard playerCard1 = new playerCard(0,26,this);
+    playerCard playerCard2 = new playerCard(0,163,this);
+    playerCard playerCard3 = new playerCard(0,300,this);
+    playerCard playerCard4 = new playerCard(0,436,this);
     
     //INITIALIZE GAME RULE PANEL
     JPanel panelGameRule = new JPanel();
@@ -136,25 +138,25 @@ public class Board  {
     panelGameRule.setBackground(Color.LIGHT_GRAY);
     panelGameRule.setBorder(border);
     panelGameRule.setLayout(null);
-    frame.add(panelGameRule);
+    this.add(panelGameRule);
     
     //Initialize Player Log History Panel
-    playerLogHistory playerLog1 = new playerLogHistory(1000,143,frame);
-    playerLogHistory playerLog2 = new playerLogHistory(1000,250,frame);
-    playerLogHistory playerLog3 = new playerLogHistory(1000,356,frame);
-    playerLogHistory playerLog4 = new playerLogHistory(1000,463,frame);
-    playerLogHistory playerLog5 = new playerLogHistory(1000,570,frame);
+    playerLogHistory playerLog1 = new playerLogHistory(1000,143,this);
+    playerLogHistory playerLog2 = new playerLogHistory(1000,250,this);
+    playerLogHistory playerLog3 = new playerLogHistory(1000,356,this);
+    playerLogHistory playerLog4 = new playerLogHistory(1000,463,this);
+    playerLogHistory playerLog5 = new playerLogHistory(1000,570,this);
     
     //Initialize Roll panel Button
     JPanel panelRoll = new JPanel();
-    JButton buttonRoll = new JButton();
     panelRoll.setBounds(75 , 568, 100,100);
     buttonRoll.setBounds(0 , 0, 100,100);
+    buttonRoll.addActionListener(this);
     panelRoll.setBackground(Color.WHITE);
     panelRoll.setBorder(border);
     panelRoll.setLayout(null);
     panelRoll.add(buttonRoll);
-    frame.add(panelRoll);
+    this.add(panelRoll);
     
     /*
     JLabel labelFree = new JLabel();
@@ -190,12 +192,14 @@ public class Board  {
     frame.add(panel2);
 */
     });
-}
-    /*
+    }
+    
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==buttonRoll){
+            System.out.println("Bruh Moment");
+        }
     }
-*/
+
 }
 
  class miniTilesUpAndBotom extends JPanel{
