@@ -141,6 +141,8 @@ public class Board extends JFrame implements ActionListener {
     panelGameRule.setLayout(null);
     buttonGameRules.setBounds(0, 0, 216, 60);
     buttonGameRules.addActionListener(this);
+    buttonGameRules.setText("GAME RULES");
+    buttonGameRules.setFocusable(false);
     panelGameRule.add(buttonGameRules);
     this.add(panelGameRule);
     
@@ -156,6 +158,8 @@ public class Board extends JFrame implements ActionListener {
     panelRoll.setBounds(75 , 568, 100,100);
     buttonRoll.setBounds(0 , 0, 100,100);
     buttonRoll.addActionListener(this);
+    ImageIcon imageRoll = labelIcon.getResizedImage("src\\duitria\\Icons\\dice.png", 100, 100);
+    buttonRoll.setIcon(imageRoll);
     panelRoll.setBackground(Color.WHITE);
     panelRoll.setBorder(border);
     panelRoll.setLayout(null);
@@ -288,5 +292,20 @@ public class Board extends JFrame implements ActionListener {
          });
      }
 
+}
+
+class labelIcon{
+
+    public static ImageIcon getResizedImage(String path, int width, int height){
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path)
+                                .getImage()
+                                .getScaledInstance(
+                                    width, 
+                                    height, 
+                                    Image.SCALE_SMOOTH));
+    
+    return imageIcon;
+    }
+    
 }
 
