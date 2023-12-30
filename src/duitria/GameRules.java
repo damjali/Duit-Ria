@@ -9,7 +9,7 @@ public class GameRules {
 
         Scanner user_input = new Scanner(System.in);
         JFrame window = new JFrame("Game Rules");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JTextArea textArea = new JTextArea(10,20);
         JScrollPane scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         String string = gamerulestext();

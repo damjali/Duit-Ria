@@ -8,8 +8,8 @@ import java.io.*;
 public class DuitRIa {
 
     public static void main(String[] args) {
-        System.out.println("Bruh moment");
-        //Board board = new Board();
+        HomeScreenGUI homescreengui = new HomeScreenGUI();
+
     
 }
 }

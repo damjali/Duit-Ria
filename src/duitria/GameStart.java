@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-package duitria;
-
-public class GameStart {
-    public static void main(String[] args) {
-        System.out.println("Bruh");
-    }
-}
-=======
 
 package duitria;
 
@@ -19,7 +10,7 @@ public class GameStart extends javax.swing.JFrame {
         initComponents();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -137,16 +128,16 @@ public class GameStart extends javax.swing.JFrame {
 
         setSize(new java.awt.Dimension(812, 462));
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void panelStartGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelStartGameMouseClicked
+    private void panelStartGameMouseClicked(java.awt.event.MouseEvent evt) {                                            
  
-    }//GEN-LAST:event_panelStartGameMouseClicked
+    }                                           
 
-    private void panelStartGame1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelStartGame1MouseClicked
+    private void panelStartGame1MouseClicked(java.awt.event.MouseEvent evt) {                                             
         // TODO add your handling code here:
         GameRules gamerules = new GameRules();
-    }//GEN-LAST:event_panelStartGame1MouseClicked
+    }                                            
 
     public static void main(String args[]) {
 
@@ -176,7 +167,7 @@ public class GameStart extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -185,6 +176,5 @@ public class GameStart extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel panelStartGame;
     private javax.swing.JPanel panelStartGame1;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
->>>>>>> e93b7019944b23069ae3e6e021baa8dd799aebd8
