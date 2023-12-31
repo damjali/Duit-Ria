@@ -1,5 +1,4 @@
 package duitria;
-
 class Player {
     String name;
     double money;

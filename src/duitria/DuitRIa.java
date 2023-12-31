@@ -516,7 +516,7 @@ public class DuitRIa {
         }
     }
     private void bankrupt(Player player) {
-
+        System.out.println();
     }
     private void sortedPlayerTurn() {
         int count = 1;

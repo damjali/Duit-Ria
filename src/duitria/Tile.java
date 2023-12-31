@@ -1,5 +1,4 @@
 package duitria;
-
 class Tile {
     String name;
     int cost;
