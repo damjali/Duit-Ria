@@ -417,10 +417,21 @@ public class DuitRIa {
                 System.out.println("How much house(s) do you want to sell? :");
                 int houseSell = keyboard.nextInt();
                 keyboard.nextLine();
-                int SellAmount = houseSell * 100000; //later check back if there is any order to this
-                if (houseSell <= houseCount) {
-                    System.out.println(player.name + " successfully sold " + houseSell);
-                    player.money += (SellAmount * 0.5);
+                int sellAmount = houseSell * 100000; //later check back if there is any order to this
+                if (houseSell <= houseCount && sellAmount >= cost) {
+                    System.out.println(player.name + " successfully sold " + houseSell + " houses.");
+                    player.money += sellAmount;
+                    for (Object currentTile : tiles) {
+                        if (currentTile instanceof Tile) {
+                            Tile propertyTile = (Tile) currentTile;
+                            if (propertyTile.owner == player) {
+                                tileCount++;
+                                tileCost += propertyTile.cost;
+                                houseCount += propertyTile.numOfHouse;
+                                houseCost += (propertyTile.numOfHouse * 200000);
+                            }
+                        }
+                    }
                     if (cost >= player.money) {
                         System.out.print("You didn't sell enough, do you want to sell again? (Y/N):");
                         String choice = keyboard.nextLine();
@@ -505,7 +516,7 @@ public class DuitRIa {
         }
     }
     private void bankrupt(Player player) {
-        
+
     }
     private void sortedPlayerTurn() {
         int count = 1;
