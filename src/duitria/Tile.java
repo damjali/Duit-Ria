@@ -12,9 +12,9 @@ class Tile {
         this.cost = cost;
         this.baseRent = baseRent;
         this.tileColour = tileColour;
-        this.houseCost = 200000;
-        this.owner = null;
-        this.numOfHouse = 0;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
     }
     public int calculateRent(Boolean doubleRent) {
         int calculatedRent = 0;
@@ -38,7 +38,7 @@ class SpecialTile {
         this.name = name;
         this.cost = cost;
         this.baseRent = baseRent;
-        this.owner = null;
+        owner = null;
     }
 }
 class Tax {

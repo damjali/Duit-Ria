@@ -1,8 +1,8 @@
 package duitria;
 class Player {
     String name;
-    double money;
-    double loanAmount;
+    int money;
+    int loanAmount;
     int loanPeriod;
     int position;       // 
     int turn;           // 
