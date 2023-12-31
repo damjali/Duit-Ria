@@ -32,7 +32,7 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      this.setLayout(null);
      
      JPanel panelImage = new JPanel();
-     panelImage.setBackground(Color.BLACK);
+     panelImage.setBackground(Color.WHITE);
      panelImage.setBounds(0, 0, 640, 720);
      this.add(panelImage);
      
