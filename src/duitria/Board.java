@@ -177,7 +177,7 @@ public class Board extends JFrame implements ActionListener {
     labelParking.setBounds(8,20,100 , 100);
     panelFreeParking.add(labelParking);
     */
-    
+
     /*For TileGO
     JPanel panelGO = new JPanel();
     panelGO.setBounds(561, 561, 105, 105);
