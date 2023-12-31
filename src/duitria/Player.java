@@ -10,9 +10,9 @@ class Player {
     boolean jailCheck;  // check if player in jail or not
     boolean playerLoan; // check if player is under a loan
     boolean bankruptcy; // 
-    boolean buyProperty;//
-    boolean buyHouse;   //
-    boolean hasLoan;    //
+    boolean buyProperty;// 
+    boolean buyHouse;   // 
+    boolean hasLoan;    // 
     public Player(String name) {
         this.name = name;
         money = 15000000;
