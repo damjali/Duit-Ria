@@ -49,7 +49,7 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      
      
      JPanel panelButtons = new JPanel();
-     panelButtons.setBackground(Color.BLACK);
+     panelButtons.setBackground(new Color(24, 23, 23));
      panelButtons.setBounds(640, 0, 640, 720);
      panelButtons.setBorder(border);
      panelButtons.setLayout(null);
@@ -58,11 +58,15 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      buttonStartGame.addActionListener(this);
      buttonStartGame.setSize(500, 100);
      buttonStartGame.setBounds(70, 240, 500, 80);
+     buttonStartGame.setText("START GAME");
+     buttonStartGame.setFocusable(false);
      panelButtons.add(buttonStartGame);
      
      buttonGameRules.addActionListener(this);
      buttonGameRules.setSize(500, 100);
      buttonGameRules.setBounds(70, 370, 500, 80);
+     buttonGameRules.setText("GAME RULES");
+     buttonGameRules.setFocusable(false);
      panelButtons.add(buttonGameRules);
 
         
