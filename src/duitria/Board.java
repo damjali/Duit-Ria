@@ -29,7 +29,7 @@ public class Board extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     this.setVisible(true); //make frame visible
     this.setSize(1920,1080); //set width and height
-    this.setTitle("Frame1"); //change the title
+    this.setTitle("DuitRIA"); //change the title
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit when close
     this.setResizable(false); //prevents frame from being resized
     ImageIcon image = new ImageIcon("logo.png"); //create an image icon
