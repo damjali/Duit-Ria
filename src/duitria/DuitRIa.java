@@ -111,13 +111,17 @@ public class DuitRIa {
                     if (choice.equalsIgnoreCase("Y")) {
                         if (propertyTile.cost >= player.money) {
                             System.out.println("Not enough money to buy " + propertyTile.name + ".");
-                            System.out.printf("Do you want to sell assets to buy this land? (Y/N):");
-                            String sellChoice = keyboard.nextLine();
-                            if (sellChoice.equalsIgnoreCase("Y")) {
-                                sellingPropertiesPlayer(player, propertyTile.cost);
-                                player.money -= propertyTile.cost;
-                                propertyTile.owner = player;
+                            if (canSell(player)) {
+                                System.out.printf("Do you want to sell assets to buy this land? (Y/N):");
+                                String sellChoice = keyboard.nextLine();
+                                if (sellChoice.equalsIgnoreCase("Y")) {
+                                    sellingPropertiesPlayer(player, propertyTile.cost, false, false, null);
+                                    System.out.println(player.name + " bought " + propertyTile.name + ".");
+                                    player.money -= propertyTile.cost;
+                                    propertyTile.owner = player;
+                                }
                             }
+                            
                         } else {
                             System.out.println(player.name + " bought " + propertyTile.name + ".");
                             player.money -= propertyTile.cost;
@@ -150,12 +154,14 @@ public class DuitRIa {
                 System.out.printf(player.name + " has to pay rent of RM%,d.\n", rentAmount);
                 if (rentAmount >= player.money) {
                     System.out.println("You don't have enough money to pay the rent.");
-                    sellingPropertiesPlayer(player, rentAmount);
+                    sellingPropertiesPlayer(player, rentAmount, false, true, );
                     player.money -= rentAmount;
                     propertyTile.owner.money += rentAmount;
+                    System.out.println(player.name + " successfully paid the rent.");
                 } else {
                     player.money -= rentAmount;
                     propertyTile.owner.money += rentAmount;
+                    System.out.println(player.name + " successfully paid the rent.");
                 }
             } else {
                 System.out.println(player.name + " is visiting his land.");
@@ -174,7 +180,7 @@ public class DuitRIa {
                                 if (numOfHouse >= 0 && numOfHouse <= (4 - propertyTile.numOfHouse)) {
                                     if (housePrice * numOfHouse >= player.money) {
                                         System.out.println("You don't have enough money to buy that amount of houses.");
-                                        buyHouseCheck = false;
+                                        System.out.println("Please pick again.");
                                     } else {
                                         System.out.printf(Locale.US, "You bought the house for RM%,d.\n", (housePrice * numOfHouse));
                                         propertyTile.numOfHouse += numOfHouse;
@@ -187,7 +193,7 @@ public class DuitRIa {
                             }
                         }
                     } else {
-                        System.out.println("You have bought the maximum amount of houses(4).");
+                        System.out.println("You have bought the maximum amount of houses (4).");
                     }
                 }
             }
@@ -201,9 +207,12 @@ public class DuitRIa {
                     if (choice.equalsIgnoreCase("Y")) {
                         if (specialTile.cost >= player.money) {
                             System.out.println("You do not enough money to buy " + specialTile.name + ".");
-                            sellingPropertiesPlayer(player, specialTile.cost); // add bought tile
-                            player.money -= specialTile.cost;
-                            specialTile.owner = player;
+                            if (canSell(player)) {
+                                sellingPropertiesPlayer(player, specialTile.cost, false);
+                                System.out.println(player.name + " bought " + specialTile.name + ".");
+                                player.money -= specialTile.cost;
+                                specialTile.owner = player;
+                            }
                         } else {
                             System.out.println(player.name + " bought " + specialTile.name + ".");
                             player.money -= specialTile.cost;
@@ -216,7 +225,7 @@ public class DuitRIa {
                 System.out.printf(player.name + " has to pay rent of RM%,d.\n", specialTile.baseRent);
                 if (specialTile.baseRent >= player.money) {
                     System.out.println("You don't have enough money to pay the rent.");
-                    sellingPropertiesPlayer(player, specialTile.baseRent);
+                    sellingPropertiesPlayer(player, specialTile.baseRent, false);
                     player.money -= specialTile.baseRent;
                     specialTile.owner.money += specialTile.baseRent;
                     System.out.println(player.name + " successfully paid the rent.");
@@ -237,7 +246,13 @@ public class DuitRIa {
         } else if (currentTile instanceof Tax) {
             Tax tax = (Tax) currentTile;
             System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
-            player.money -= tax.cost;
+            if (tax.cost >= player.money) {
+                System.out.println("You don't have enough money to pay taxes.");
+                sellingPropertiesPlayer(player, tax.cost, true);
+            } else {
+                player.money -= tax.cost;
+                System.out.println(player.name + " successfully paid the taxes.");
+            }
         } else if (currentTile instanceof FreeParking) {
             FreeParking freeParking = (FreeParking) currentTile;
             System.out.println(player.name + " landed on the " + freeParking.name);
@@ -272,19 +287,20 @@ public class DuitRIa {
             }
             break;
             case 2:
-            System.out.println("It is your birthday! Collect RM100,000 from everyone."); //tukar balik
+            System.out.println("It is your birthday! Collect RM100,000 from everyone.");
             int birthdayMoney = 0;
             player.money += (100000 * players.size());
             for (Player otherPlayer : players) {
                 if (!otherPlayer.equals(player)) {
                     if (100000 >= otherPlayer.money) {
-                        sellingPropertiesPlayer(otherPlayer, 100000);
+                        System.out.println(otherPlayer.name + " doesn't have enough to give birthday money.");
+                        sellingPropertiesPlayer(otherPlayer, 100000, false);
                     }
                     otherPlayer.money -= 100000;
                     birthdayMoney += 100000;
                 }
             }
-            System.out.printf("You collected RM%,d from everyone.\n", birthdayMoney);
+            System.out.printf(player.name + " collected RM%,d from everyone.\n", birthdayMoney);
             break;
             case 3:
             System.out.println("Bank error in your favor, Collect RM2,000,000.");
@@ -314,9 +330,9 @@ public class DuitRIa {
             if (generalRepairTotal == 0)
                 break;
             System.out.printf(Locale.US, player.name + " the total is RM%,d.\n", generalRepairTotal);
-            if (generalRepairTotal > player.money) {
-                System.out.println("You don't have enough money.");
-                sellingPropertiesPlayer(player, generalRepairTotal);
+            if (generalRepairTotal >= player.money) {
+                System.out.println("You don't have enough money to pay the repair on the houses.");
+                sellingPropertiesPlayer(player, generalRepairTotal, true);
                 player.money -= generalRepairTotal;
                 System.out.printf(Locale.US, player.name + " successfully paid RM%,d.\n", generalRepairTotal);
             } else {
@@ -327,8 +343,8 @@ public class DuitRIa {
             case 7:
             System.out.println("Pay hospital fees of RM250,000.");
             if (250000 >= player.money) {
-                System.out.println("You don't have enough money.");
-                sellingPropertiesPlayer(player, 250000);
+                System.out.println("You don't have enough money to pay the hospital fees.");
+                sellingPropertiesPlayer(player, 250000, true);
             }
             player.money -= 250000;
             System.out.println(player.name + " successfully paid the hospital fees.");
@@ -336,8 +352,8 @@ public class DuitRIa {
             case 8:
             System.out.println("Pay school fees of RM100,000.");
             if (100000 >= player.money) {
-                System.out.println("You don't have enough money.");
-                sellingPropertiesPlayer(player, 100000);
+                System.out.println("You don't have enough money to pay the hospital fees.");
+                sellingPropertiesPlayer(player, 100000, true);
             }
             player.money -= 100000;
             System.out.println(player.name + " successfully paid the school fees.");
@@ -345,8 +361,8 @@ public class DuitRIa {
             case 9:
             System.out.println("Pay speeding fine of RM100,000.");
             if (100000 >= player.money) {
-                System.out.println("You don't have enough money.");
-                sellingPropertiesPlayer(player, 100000);
+                System.out.println("You don't have enough money to pay the speeding fine.");
+                sellingPropertiesPlayer(player, 100000, true);
             }
             player.money -= 100000;
             System.out.println(player.name + " successfully paid the speeding fine.");
@@ -358,15 +374,19 @@ public class DuitRIa {
     private void fateCardRailRoad(Player player, Object currentTile) {
         SpecialTile specialTile = (SpecialTile) currentTile;
         System.out.println(player.name + " landed on " + specialTile.name);
-        if (specialTile.owner == null) {
+        if (player.buyProperty) {
+            if (specialTile.owner == null) {
                 System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
                 String choice = keyboard.nextLine();
                 if (choice.equalsIgnoreCase("Y")) {
                     if (specialTile.cost >= player.money) {
                         System.out.println("Not enough money to buy " + specialTile.name + ".");
-                        sellingPropertiesPlayer(player, specialTile.cost);
-                        player.money -= specialTile.cost;
-                        specialTile.owner = player;
+                        if (canSell(player)) {
+                            sellingPropertiesPlayer(player, specialTile.cost, false);
+                            System.out.println(player.name + " bought " + specialTile.name + ".");
+                            player.money -= specialTile.cost;
+                            specialTile.owner = player;
+                        }
                     } else {
                         System.out.println(player.name + " bought " + specialTile.name + ".");
                         player.money -= specialTile.cost;
@@ -375,10 +395,10 @@ public class DuitRIa {
                 }
             } else if (specialTile.owner != player) {
                 System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
-                System.out.printf(player.name + " has to pay double of rent for RM%,d.\n", (specialTile.baseRent * 2));
+                System.out.printf(player.name + " has to pay double of rent for RM%,d because of group colour.\n", (specialTile.baseRent * 2));
                 if ((specialTile.baseRent * 2) >= player.money) {
                     System.out.println("You don't have enough money to pay the rent.");
-                    sellingPropertiesPlayer(player, (specialTile.baseRent * 2));
+                    sellingPropertiesPlayer(player, (specialTile.baseRent * 2), false);
                     player.money -= (specialTile.baseRent * 2);
                     specialTile.owner.money += (specialTile.baseRent * 2);
                     System.out.println(player.name + " successfully paid the rent.");
@@ -390,12 +410,56 @@ public class DuitRIa {
             } else if (specialTile.owner == player) {
                 System.out.println(player.name + " is vitising his tile.");
             }
+        }
     }
-    private void sellingPropertiesPlayer(Player player, int cost) { //the loop might start from the top
+    private boolean canSell(Player player) {
+        int tileCount = 0, houseCount = 0, specialTileCount = 0;
+        for (Object currentTile : tiles) {
+            if (currentTile instanceof Tile) {
+                Tile propertyTile = (Tile) currentTile;
+                if (propertyTile.owner == player) {
+                    tileCount++;
+                    houseCount += propertyTile.numOfHouse;
+                }
+            }
+            if (currentTile instanceof SpecialTile) {
+                SpecialTile specialTile = (SpecialTile) currentTile;
+                if (specialTile.owner == player) {
+                    specialTileCount++;
+                }
+            }
+        }
+        if (tileCount > 0 || specialTileCount > 0 || houseCount > 0)
+            return true;
+        else
+            return false;
+    }
+    private void sellingPropertiesPlayer(Player player, int cost, boolean creatorDebt, boolean playerDebt, Player tileOwner) { 
         List<Tile> propertySelector = new ArrayList<>();
         List<SpecialTile> specialTileSelector = new ArrayList<>();
-        boolean propertySellCheck = true;
+        boolean propertySellCheck = true, bankrupt = false;
         int tileCount, houseCount, specialTileCount, tileCost, houseCost, specialTileCost;
+        if (creatorDebt) {
+            for (Object currentTile : tiles) {
+                if (currentTile instanceof Tile) {
+                    Tile propertyTile = (Tile) currentTile;
+                    if (propertyTile.owner == player) {
+                        propertyTile.numOfHouse = 0;
+                        propertyTile.owner = null;
+                        System.out.println(player.name + " has given up " + propertyTile.name + " to the Creator.");
+                    }
+                }
+                if (currentTile instanceof SpecialTile) {
+                    SpecialTile specialTile = (SpecialTile) currentTile;
+                    if (specialTile.owner == player) {
+                        specialTile.owner = null;
+                        System.out.println(player.name + " has given up " + specialTile.name + " to the Creator.");
+                    }
+                }
+            }
+            System.out.println(player.name + " is now bankrupt!");
+            player.bankruptcy = true;
+        }
         while (propertySellCheck) {
             tileCount = 0;
             houseCount = 0;
@@ -423,9 +487,9 @@ public class DuitRIa {
                     }
                 }
             }
-            if (houseCount > 0) {
+            if (houseCount > 0 && cost >= player.money) {
                 int count = 0, choice;
-                System.out.println("You have a total asset of " + tileCount + " land(s) and " + houseCount + " house(s).");
+                System.out.println("\nYou have a total asset of " + tileCount + " land(s) and " + houseCount + " house(s).");
                 System.out.println("Each and every property sold back to the creator, the owner will only get one-half(1/2) of it back.");
                 System.out.printf(Locale.US, "You have a total of RM%,.0f in land(s) and RM%,.0f in house(s) (after Creator's cut).\n", (tileCost * 0.5), (houseCost * 0.5));
                 System.out.printf(Locale.US, "You have to sell atleast RM%,d.\n", (cost - player.money));
@@ -438,14 +502,14 @@ public class DuitRIa {
                     System.out.print("Property choice. (1 - " + count + "): ");
                     choice = keyboard.nextInt();
                     keyboard.nextLine();
-                    while (choice < 0 || choice > count) {
-                        System.out.print("Please pick again. (1 - " + count + "): ");
+                    Tile propertyTile = propertySelector.get(choice - 1);
+                    while (choice < 0 || choice > count && propertyTile.numOfHouse == 0) {
+                        System.out.print("Please pick again. : ");
                         choice = keyboard.nextInt();
                         keyboard.nextLine();
                     }
-                    Tile propertyTile = propertySelector.get(choice - 1);
-                    System.out.println();
-                    System.out.print("How much do you want to sell? : ");
+                    propertyTile = propertySelector.get(choice - 1);
+                    System.out.print("How much do you want to sell? (" + propertyTile.numOfHouse + " max) : ");
                     int houseSell = keyboard.nextInt();
                     keyboard.nextLine();
                     while (houseSell < 0 || houseSell > propertyTile.numOfHouse) {
@@ -459,13 +523,40 @@ public class DuitRIa {
                     propertyTile.numOfHouse -= houseSell;
                     houseCount -= houseSell;
                     if (cost >= player.money && houseCount > 0)
-                        System.out.println("Please choose another property to sell houses.");
-                    if (cost < player.money) {
+                        System.out.printf("\nPlease choose another property to sell houses (RM%,d more).\n", (cost - player.money));
+                    else if (cost >= player.money && houseCount == 0) {
+                        System.out.println("You have no more houses to sell.");
+                        break;
+                    } else {
                         propertySellCheck = false;
                         break;
                     }
                 }
-            } else if (tileCount > 0) {
+            }
+            if (cost >= player.money && playerDebt) {
+                System.out.println("You have to turn over all your asset to the owner of the tile.");
+                for (Object currentTile : tiles) {
+                    if (currentTile instanceof Tile) {
+                        Tile propertyTile = (Tile) currentTile;
+                        if (propertyTile.owner == player) {
+                            tileCount++;
+                            tileCost += propertyTile.cost;
+                            houseCount += propertyTile.numOfHouse;
+                            houseCost += (propertyTile.numOfHouse * 200000);
+                            propertySelector.add(propertyTile);
+                        }
+                    }
+                    if (currentTile instanceof SpecialTile) {
+                        SpecialTile specialTile = (SpecialTile) currentTile;
+                        if (specialTile.owner == player) {
+                            specialTileCount++;
+                            specialTileCost += specialTile.cost;
+                            specialTileSelector.add(specialTile);
+                        }
+                    }
+                }
+            }
+            if (tileCount > 0 && cost >= player.money && !playerDebt) {
                 int count = 0, choice;
                 System.out.println("You have a total asset of " + tileCount + " in land(s) and " + specialTileCount + " in railroad(s).");
                 System.out.println("Each and every property sold back to the creator, the owner will only get one-half(1/2) of it back.");
@@ -485,11 +576,11 @@ public class DuitRIa {
                     }
                 }
                 while (true) {
-                    System.out.print("Property choice. (1/" + count + "): ");
+                    System.out.print("Property choice. (1 - " + count + "): ");
                     choice = keyboard.nextInt();
                     keyboard.nextLine();
                     while (choice < 0 || choice > count) {
-                        System.out.print("Please pick again. (1/" + count + "): ");
+                        System.out.print("Please pick again. : ");
                         choice = keyboard.nextInt();
                         keyboard.nextLine();
                     }
@@ -498,32 +589,35 @@ public class DuitRIa {
                         System.out.println(propertyTile.name + " has been sold.");
                         propertyTile.owner = null;
                         tileCount--;
-                        cost -= (int) (propertyTile.cost * 0.5);
-                        player.money -= (int) (propertyTile.cost * 0.5);
+                        player.money += (int) (propertyTile.cost * 0.5);
                     } else {
                         SpecialTile specialTile = specialTileSelector.get(choice - 1 - propertySelector.size());
                         System.out.println(specialTile.name + " has been sold.");
                         specialTile.owner = null;
                         specialTileCount--;
-                        cost -= (int) (specialTile.cost * 0.5);
-                        player.money -= (int) (specialTile.cost * 0.5);
+                        player.money += (int) (specialTile.cost * 0.5);
                     }
                     if (cost >= player.money && (tileCount > 0 || specialTileCount > 0))
-                        System.out.println("Please choose another property to sell.");
-                    if (cost < player.money) {
+                        System.out.printf("\nPlease choose another property to sell (RM%,d more).\n", cost - player.money);
+                    else if (cost >= player.money && tileCount == 0 && specialTileCount == 0) {
+                        System.out.println("You no longer have properties to sell.");
+                        break;
+                    } else {
                         propertySellCheck = false;
                         break;
                     }
                 }
-            } else {
+            }
+            if (bankrupt && cost >= player.money) {
                 System.out.println("You can't afford to pay that much!");
                 playerLoan(player);
+                propertySellCheck = false;
             }
         }
     }
     private void playerLoan(Player player) {
         if (!player.hasLoan) {
-            System.out.println("Do you want to make a loan? (Y/N) :");
+            System.out.print("Do you want to make a loan? (Y/N) :");
             String choice = keyboard.nextLine();
             if (choice.equalsIgnoreCase("Y")) { //make loan algorithm
                 System.out.print("How much do you want to loan?: RM");
@@ -587,6 +681,14 @@ public class DuitRIa {
             performTurn(currentPlayer, diceRoll);
         }
     }
+    private int onePlayerLeft() {
+        int activePlayerAmount = 0;
+        for (Player player : players) {
+            if  (!player.bankruptcy)
+                activePlayerAmount++;
+        }
+        return activePlayerAmount;
+    }
     void playGame() {
         int diceRoll1, diceRoll2, diceRoll;
         keyboard = new Scanner(System.in);
@@ -608,7 +710,7 @@ public class DuitRIa {
                 } else {
                     System.out.println("Sorry " + currentPlayer.name + ", you rolled a " + diceRoll1 + " and " + diceRoll2 + ", you have to pay RM250,000.");
                     if (250000 >= currentPlayer.money) {
-                        sellingPropertiesPlayer(currentPlayer, 250000);
+                        sellingPropertiesPlayer(currentPlayer, 250000, true);
                         currentPlayer.money -= 250000;
                         currentPlayer.jailCheck = false;
                     } else {
@@ -624,7 +726,16 @@ public class DuitRIa {
             } else {
                 playerTurn(currentPlayer,0);
             }
+            if (onePlayerLeft() == 1) {
+                for (Player player : players) {
+                    if (player.bankruptcy) {
+                        System.out.println(player.name + " wins!");
+                        gameRunning = false;
+                    }
+                }
+            }
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
+        System.out.println("DuitRia has come to an end, thanks for playing!");
     }
 }

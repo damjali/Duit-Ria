@@ -1,12 +1,12 @@
 package duitria;
 class Tile {
-    String name;
-    int cost;
-    int baseRent;
-    String tileColour;
-    Player owner;
-    int houseCost;
-    int numOfHouse;
+    String name;        // tile's name
+    int cost;           // tile's cost
+    int baseRent;       // tile's base rent
+    String tileColour;  // tile's colour group
+    Player owner;       // tile's ownership (based on player's reference)
+    int houseCost;      // tile's housecost
+    int numOfHouse;     // tile's number of houses built
     public Tile(String name, int cost, int baseRent, String tileColour) {
         this.name = name;
         this.cost = cost;
@@ -30,10 +30,10 @@ class Tile {
     }
 }
 class SpecialTile {
-    String name;
-    int cost;
-    int baseRent;
-    Player owner;
+    String name;    // special tile's name
+    int cost;       // special tile's cost
+    int baseRent;   // special tile's base rent
+    Player owner;   // special tile's ownership (based on player's reference)
     public SpecialTile(String name, int cost, int baseRent) {
         this.name = name;
         this.cost = cost;
@@ -42,41 +42,41 @@ class SpecialTile {
     }
 }
 class Tax {
-    String name;
-    int cost;
+    String name;    // tax's tile name
+    int cost;       // tax's cost
     public Tax(String name, int cost) {
         this.name = name;
         this.cost = cost;
     }
 }
 class Go {
-    String name;
-    int payment;
+    String name;    // go tile's name
+    int payment;    // go tile's payment
     public Go(String name, int payment) {
         this.name = name;
         this.payment = payment;
     }
 }
 class FateCard {
-    String name;
+    String name;    // fatecard tile's name
     public FateCard(String name) {
         this.name = name;
     }
 }
 class FreeParking {
-    String name;
+    String name;    //free parking tile's name
     public FreeParking(String name) {
         this.name = name;
     }
 }
 class Jail {
-    String name;
+    String name;    // jail tile's name
     public Jail(String name) {
         this.name = name;
     }
 }
 class GoToJail {
-    String name;
+    String name;    // go to jail tile's name
     public GoToJail(String name) {
         this.name = name;
     }
