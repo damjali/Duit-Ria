@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PlayerSelectIcon",
+            "request": "launch",
+            "mainClass": "duitria.PlayerSelectIcon",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "duitria.Main",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
             "name": "GameStart",
             "request": "launch",
             "mainClass": "duitria.GameStart",

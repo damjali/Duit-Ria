@@ -16,16 +16,20 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
-public class HomeScreenGUI extends JFrame implements ActionListener {
+
+public class PlayerNumber extends JFrame implements ActionListener {
 
   
     
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    JButton buttonStartGame = new JButton();
-    JButton buttonGameRules = new JButton();
+    JButton button2Player = new JButton();
+    JButton button3Player = new JButton();
+    JButton button4Player = new JButton();
     
-    HomeScreenGUI (){
+    PlayerNumber (){
 
     SwingUtilities.invokeLater(() -> {
         
@@ -38,7 +42,7 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      this.setLayout(null);
       
      JPanel panelImage = new JPanel();
-     panelImage.setBackground(Color.WHITE);
+     panelImage.setBackground(Color.BLACK);
      panelImage.setBounds(0, 0, 640, 720);
      JLabel labelIcon = new JLabel();
      labelIcon.setBounds(0, 0, 640, 720);
@@ -54,33 +58,54 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      panelButtons.setBorder(border);
      panelButtons.setLayout(null);
      this.add(panelButtons);
+     JLabel labelNumberOfPlayers = new JLabel();
+     labelNumberOfPlayers.setText("NUMBER OF PLAYERS");
+     labelNumberOfPlayers.setForeground(Color.white);
+     labelNumberOfPlayers.setFont(new Font("Arial",Font.BOLD,45));
+     labelNumberOfPlayers.setBounds(70, -110, 500, 500);
+     panelButtons.add(labelNumberOfPlayers);
+
+
      
-     buttonStartGame.addActionListener(this);
-     buttonStartGame.setSize(500, 100);
-     buttonStartGame.setBounds(70, 240, 500, 80);
-     buttonStartGame.setText("START GAME");
-     buttonStartGame.setFocusable(false);
-     panelButtons.add(buttonStartGame);
+     button2Player.addActionListener(this);
+     button2Player.setSize(500, 100);
+     button2Player.setBounds(70, 230, 500, 80);
+     button2Player.setText("2 PLAYERS");
+     button2Player.setFocusable(false);
+     panelButtons.add(button2Player);
      
-     buttonGameRules.addActionListener(this);
-     buttonGameRules.setSize(500, 100);
-     buttonGameRules.setBounds(70, 370, 500, 80);
-     buttonGameRules.setText("GAME RULES");
-     buttonGameRules.setFocusable(false);
-     panelButtons.add(buttonGameRules);
+     button3Player.addActionListener(this);
+     button3Player.setSize(500, 100);
+     button3Player.setBounds(70, 360, 500, 80);
+     button3Player.setText("3 PLAYERS");
+     button3Player.setFocusable(false);
+     panelButtons.add(button3Player);
+
+     button4Player.addActionListener(this);
+     button4Player.setSize(500, 100);
+     button4Player.setBounds(70, 490, 500, 80);
+     button4Player.setText("4 PLAYERS");
+     button4Player.setFocusable(false);
+     panelButtons.add(button4Player);
 
         
     
     });
 }
     public void actionPerformed(ActionEvent e){
-        if(e.getSource()==buttonStartGame){
-            PlayerNumber playernumber = new PlayerNumber();
+        if(e.getSource()==button2Player){
+            PlayerSelectIcon playerselecticon = new PlayerSelectIcon();
             this.dispose();
         }
         
-        if(e.getSource()==buttonGameRules){
-            GameRules gamerule = new GameRules();
+        if(e.getSource()==button3Player){
+            PlayerSelectIcon playerselecticon = new PlayerSelectIcon();
+            this.dispose();
+        }
+
+        if(e.getSource()==button4Player){
+            PlayerSelectIcon playerselecticon = new PlayerSelectIcon();
+            this.dispose();
         }
     }
 
