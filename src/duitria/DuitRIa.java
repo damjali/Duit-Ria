@@ -119,7 +119,7 @@ public class DuitRIa {
                                 System.out.printf("Do you want to sell assets to buy this land? (Y/N):");
                                 String sellChoice = keyboard.nextLine();
                                 if (sellChoice.equalsIgnoreCase("Y")) {
-                                    sellingPropertiesPlayer(player, propertyTile.cost, false, false, null);
+                                    sellingProperties(player, propertyTile.cost, false, false, null);
                                     if (!player.bankruptcy && propertyTile.cost < player.money) {
                                         System.out.println(player.name + " bought " + propertyTile.name + ".");
                                         player.money -= propertyTile.cost;
@@ -160,7 +160,7 @@ public class DuitRIa {
                 System.out.printf(player.name + " has to pay rent of RM%,d.\n", rentAmount);
                 if (rentAmount >= player.money) {
                     System.out.println("You don't have enough money to pay the rent.");
-                    sellingPropertiesPlayer(player, rentAmount, false, true, propertyTile.owner);
+                    sellingProperties(player, rentAmount, false, true, propertyTile.owner);
                     if (!player.bankruptcy && rentAmount < player.money) {
                         player.money -= rentAmount;
                         propertyTile.owner.money += rentAmount;
@@ -217,7 +217,7 @@ public class DuitRIa {
                         if (specialTile.cost >= player.money) {
                             System.out.println("You do not enough money to buy " + specialTile.name + ".");
                             if (canSell(player)) {
-                                sellingPropertiesPlayer(player, specialTile.cost, false, false, null);
+                                sellingProperties(player, specialTile.cost, false, false, null);
                                 if (!player.bankruptcy && specialTile.cost < player.money) {
                                     System.out.println(player.name + " bought " + specialTile.name + ".");
                                     player.money -= specialTile.cost;
@@ -237,7 +237,7 @@ public class DuitRIa {
                 System.out.printf(player.name + " has to pay rent of RM%,d.\n", specialTile.baseRent);
                 if (specialTile.baseRent >= player.money) {
                     System.out.println("You don't have enough money to pay the rent.");
-                    sellingPropertiesPlayer(player, specialTile.baseRent, false, true, specialTile.owner);
+                    sellingProperties(player, specialTile.baseRent, false, true, specialTile.owner);
                     if (!player.bankruptcy && specialTile.baseRent < player.money) {
                         player.money -= specialTile.baseRent;
                         specialTile.owner.money += specialTile.baseRent;
@@ -266,7 +266,7 @@ public class DuitRIa {
             System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
             if (tax.cost >= player.money) {
                 System.out.println("You don't have enough money to pay taxes.");
-                sellingPropertiesPlayer(player, tax.cost, true, false, null);
+                sellingProperties(player, tax.cost, true, false, null);
                 if (!player.bankruptcy && tax.cost < player.money) {
                     player.money -= tax.cost;
                     System.out.println(player.name + " successfully paid the taxes.");
@@ -320,7 +320,7 @@ public class DuitRIa {
                 if (!otherPlayer.equals(player)) {
                     if (100000 >= otherPlayer.money) {
                         System.out.println(otherPlayer.name + " doesn't have enough to give birthday money.");
-                        sellingPropertiesPlayer(otherPlayer, 100000, false, true, null);
+                        sellingProperties(otherPlayer, 100000, false, true, null);
                         if (!player.bankruptcy && 100000 < otherPlayer.money) {
                             System.out.println(otherPlayer.name + " successfully given the birthday money.");
                             otherPlayer.money -= 100000;
@@ -363,7 +363,7 @@ public class DuitRIa {
             System.out.printf(Locale.US, player.name + " the total for the repair is RM%,d.\n", generalRepairTotal);
             if (generalRepairTotal >= player.money) {
                 System.out.println("You don't have enough money to pay the repair on the houses.");
-                sellingPropertiesPlayer(player, generalRepairTotal, true, false, null);
+                sellingProperties(player, generalRepairTotal, true, false, null);
                 if (!player.bankruptcy && generalRepairTotal < player.money) {
                     player.money -= generalRepairTotal;
                     System.out.printf(Locale.US, player.name + " successfully paid RM%,d.\n", generalRepairTotal);
@@ -377,7 +377,7 @@ public class DuitRIa {
             System.out.println("Pay hospital fees of RM250,000.");
             if (250000 >= player.money) {
                 System.out.println("You don't have enough money to pay the hospital fees.");
-                sellingPropertiesPlayer(player, 250000, true, false, null);
+                sellingProperties(player, 250000, true, false, null);
                 if (!player.bankruptcy && 250000 < player.money) {
                     player.money -= 250000;
                     System.out.println(player.name + " successfully paid the hospital fees.");
@@ -391,7 +391,7 @@ public class DuitRIa {
             System.out.println("Pay school fees of RM100,000.");
             if (100000 >= player.money) {
                 System.out.println("You don't have enough money to pay the school fees.");
-                sellingPropertiesPlayer(player, 100000, true, false, null);
+                sellingProperties(player, 100000, true, false, null);
                 if (!player.bankruptcy && 100000 < player.money) {
                     player.money -= 100000;
                     System.out.println(player.name + " successfully paid the school fees.");
@@ -405,7 +405,7 @@ public class DuitRIa {
             System.out.println("Pay speeding fine of RM100,000.");
             if (100000 >= player.money) {
                 System.out.println("You don't have enough money to pay the speeding fine.");
-                sellingPropertiesPlayer(player, 100000, true, false, null);
+                sellingProperties(player, 100000, true, false, null);
                 if (!player.bankruptcy && 100000 < player.money) {
                     player.money -= 100000;
                     System.out.println(player.name + " successfully paid the speeding fine.");
@@ -430,7 +430,7 @@ public class DuitRIa {
                     if (specialTile.cost >= player.money) {
                         System.out.println("Not enough money to buy " + specialTile.name + ".");
                         if (canSell(player)) {
-                            sellingPropertiesPlayer(player, specialTile.cost, false, false, null);
+                            sellingProperties(player, specialTile.cost, false, false, null);
                             if (!player.bankruptcy && specialTile.cost < player.money) {
                                 System.out.println(player.name + " bought " + specialTile.name + ".");
                                 player.money -= specialTile.cost;
@@ -449,7 +449,7 @@ public class DuitRIa {
                 System.out.printf(player.name + " has to pay double of rent for RM%,d.\n", (specialTile.baseRent * 2));
                 if ((specialTile.baseRent * 2) >= player.money) {
                     System.out.println("You don't have enough money to pay the rent.");
-                    sellingPropertiesPlayer(player, (specialTile.baseRent * 2), false, true, specialTile.owner);
+                    sellingProperties(player, (specialTile.baseRent * 2), false, true, specialTile.owner);
                     if (!player.bankruptcy && (specialTile.baseRent * 2) < player.money) {
                         player.money -= (specialTile.baseRent * 2);
                         specialTile.owner.money += (specialTile.baseRent * 2);
@@ -487,7 +487,7 @@ public class DuitRIa {
         else
             return false;
     }
-    private void sellingPropertiesPlayer(Player player, int cost, boolean creatorDebt, boolean playerDebt, Player tileOwner) { 
+    private void sellingProperties(Player player, int cost, boolean creatorDebt, boolean playerDebt, Player tileOwner) { 
         List<Tile> propertySelector = new ArrayList<>();
         List<SpecialTile> specialTileSelector = new ArrayList<>();
         player.propertySellCheck = true;
@@ -561,7 +561,7 @@ public class DuitRIa {
                     choice = keyboard.nextInt();
                     keyboard.nextLine();
                     Tile propertyTile = propertySelector.get(choice - 1);
-                    while ((choice < 0 || choice > count) || propertyTile.numOfHouse == 0) {
+                    while ((choice < 0 || choice > count) || propertyTile.numOfHouse < 1) {
                         System.out.print("Please pick again. : ");
                         choice = keyboard.nextInt();
                         keyboard.nextLine();
@@ -874,7 +874,7 @@ public class DuitRIa {
                 } else {
                     System.out.println("Sorry " + currentPlayer.name + ", you rolled a " + diceRoll1 + " and " + diceRoll2 + ", you have to pay RM250,000.");
                     if (250000 >= currentPlayer.money) {
-                        sellingPropertiesPlayer(currentPlayer, 250000, true, false, null);
+                        sellingProperties(currentPlayer, 250000, true, false, null);
                         if (!currentPlayer.bankruptcy) {
                             System.out.println(currentPlayer.name + " successfully paid the jail fines.");
                             currentPlayer.money -= 250000;
