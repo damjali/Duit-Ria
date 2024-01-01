@@ -85,26 +85,27 @@ public class Board extends JFrame implements ActionListener {
     panelJail.setLayout(null);
     panelBoard.add(panelJail);
     
-
-    miniTilesUpAndBotom tile22 = new miniTilesUpAndBotom(512,0, panelBoard);
-    miniTilesUpAndBotom tile21 = new miniTilesUpAndBotom(463,0, panelBoard);
-    miniTilesUpAndBotom tile20 = new miniTilesUpAndBotom(414,0, panelBoard);
-    miniTilesUpAndBotom tile19 = new miniTilesUpAndBotom(365,0, panelBoard);
-    miniTilesUpAndBotom tile18 = new miniTilesUpAndBotom(316,0, panelBoard);
-    miniTilesUpAndBotom tile17 = new miniTilesUpAndBotom(267,0, panelBoard);
-    miniTilesUpAndBotom tile16 = new miniTilesUpAndBotom(202,0, panelBoard,66,105);
-    miniTilesUpAndBotom fate4 = new miniTilesUpAndBotom(153,0, panelBoard);
-    miniTilesUpAndBotom tile15 = new miniTilesUpAndBotom(104,0, panelBoard);
     
-    miniTilesUpAndBotom tile1 = new miniTilesUpAndBotom(512,561, panelBoard);
-    miniTilesUpAndBotom fate1 = new miniTilesUpAndBotom(463,561, panelBoard);
-    miniTilesUpAndBotom tile2 = new miniTilesUpAndBotom(414,561, panelBoard);
-    miniTilesUpAndBotom tax = new miniTilesUpAndBotom(365,561, panelBoard);
-    miniTilesUpAndBotom tile3 = new miniTilesUpAndBotom(316,561, panelBoard);
-    miniTilesUpAndBotom tile4 = new miniTilesUpAndBotom(267,561, panelBoard);
-    miniTilesUpAndBotom fate2 = new miniTilesUpAndBotom(202,561, panelBoard,66,105);
-    miniTilesUpAndBotom tile5 = new miniTilesUpAndBotom(153,561, panelBoard);
-    miniTilesUpAndBotom tile6 = new miniTilesUpAndBotom(104,561, panelBoard);
+    
+//    miniTilesUpAndBotom tile22 = new miniTilesUpAndBotom(512,0, panelBoard);
+//    miniTilesUpAndBotom tile21 = new miniTilesUpAndBotom(463,0, panelBoard);
+//    miniTilesUpAndBotom tile20 = new miniTilesUpAndBotom(414,0, panelBoard);
+//    miniTilesUpAndBotom tile19 = new miniTilesUpAndBotom(365,0, panelBoard);
+//    miniTilesUpAndBotom tile18 = new miniTilesUpAndBotom(316,0, panelBoard);
+//    miniTilesUpAndBotom tile17 = new miniTilesUpAndBotom(267,0, panelBoard);
+//    miniTilesUpAndBotom tile16 = new miniTilesUpAndBotom(202,0, panelBoard,66,105);
+//    miniTilesUpAndBotom fate4 = new miniTilesUpAndBotom(153,0, panelBoard);
+//    miniTilesUpAndBotom tile15 = new miniTilesUpAndBotom(104,0, panelBoard);
+    
+    miniTilesUpAndBotom tile1 = new miniTilesUpAndBotom(512,561, panelBoard, "D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\latest.png");
+//    miniTilesUpAndBotom fate1 = new miniTilesUpAndBotom(463,561, panelBoard);
+//    miniTilesUpAndBotom tile2 = new miniTilesUpAndBotom(414,561, panelBoard);
+//    miniTilesUpAndBotom tax = new miniTilesUpAndBotom(365,561, panelBoard);
+//    miniTilesUpAndBotom tile3 = new miniTilesUpAndBotom(316,561, panelBoard);
+//    miniTilesUpAndBotom tile4 = new miniTilesUpAndBotom(267,561, panelBoard);
+//    miniTilesUpAndBotom fate2 = new miniTilesUpAndBotom(202,561, panelBoard,66,105);
+//    miniTilesUpAndBotom tile5 = new miniTilesUpAndBotom(153,561, panelBoard);
+//    miniTilesUpAndBotom tile6 = new miniTilesUpAndBotom(104,561, panelBoard);
 
     miniTilesLeftAndRight tile7 = new miniTilesLeftAndRight(0,512, panelBoard);
     miniTilesLeftAndRight fate8 = new miniTilesLeftAndRight(0,463, panelBoard);
@@ -214,16 +215,22 @@ public class Board extends JFrame implements ActionListener {
 
 }
 
- class miniTilesUpAndBotom extends JPanel{
+ class miniTilesUpAndBotom extends JPanel{ 
      
-     miniTilesUpAndBotom(int a, int b, JPanel panelBoard){
+     miniTilesUpAndBotom(int a, int b, JPanel panelBoard, String path){
          SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBounds(a, b, 50, 105);
             this.setBackground(Color.WHITE);
             this.setBorder(border);
             this.setLayout(null);
-            panelBoard.add(this);
+
+            ImageIcon icon = imagetile.getResizedTile(path,50, 105);
+            JLabel labelImage = new JLabel();
+            labelImage.setIcon(icon);
+            labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
+            this.add(labelImage);
+            panelBoard.add(this); 
          });
      }
      
@@ -237,6 +244,10 @@ public class Board extends JFrame implements ActionListener {
             panelBoard.add(this);
          });
      }
+
+    private void setIcon(ImageIcon icon) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
  class miniTilesLeftAndRight extends JPanel{
@@ -304,6 +315,23 @@ class imageicon{
                                     Image.SCALE_SMOOTH));
     
     return imageIcon;
+    }
+    
+}
+
+class imagetile{
+
+    public static ImageIcon getResizedTile(String path, int width, int height){
+        
+        
+        ImageIcon imageTile = new ImageIcon(new ImageIcon(path)
+                                .getImage()
+                                .getScaledInstance(
+                                    width, 
+                                    height, 
+                                    Image.SCALE_SMOOTH));
+    
+    return imageTile;
     }
     
 }
