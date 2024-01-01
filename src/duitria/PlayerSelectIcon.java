@@ -20,10 +20,11 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 
-public class PlayerSelectIcon extends JFrame {
+public class PlayerSelectIcon extends JFrame implements ActionListener {
 
 
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+    JButton buttonStart = new JButton();
 
     PlayerSelectIcon (){
 
@@ -44,11 +45,17 @@ public class PlayerSelectIcon extends JFrame {
      panelBackground.setLayout(null);
      this.add(panelBackground);
 
+     buttonStart.setBounds(433, 570, 400, 80);
+     buttonStart.setText("Start Game");
+     buttonStart.setFocusable(false);
+     buttonStart.addActionListener(this);
+     panelBackground.add(buttonStart);
+
      
-     playerIcons playerIcon1 = new playerIcons(40, 110,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
-     playerIcons playerIcon2 = new playerIcons(347, 110,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
-     playerIcons playerIcon3 = new playerIcons(654, 110,panelBackground,"src\\duitria\\Tokens\\pngfind.com-monopoly-png-2578492.png");
-     playerIcons playerIcon4 = new playerIcons(960, 110,panelBackground,"src\\duitria\\Tokens\\pngfind.com-top-hat-png-565056.png");
+     playerIcons playerIcon1 = new playerIcons(40, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
+     playerIcons playerIcon2 = new playerIcons(347, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
+     playerIcons playerIcon3 = new playerIcons(654, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-monopoly-png-2578492.png");
+     playerIcons playerIcon4 = new playerIcons(960, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-top-hat-png-565056.png");
 
     PlayerName player1 = new PlayerName(playerIcon1);
     PlayerName player2 = new PlayerName(playerIcon2);
@@ -58,9 +65,19 @@ public class PlayerSelectIcon extends JFrame {
      
 
       
+    
      
 });
-     }
+    }
+
+public void actionPerformed(ActionEvent e){
+    if(e.getSource()==buttonStart){
+        Board board = new Board();
+        this.dispose();
+    }
+    
+    
+}
 
 
     

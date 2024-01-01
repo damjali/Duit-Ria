@@ -32,13 +32,13 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      this.setSize(1280, 720);
      this.setVisible(true);
      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-     this.getContentPane().setBackground(Color.BLACK);
+     this.getContentPane().setBackground(Color.WHITE);
      this.setTitle("DuitRIA");
      this.setResizable(false);
      this.setLayout(null);
       
      JPanel panelImage = new JPanel();
-     panelImage.setBackground(Color.WHITE);
+     panelImage.setBackground(Color.BLACK);
      panelImage.setBounds(0, 0, 640, 720);
      JLabel labelIcon = new JLabel();
      labelIcon.setBounds(0, 0, 640, 720);
