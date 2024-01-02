@@ -108,7 +108,7 @@ public class DuitRIa {
         if (currentTile instanceof Tile) {
             Tile propertyTile = (Tile) currentTile;
             System.out.println(player.name + " landed on " + propertyTile.name + ".");
-            if (propertyTile.owner == null) {
+            if (propertyTile.owner == null && !player.hasLoan) {
                 if (player.buyProperty) {
                     System.out.printf(Locale.US, "Do you want to buy " + propertyTile.name + " for RM%,d? (Y/N):", propertyTile.cost);
                     String choice = keyboard.nextLine();
@@ -173,7 +173,7 @@ public class DuitRIa {
                 }
             } else {
                 System.out.println(player.name + " is visiting his land.");
-                if (player.buyHouse) {
+                if (player.buyHouse && !player.hasLoan) {
                     if (propertyTile.numOfHouse >= 0 && propertyTile.numOfHouse < 4) {
                         System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
                         String choice = keyboard.nextLine();
@@ -209,7 +209,7 @@ public class DuitRIa {
         } else if (currentTile instanceof SpecialTile) {
             SpecialTile specialTile = (SpecialTile) currentTile;
             System.out.println(player.name + " landed on " + specialTile.name + ".");
-            if (specialTile.owner == null) {
+            if (specialTile.owner == null && !player.hasLoan) {
                 if (player.buyProperty) {
                     System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
                     String choice = keyboard.nextLine();
@@ -248,7 +248,7 @@ public class DuitRIa {
                     specialTile.owner.money += specialTile.baseRent;
                     System.out.println(player.name + " successfully paid the rent.");
                 }
-            } else if (specialTile.owner == player) {
+            } else {
                 System.out.println(player.name + " is vitising his tile.");
             }
         } else if (currentTile instanceof FateCard) {
@@ -423,7 +423,7 @@ public class DuitRIa {
         SpecialTile specialTile = (SpecialTile) currentTile;
         System.out.println(player.name + " landed on " + specialTile.name);
         if (player.buyProperty) {
-            if (specialTile.owner == null) {
+            if (specialTile.owner == null && !player.hasLoan) {
                 System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
                 String choice = keyboard.nextLine();
                 if (choice.equalsIgnoreCase("Y")) {
@@ -810,6 +810,21 @@ public class DuitRIa {
         System.out.println(player.name + " has declared bankruptcy.");
         player.bankruptcy = true;
         player.propertySellCheck = false;
+        for (Object currentTile : tiles) {
+            if (currentTile instanceof Tile) {
+                Tile propertyTile = (Tile) currentTile;
+                if (propertyTile.owner == player) {
+                    propertyTile.owner = null;
+                    propertyTile.numOfHouse = 0;
+                }
+            }
+            if (currentTile instanceof SpecialTile) {
+                SpecialTile specialTile = (SpecialTile) currentTile;
+                if (specialTile.owner == player) {
+                    specialTile.owner = null;
+                }
+            }
+        }
     }
     private void sortedPlayerTurn() {
         int count = 1;
@@ -856,10 +871,6 @@ public class DuitRIa {
         while (gameRunning) {
             Player currentPlayer = players.get(currentPlayerIndex);
             displayBoard();
-            if (currentPlayer.hasLoan) {
-                currentPlayer.loanPeriodCheck = true;
-                playerLoan(currentPlayer, 0, false);
-            }
             if (currentPlayer.jailCheck) {
                 System.out.print(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000. Press Enter to roll the dice.");
                 keyboard.nextLine();
@@ -907,6 +918,10 @@ public class DuitRIa {
                         gameRunning = false;
                     }
                 }
+            }
+            if (currentPlayer.hasLoan) {
+                currentPlayer.loanPeriodCheck = true;
+                playerLoan(currentPlayer, 0, false);
             }
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
