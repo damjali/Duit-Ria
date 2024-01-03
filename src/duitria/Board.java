@@ -432,6 +432,4 @@ class imagetile{
 
 
 
-=======
-}
->>>>>>> 4fcd2c693e98e62fdc94a0a25d0365f57c9f33b7
+
