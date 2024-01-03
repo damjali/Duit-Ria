@@ -20,6 +20,9 @@ public class Board extends JFrame implements ActionListener {
     
     JButton buttonRoll = new JButton();
     JButton buttonGameRules = new JButton();
+    JButton buttonBuy = new JButton();
+    JButton buttonSell = new JButton();
+    JButton buttonLoan = new JButton();
     
     Board() {
         
@@ -185,6 +188,43 @@ public class Board extends JFrame implements ActionListener {
     panelRoll.add(buttonRoll);
     this.add(panelRoll);
     
+    //Initialize Buy Button
+    JPanel panelBuy = new JPanel();
+    panelBuy.setBounds(700 , 400, 100,50);
+    buttonBuy.setBounds(0 , 0, 100,50);
+    buttonBuy.addActionListener(this);
+    buttonBuy.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
+    panelBuy.setBackground(Color.WHITE);
+    panelBuy.setBorder(border);
+    panelBuy.setLayout(null);
+    panelBuy.add(buttonBuy);
+    panelBoard.add(panelBuy);
+    
+    //Initialize Sell Button
+    JPanel panelSell = new JPanel();
+    panelSell.setBounds(700 , 500, 100,50);
+    buttonSell.setBounds(0 , 0, 100,50);
+    buttonSell.addActionListener(this);
+    buttonSell.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\SELL.png", 100, 50));
+    panelSell.setBackground(Color.WHITE);
+    panelSell.setBorder(border);
+    panelSell.setLayout(null);
+    panelSell.add(buttonSell);
+    panelBoard.add(panelSell);
+    
+    //Initialize Loan Button
+    JPanel panelLoan = new JPanel();
+    panelLoan.setBounds(700 , 600, 100,50);
+    buttonLoan.setBounds(0 , 0, 100,50);
+    buttonLoan.addActionListener(this);
+    buttonLoan.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\LOAN.png", 100, 50));
+    
+    panelLoan.setBackground(Color.WHITE);
+    panelLoan.setBorder(border);
+    panelLoan.setLayout(null);
+    panelLoan.add(buttonLoan);
+    panelBoard.add(panelLoan);
+    
     });
 
     }
@@ -212,22 +252,11 @@ public class Board extends JFrame implements ActionListener {
             this.setBorder(border);
             this.setLayout(null);
 
-            ImageIcon icon = imagetile.getResizedTile(path,76, 158);
+            ImageIcon icon = imageicon.getResizedImage(path,76, 158);
             JLabel labelImage = new JLabel();
             labelImage.setIcon(icon);
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
-            panelBoard.add(this); 
-         });
-     }
-
-     miniTilesUpAndBottom(int a, int b, JPanel panelBoard){
-         SwingUtilities.invokeLater(() -> {
-            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-            this.setBounds(a, b, 76, 158);
-            this.setBackground(Color.WHITE);
-            this.setBorder(border);
-            this.setLayout(null);
             panelBoard.add(this); 
          });
      }
@@ -248,21 +277,11 @@ public class Board extends JFrame implements ActionListener {
             this.setBorder(border);
             this.setLayout(null);
             
-            ImageIcon icon = imagetile.getResizedTile(path,158, 76);
+            ImageIcon icon = imageicon.getResizedImage(path,158, 76);
             JLabel labelImage = new JLabel();
             labelImage.setIcon(icon);
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
-            panelBoard.add(this);
-         });
-     }
-     miniTilesLeftAndRight(int a, int b, JPanel panelBoard){
-         SwingUtilities.invokeLater(() -> {
-            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-            this.setBounds(a, b, 158, 76);
-            this.setBackground(Color.WHITE);
-            this.setBorder(border);
-            this.setLayout(null);
             panelBoard.add(this);
          });
      }
@@ -413,3 +432,6 @@ class imagetile{
 
 
 
+=======
+}
+>>>>>>> 4fcd2c693e98e62fdc94a0a25d0365f57c9f33b7
