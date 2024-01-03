@@ -268,31 +268,112 @@ public class Board extends JFrame implements ActionListener {
      }
 }
 
- class playerCard extends JPanel{
-     
-     playerCard(int a, int b, JFrame frame){
-         SwingUtilities.invokeLater(() -> {
-            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+class playerCard extends JPanel {
+
+    playerCard(int a, int b, JFrame frame) {
+        SwingUtilities.invokeLater(() -> {
+
+            String playerName = "Amir Hensem";
+            double playerLand = 1;
+            double playerMoney = 1000000.72;
+            String playerStatus = "Normal";
+
+            Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBounds(a, b, 375, 175);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
-         });
-     }
 
+            JPanel panelPlayerName = new JPanel();
+            panelPlayerName.setBounds(0, 0, 375, 50); // Set bounds for the panel
+            // panelPlayerName.setBorder(border); // Set a background color for visibility
+            panelPlayerName.setBackground(Color.LIGHT_GRAY);
+            JLabel labelPlayerName = new JLabel();
+            labelPlayerName.setText(playerName);
+            panelPlayerName.setOpaque(false);
+            labelPlayerName.setBounds(10, 10, 370, 38); 
+            labelPlayerName.setFont(new Font("Inter", Font.BOLD, 40));
+            panelPlayerName.add(labelPlayerName);
+            this.add(panelPlayerName);
+
+
+            JPanel panelPlayerDescription = new JPanel();
+            panelPlayerDescription.setBounds(0, 50, 375, 110); // Set bounds for the panel
+            // panelPlayerDescription.setBorder(border); // Set a background color for visibility
+            panelPlayerDescription.setOpaque(false);
+            panelPlayerDescription.setBackground(Color.LIGHT_GRAY);
+            this.add(panelPlayerDescription);
+            JLabel labelPlayerMoney = new JLabel();
+            JLabel labelPlayerLand = new JLabel();
+            JLabel labelPlayerstatus = new JLabel();
+
+            labelPlayerMoney.setText("Money : RM " + playerMoney);
+            labelPlayerMoney.setBounds(5, 5, 375, 36); 
+            labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 30));
+            panelPlayerDescription.add(labelPlayerMoney);
+
+            labelPlayerLand.setText("Land : " + playerLand);
+            labelPlayerLand.setBounds(5, 42, 375, 36); 
+            labelPlayerLand.setFont(new Font("Arial", Font.ITALIC, 30));
+            panelPlayerDescription.add(labelPlayerLand);
+
+            labelPlayerstatus.setText("Status : " + playerStatus);
+            labelPlayerstatus.setBounds(5, 79, 375, 36); 
+            labelPlayerstatus.setFont(new Font("Arial", Font.ITALIC, 30));
+            panelPlayerDescription.add(labelPlayerstatus);
+
+            
+        });
+    }
 }
+
+
+
 
  class playerLogHistory extends JPanel{
      
      playerLogHistory(int a, int b, JFrame frame){
          SwingUtilities.invokeLater(() -> {
+
+            String playerName = "Amir Hensem";
+            String tileNumber = "6";
+            String playerLogHistory = "Paid Rent RM 500 to Ali";
+
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBounds(a, b, 420, 150);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
+
+             JPanel panelPlayerLogMove = new JPanel();
+            panelPlayerLogMove.setBounds(0, 0, 420, 50); // Set bounds for the panel
+            // panelPlayerLogMove.setBorder(border); // Set a background color for visibility
+            panelPlayerLogMove.setBackground(Color.LIGHT_GRAY);
+            JLabel labelPlayerMove = new JLabel();
+            labelPlayerMove.setText(playerName + " Move To Tile " + tileNumber);
+            panelPlayerLogMove.setOpaque(false);
+            labelPlayerMove.setBounds(10, 5, 420, 40); 
+            labelPlayerMove.setFont(new Font("Inter", Font.BOLD, 25));
+            panelPlayerLogMove.add(labelPlayerMove);
+            this.add(panelPlayerLogMove);
+
+
+            JPanel panelPlayerLogDescription = new JPanel();
+            panelPlayerLogDescription.setBounds(0, 50, 420, 99); // Set bounds for the panel
+            // panelPlayerLogDescription.setBorder(border); // Set a background color for visibility
+            panelPlayerLogDescription.setOpaque(false);
+            panelPlayerLogDescription.setBackground(Color.LIGHT_GRAY);
+            this.add(panelPlayerLogDescription);
+            JLabel labelPlayerLogDescription = new JLabel();
+            
+            labelPlayerLogDescription.setText(playerLogHistory);
+            labelPlayerLogDescription.setBounds(10, 5, 410, 36); 
+            labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 20));
+            panelPlayerLogDescription.add(labelPlayerLogDescription);
+
+
          });
      }
 
@@ -329,4 +410,6 @@ class imagetile{
     }
     
 }
+
+
 
