@@ -59,7 +59,7 @@ public class Board extends JFrame implements ActionListener {
     panelFreeParking.setBounds(0, 0, 158, 158);
     panelFreeParking.setBackground(Color.WHITE);
     JLabel labelImageFreeParking = new JLabel();
-    labelImageFreeParking.setIcon(imageicon.getResizedImage("D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\FREE PARKING.png",158,158));
+    labelImageFreeParking.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\FREE PARKING.png",158,158));
     labelImageFreeParking.setBounds(0, 0, 158, 158);
     panelFreeParking.add(labelImageFreeParking);
     panelFreeParking.setBorder(border);
@@ -73,7 +73,7 @@ public class Board extends JFrame implements ActionListener {
     panelGO.setBackground(Color.WHITE);
     panelGO.setBorder(border);
     JLabel labelImageGo = new JLabel();
-    labelImageGo.setIcon(imageicon.getResizedImage("D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\GO.png",158,158));
+    labelImageGo.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\GO.png",158,158));
     labelImageGo.setBounds(0, 0, 158, 158);
     panelGO.add(labelImageGo);
     panelGO.setLayout(null);
@@ -84,7 +84,7 @@ public class Board extends JFrame implements ActionListener {
     panelGoToJail.setBounds(842, 0, 158, 158);
     panelGoToJail.setBackground(Color.WHITE);
     JLabel labelImageGoToJail = new JLabel();
-    labelImageGoToJail.setIcon(imageicon.getResizedImage("D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\GO TO JAIL.png",158,158));
+    labelImageGoToJail.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\GO TO JAIL.png",158,158));
     labelImageGoToJail.setBounds(0, 0, 158, 158);
     panelGoToJail.add(labelImageGoToJail);
     panelGoToJail.setBorder(border);
@@ -96,7 +96,7 @@ public class Board extends JFrame implements ActionListener {
     panelJail.setBounds(0, 842, 158, 158);
     panelJail.setBackground(Color.WHITE);
     JLabel labelImageJail = new JLabel();
-    labelImageJail.setIcon(imageicon.getResizedImage("D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\JAIL.png",158,158));
+    labelImageJail.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\JAIL.png",158,158));
     labelImageJail.setBounds(0, 0, 158, 158);
     panelJail.add(labelImageJail);
     panelJail.setBorder(border);
@@ -105,25 +105,25 @@ public class Board extends JFrame implements ActionListener {
     
     
     
-   miniTilesUpAndBottom tile22 = new miniTilesUpAndBottom(766,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png");
-   miniTilesUpAndBottom tile21 = new miniTilesUpAndBottom(690,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png");
-   miniTilesUpAndBottom tile20 = new miniTilesUpAndBottom(614,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png");
-   miniTilesUpAndBottom tile19 = new miniTilesUpAndBottom(538,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png");
-   miniTilesUpAndBottom tile18 = new miniTilesUpAndBottom(462,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\18 KL SENTRAL STATION.png");
-   miniTilesUpAndBottom tile17 = new miniTilesUpAndBottom(386,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\17 GENTING HIGHLAND.png");
-   miniTilesUpAndBottom tile16 = new miniTilesUpAndBottom(310,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\16 CAMERON HIGHLANDS.png");
-   miniTilesUpAndBottom fate4 = new miniTilesUpAndBottom(234,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\FATE INVERTED.png");
-   miniTilesUpAndBottom tile15 = new miniTilesUpAndBottom(158,0, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\15 FRASER'S HILL.png");
+   miniTilesUpAndBottom tile22 = new miniTilesUpAndBottom(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png");
+   miniTilesUpAndBottom tile21 = new miniTilesUpAndBottom(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png");
+   miniTilesUpAndBottom tile20 = new miniTilesUpAndBottom(614,0, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png");
+   miniTilesUpAndBottom tile19 = new miniTilesUpAndBottom(538,0, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png");
+   miniTilesUpAndBottom tile18 = new miniTilesUpAndBottom(462,0, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png");
+   miniTilesUpAndBottom tile17 = new miniTilesUpAndBottom(386,0, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png");
+   miniTilesUpAndBottom tile16 = new miniTilesUpAndBottom(310,0, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png");
+   miniTilesUpAndBottom fate4 = new miniTilesUpAndBottom(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png");
+   miniTilesUpAndBottom tile15 = new miniTilesUpAndBottom(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png");
     
-    miniTilesUpAndBottom tile1 = new miniTilesUpAndBottom(766,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\1 PETALING STREET.png");
-   miniTilesUpAndBottom fate1 = new miniTilesUpAndBottom(690,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\FATE NORMAL.png");
-   miniTilesUpAndBottom tile2 = new miniTilesUpAndBottom(614,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\2 JONKER STREET.png");
-   miniTilesUpAndBottom tax = new miniTilesUpAndBottom(538,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\TAX.png");
-   miniTilesUpAndBottom tile3 = new miniTilesUpAndBottom(462,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\3 KLIA.png");
-   miniTilesUpAndBottom tile4 = new miniTilesUpAndBottom(386,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\4 MASJID JAMEK.png");
-   miniTilesUpAndBottom fate2 = new miniTilesUpAndBottom(310,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\FATE NORMAL.png");
-   miniTilesUpAndBottom tile5 = new miniTilesUpAndBottom(234,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\5 BATU CAVES.png");
-   miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png");
+    miniTilesUpAndBottom tile1 = new miniTilesUpAndBottom(766,842, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png");
+   miniTilesUpAndBottom fate1 = new miniTilesUpAndBottom(690,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
+   miniTilesUpAndBottom tile2 = new miniTilesUpAndBottom(614,842, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png");
+   miniTilesUpAndBottom tax = new miniTilesUpAndBottom(538,842, panelBoard,"src\\duitria.tiles\\TAX.png");
+   miniTilesUpAndBottom tile3 = new miniTilesUpAndBottom(462,842, panelBoard,"src\\duitria.tiles\\3 KLIA.png");
+   miniTilesUpAndBottom tile4 = new miniTilesUpAndBottom(386,842, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png");
+   miniTilesUpAndBottom fate2 = new miniTilesUpAndBottom(310,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
+   miniTilesUpAndBottom tile5 = new miniTilesUpAndBottom(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png");
+   miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png");
 
     miniTilesLeftAndRight tile7 = new miniTilesLeftAndRight(0,766, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\7 NATIONAL MUSEUM.png");
     miniTilesLeftAndRight tile8 = new miniTilesLeftAndRight(0,690, panelBoard,"D:\\JAVA PROJECTS\\DuitRIA\\src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png");
