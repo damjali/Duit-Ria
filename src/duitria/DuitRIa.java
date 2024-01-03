@@ -43,10 +43,10 @@ public class DuitRIa {
         tiles.add(new Tile("Batu Caves",1000000 ,100000 ,"Blue"));
         tiles.add(new Tile("Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
         tiles.add(new Jail("Jail"));
-        tiles.add(new Tile("National Museum",1400000 ,140000 ,"Brown"));
+        tiles.add(new Tile("National Museum",1400000 ,140000 ,"Maroon"));
         tiles.add(new Tile("Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
-        tiles.add(new Tile("Royal Palace",1400000 ,140000 ,"Brown"));
-        tiles.add(new Tile("Merdeka Square",1400000 ,140000 ,"Brown"));
+        tiles.add(new Tile("Royal Palace",1400000 ,140000 ,"Maroon"));
+        tiles.add(new Tile("Merdeka Square",1400000 ,140000 ,"Maroon"));
         tiles.add(new SpecialTile("KLIA 2",2000000 ,200000));
         tiles.add(new Tile("A'Famosa Resort",1700000 ,170000, "Light Blue"));
         tiles.add(new FateCard("Fate Card"));
@@ -150,7 +150,7 @@ public class DuitRIa {
                         if (colourCount == 2)
                             doubleRent = true;
                         break;
-                    case "Blue", "Brown", "Light Blue", "Purple", "Orange", "Red":
+                    case "Blue", "Maroon", "Light Blue", "Purple", "Orange", "Red":
                         if (colourCount == 3)
                             doubleRent = true;
                         break;
