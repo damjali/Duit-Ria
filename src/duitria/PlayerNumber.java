@@ -94,17 +94,17 @@ public class PlayerNumber extends JFrame implements ActionListener {
 }
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==button2Player){
-            PlayerSelectIcon playerselecticon = new PlayerSelectIcon();
+            PlayerSelectIcon2 playerselecticon2 = new PlayerSelectIcon2();
             this.dispose();
         }
         
         if(e.getSource()==button3Player){
-            PlayerSelectIcon playerselecticon = new PlayerSelectIcon();
+            PlayerSelectIcon3 playerselecticon3 = new PlayerSelectIcon3();
             this.dispose();
         }
 
         if(e.getSource()==button4Player){
-            PlayerSelectIcon playerselecticon = new PlayerSelectIcon();
+            PlayerSelectIcon4 playerselecticon4 = new PlayerSelectIcon4();
             this.dispose();
         }
     }

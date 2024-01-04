@@ -7,9 +7,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.SwingUtilities;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,13 +22,25 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 
-public class PlayerSelectIcon extends JFrame implements ActionListener {
+public class PlayerSelectIcon4 extends JFrame implements ActionListener {
 
 
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
 
-    PlayerSelectIcon (){
+
+    String player1;
+    String player2;
+    String player3;
+    String player4;
+
+    playerIcons playerIcon1;
+    playerIcons playerIcon2;
+    playerIcons playerIcon3;
+    playerIcons playerIcon4;
+
+
+    PlayerSelectIcon4 (){
 
     SwingUtilities.invokeLater(() -> {
         
@@ -52,15 +66,11 @@ public class PlayerSelectIcon extends JFrame implements ActionListener {
      panelBackground.add(buttonStart);
 
      
-     playerIcons playerIcon1 = new playerIcons(40, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
-     playerIcons playerIcon2 = new playerIcons(347, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
-     playerIcons playerIcon3 = new playerIcons(654, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-monopoly-png-2578492.png");
-     playerIcons playerIcon4 = new playerIcons(960, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-top-hat-png-565056.png");
+     playerIcon1 = new playerIcons(40, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
+     playerIcon2 = new playerIcons(347, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
+     playerIcon3 = new playerIcons(654, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-monopoly-png-2578492.png");
+     playerIcon4 = new playerIcons(960, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-top-hat-png-565056.png");
 
-    PlayerName player1 = new PlayerName(playerIcon1);
-    PlayerName player2 = new PlayerName(playerIcon2);
-    PlayerName player3 = new PlayerName(playerIcon3);
-    PlayerName player4 = new PlayerName(playerIcon4);
 
      
 
@@ -72,8 +82,14 @@ public class PlayerSelectIcon extends JFrame implements ActionListener {
 
 public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
+
         Board board = new Board();
         this.dispose();
+        player1 = playerIcon1.playerNameTextField.getText();
+        player2 = playerIcon2.playerNameTextField.getText();
+        player3 = playerIcon3.playerNameTextField.getText();
+        player4 = playerIcon4.playerNameTextField.getText();
+        board.setName(player1, player2, player3, player4);
     }
     
     
@@ -105,7 +121,10 @@ class imageicon{
 
 class playerIcons extends JPanel{
 
-    playerIcons(int x, int y, JPanel panelBackground, String path){
+        JTextField playerNameTextField = new JTextField();
+
+playerIcons(int x, int y, JPanel panelBackground, String path){
+        SwingUtilities.invokeLater(() -> {
         this.setBackground(new Color(217,217,217));
         this.setBounds(x, y, 266, 500);
         this.setLayout(null);
@@ -114,6 +133,8 @@ class playerIcons extends JPanel{
 
         JLabel labelToken = new JLabel();
         JPanel panelImage = new JPanel();
+        JPanel panelPlayerName = new JPanel();
+
         panelImage.setBackground(new Color(143,143,143));
         panelImage.setBounds(6, 7, 253, 433);
         labelToken.setIcon(imageicon.getResizedImage(path, 253, 253));
@@ -123,19 +144,23 @@ class playerIcons extends JPanel{
         this.add(panelImage);
         panelImage.setBorder(border);
 
+        panelPlayerName.setBounds(6, 447, 253, 48);
+        panelPlayerName.setBorder(border);
+        panelPlayerName.setLayout(null);
+        this.playerNameTextField.setBounds(0, 0, 253, 48);
+        this.playerNameTextField.setPreferredSize(new Dimension(253,48));
+        this.playerNameTextField.setFont(new Font("Arial", Font.BOLD, 30));
+        this.playerNameTextField.setBorder(border);
+        panelPlayerName.add(this.playerNameTextField);
+        this.add(panelPlayerName);
+    
 
+
+        });
     }
 }
 
-class PlayerName extends JPanel{
 
-    PlayerName(playerIcons playericon){
-     this.setBounds(6, 447, 253, 48);
-     this.setBorder(border);
-     playericon.add(this);
-
-    }
-}
 
 
 }
