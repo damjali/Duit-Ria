@@ -50,7 +50,8 @@ public class Board extends JFrame implements ActionListener {
 //    
     //frame.getContentPane().setBackground(new Color(225,0,0));
     JPanel panelBoard = new JPanel();
-    panelBoard.setBackground(new Color(0xA3FF9B));
+//    panelBoard.setBackground(new Color(0xA3FF9B));
+panelBoard.setBackground(Color.BLACK);
     panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
     this.add(panelBoard);
     panelBoard.setLayout(null);
@@ -105,6 +106,19 @@ public class Board extends JFrame implements ActionListener {
     panelJail.setBorder(border);
     panelJail.setLayout(null);
     panelBoard.add(panelJail);
+    
+    //For Default Tile
+    JPanel panelDefault = new JPanel();
+    panelDefault.setBounds(386, 263, 228, 474);
+    panelDefault.setBackground(Color.WHITE);
+    JLabel labelImageDefault = new JLabel();
+    labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\1 PETALING STREET.png",228,474));
+//    labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\0 DEFAULT CURRENT TILE.png",228,474));
+    labelImageDefault.setBounds(0, 0, 228, 474);
+    panelDefault.add(labelImageDefault);
+    panelDefault.setBorder(border);
+    panelDefault.setLayout(null);
+    panelBoard.add(panelDefault);
     
     
     
@@ -190,7 +204,7 @@ public class Board extends JFrame implements ActionListener {
     
     //Initialize Buy Button
     JPanel panelBuy = new JPanel();
-    panelBuy.setBounds(700 , 400, 100,50);
+    panelBuy.setBounds(700 , 375, 100,50);
     buttonBuy.setBounds(0 , 0, 100,50);
     buttonBuy.addActionListener(this);
     buttonBuy.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
@@ -202,7 +216,7 @@ public class Board extends JFrame implements ActionListener {
     
     //Initialize Sell Button
     JPanel panelSell = new JPanel();
-    panelSell.setBounds(700 , 500, 100,50);
+    panelSell.setBounds(700 , 475, 100,50);
     buttonSell.setBounds(0 , 0, 100,50);
     buttonSell.addActionListener(this);
     buttonSell.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\SELL.png", 100, 50));
@@ -214,11 +228,10 @@ public class Board extends JFrame implements ActionListener {
     
     //Initialize Loan Button
     JPanel panelLoan = new JPanel();
-    panelLoan.setBounds(700 , 600, 100,50);
+    panelLoan.setBounds(700 , 575, 100,50);
     buttonLoan.setBounds(0 , 0, 100,50);
     buttonLoan.addActionListener(this);
     buttonLoan.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\LOAN.png", 100, 50));
-    
     panelLoan.setBackground(Color.WHITE);
     panelLoan.setBorder(border);
     panelLoan.setLayout(null);
