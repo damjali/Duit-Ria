@@ -15,6 +15,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.*;
+import java.util.*;
 
 public class Board extends JFrame implements ActionListener {
     
@@ -31,16 +33,51 @@ public class Board extends JFrame implements ActionListener {
 
     int playerNum;
     
+    private List<Player> players;
+    private List<Object> tiles;
+    private int currentPlayerIndex;
+    private Scanner keyboard;
+    private Random rand;
+
     public void setName(String name1, String name2, String name3, String name4){
         playerName1 = name1;
         playerName2 = name2;
         playerName3 = name3;
         playerName4 = name4;
     }
+
+    private void initializePlayers(int playerNum) {
+        players = new ArrayList<>();
+        players.add(new Player(playerName1));
+        players.add(new Player(playerName2));
+        players.add(new Player(playerName3));
+        players.add(new Player(playerName4));
+    }
+
+    private void sortedPlayerTurn() {
+        int count = 1;
+        Map<String, Integer> playerTurn = new HashMap<>();
+        Set<Integer> uniqueDiceRoll = new HashSet<>();
+        for (Player player : players) {
+            int diceRoll1, diceRoll2;
+            do {
+                diceRoll1 = rand.nextInt(6) + 1;
+                diceRoll2 = rand.nextInt(6) + 1;
+            } while (uniqueDiceRoll.contains(diceRoll1 + diceRoll2));
+            player.diceRoll = diceRoll1 + diceRoll2;
+            uniqueDiceRoll.add(diceRoll1 + diceRoll2);
+            playerTurn.put(player.name,diceRoll1 + diceRoll2);
+        }
+        players.sort(Comparator.comparingInt(player -> playerTurn.get(player.name)));
+        for(Player player : players) {
+            System.out.println("Player " + count + " is " + player.name + ".");
+            count++;
+        }
+    }
+
     
-    
+
     Board() {
-        
         
     SwingUtilities.invokeLater(() -> {
 
@@ -265,10 +302,16 @@ public class Board extends JFrame implements ActionListener {
 
 }
 
- class miniTilesUpAndBottom extends JPanel{ 
-     
-     miniTilesUpAndBottom(int a, int b, JPanel panelBoard, String path){
-         SwingUtilities.invokeLater(() -> {
+ class miniTilesUpAndBottom extends JPanel{
+    String name;        // tile's name
+    int cost;           // tile's cost
+    int baseRent;       // tile's base rent
+    String tileColour;  // tile's colour group
+    Player owner;       // tile's ownership (based on player's reference)
+    int houseCost;      // tile's housecost
+    int numOfHouse;     // tile's number of houses built
+    miniTilesUpAndBottom(int a, int b, JPanel panelBoard, String path){
+        SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBounds(a, b, 76, 158);
             this.setBackground(Color.WHITE);
@@ -281,8 +324,8 @@ public class Board extends JFrame implements ActionListener {
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
             panelBoard.add(this); 
-         });
-     }
+        });
+    }
      
 
     private void setIcon(ImageIcon icon) {
