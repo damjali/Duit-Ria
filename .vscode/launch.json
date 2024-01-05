@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "GameStart",
             "request": "launch",
             "mainClass": "duitria.GameStart",
@@ -55,12 +56,15 @@
         },
         {
             "type": "java",
+=======
+>>>>>>> origin/master
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
         },
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "DuitRIa",
             "request": "launch",
             "mainClass": "duitria.DuitRIa",
@@ -73,6 +77,26 @@
             "mainClass": "duitria.JavaFX$SimpleWindow",
             "projectName": "Duit-Ria_a610233a",
             "vmArgs": "--module-path C:/Users/Adam Razali/Desktop/Coding/javafx-sdk-21.0.1/lib/ --add-modules javafx.controls,javafx.fxml"
+=======
+            "name": "DuitRiaTest",
+            "request": "launch",
+            "mainClass": "duitria.DuitRiaTest",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "duitria.Main",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "testGround",
+            "request": "launch",
+            "mainClass": "duitria.testGround",
+            "projectName": "Duit-Ria_93bca6c7"
+>>>>>>> origin/master
         }
     ]
 }
