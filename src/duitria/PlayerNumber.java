@@ -108,7 +108,7 @@ public class PlayerNumber extends JFrame implements ActionListener {
 
         if(e.getSource()==button4Player){
             PlayerSelectIcon4 playerselecticon4 = new PlayerSelectIcon4();
-            playerNum=4;
+            playerNum = 4;
             this.dispose();
             
         }
