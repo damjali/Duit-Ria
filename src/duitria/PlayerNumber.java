@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 public class PlayerNumber extends JFrame implements ActionListener {
 
-  
+    static int playerNum;
     
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton button2Player = new JButton();
@@ -95,17 +95,22 @@ public class PlayerNumber extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==button2Player){
             PlayerSelectIcon2 playerselecticon2 = new PlayerSelectIcon2();
+            playerNum = 2;
             this.dispose();
         }
         
         if(e.getSource()==button3Player){
             PlayerSelectIcon3 playerselecticon3 = new PlayerSelectIcon3();
+            playerNum = 3;
             this.dispose();
+            
         }
 
         if(e.getSource()==button4Player){
             PlayerSelectIcon4 playerselecticon4 = new PlayerSelectIcon4();
+            playerNum=4;
             this.dispose();
+            
         }
     }
 

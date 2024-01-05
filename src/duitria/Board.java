@@ -29,6 +29,8 @@ public class Board extends JFrame implements ActionListener {
     String playerName3;
     String playerName4;
 
+    int playerNum;
+
     public void setName(String name1, String name2, String name3, String name4){
         playerName1 = name1;
         playerName2 = name2;
@@ -41,15 +43,18 @@ public class Board extends JFrame implements ActionListener {
         
         
     SwingUtilities.invokeLater(() -> {
-    //Creating Frame
+
+    playerNum = PlayerNumber.playerNum;
+   
+    
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    this.setVisible(true); //make frame visible
-    this.setSize(1920,1080); //set width and height
-    this.setTitle("DuitRIA"); //change the title
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit when close
-    this.setResizable(false); //prevents frame from being resized
-    ImageIcon image = new ImageIcon("logo.png"); //create an image icon
-    this.setIconImage(image.getImage()); //set the icon image to image
+    this.setVisible(true); 
+    this.setSize(1920,1080); 
+    this.setTitle("DuitRIA"); 
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+    this.setResizable(false); 
+    ImageIcon image = new ImageIcon("logo.png");
+    this.setIconImage(image.getImage()); 
     this.getContentPane().setBackground(new Color (1, 50, 32));
     this.setLayout(null);
     
@@ -245,6 +250,8 @@ panelBoard.setBackground(Color.BLACK);
     });
 
     }
+
+
     
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==buttonRoll){
