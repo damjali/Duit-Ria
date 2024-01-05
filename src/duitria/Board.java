@@ -43,10 +43,10 @@ public class Board extends JFrame implements ActionListener {
         
         
     SwingUtilities.invokeLater(() -> {
-
+    Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     playerNum = PlayerNumber.playerNum;
     
-    z
+    
     this.setVisible(true); 
     this.setSize(1920,1080); 
     this.setTitle("DuitRIA"); 
