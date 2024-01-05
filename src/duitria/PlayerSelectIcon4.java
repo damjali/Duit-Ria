@@ -87,7 +87,7 @@ public void actionPerformed(ActionEvent e){
         player2 = playerIcon2.playerNameTextField.getText();
         player3 = playerIcon3.playerNameTextField.getText();
         player4 = playerIcon4.playerNameTextField.getText();
-        board.initializePlayers(player1, player2, player3, player4);
+        board.setName(player1, player2, player3, player4);
     }
     
     

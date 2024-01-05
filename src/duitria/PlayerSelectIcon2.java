@@ -78,7 +78,7 @@ public void actionPerformed(ActionEvent e){
         this.dispose();
         player1 = playerIcon1.playerNameTextField.getText();
         player2 = playerIcon2.playerNameTextField.getText();
-        board.initializePlayers(player1, player2, null, null);
+        board.setName(player1, player2, null, null);
     }
 }
 

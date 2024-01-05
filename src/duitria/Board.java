@@ -100,7 +100,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileUpAndBottom(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", "Batu Caves",1000000 ,100000 ,"Blue"));
         tiles.add(new TileUpAndBottom(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
         // bottom left
-        tiles.add(new JailUpAndBottom("Jail"));
+        tiles.add(new Jail("Jail"));
         // left tile
         tiles.add(new TileLeftAndRight(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", "National Museum",1400000 ,140000 ,"Maroon"));
         tiles.add(new TileLeftAndRight(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", "Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
@@ -112,7 +112,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileLeftAndRight(0,234, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", "Kellie Castle",1800000 ,180000, "Light Blue"));
         tiles.add(new TileLeftAndRight(0,158, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", "Stadthuys",2000000 ,200000, "Light Blue"));
         // top left
-        tiles.add(new FreeParkingLeftAndRight("Free Parking"));
+        tiles.add(new FreeParking("Free Parking"));
         // up tile
         tiles.add(new TileUpAndBottom(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", "Fraser's Hill",2200000 ,220000, "Purple"));
         tiles.add(new FateCardUpAndBottom(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", "Fate Card"));
@@ -124,7 +124,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileUpAndBottom(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
         tiles.add(new TileUpAndBottom(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 600000 ,270000 ,"Orange"));
         // top right
-        tiles.add(new GoToJailUpAndBottom("Go To Jail"));
+        tiles.add(new GoToJail("Go To Jail"));
         // right tile
         tiles.add(new TileLeftAndRight(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", "Tioman Islands",3000000 ,300000 ,"Red"));
         tiles.add(new TileLeftAndRight(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", "Perhentian Islands",3000000 ,300000 ,"Red"));
@@ -137,6 +137,70 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileLeftAndRight(842,766, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow"));
     }
     
+    void playGame() {
+        int diceRoll1, diceRoll2, diceRoll;
+        keyboard = new Scanner(System.in);
+        boolean gameRunning = true;
+        while (gameRunning) {
+            Player currentPlayer = players.get(currentPlayerIndex);
+            displayBoard();
+            if (currentPlayer.jailCheck) {
+                System.out.print(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000. Press Enter to roll the dice.");
+                keyboard.nextLine();
+                diceRoll1 = rand.nextInt(6) + 1;
+                diceRoll2 = rand.nextInt(6) + 1;
+                if (diceRoll1 == diceRoll2) {
+                    System.out.println(currentPlayer.name + " managed to roll a double of " + diceRoll1 + "!");
+                    currentPlayer.jailCheck = false;
+                    diceRoll = diceRoll1 + diceRoll2;
+                    currentPlayer.position += diceRoll;
+                    playerTurn(currentPlayer, diceRoll);
+                } else {
+                    System.out.println("Sorry " + currentPlayer.name + ", you rolled a " + diceRoll1 + " and " + diceRoll2 + ", you have to pay RM250,000.");
+                    if (250000 >= currentPlayer.money) {
+                        sellingProperties(currentPlayer, 250000, true, false, null);
+                        if (!currentPlayer.bankruptcy) {
+                            System.out.println(currentPlayer.name + " successfully paid the jail fines.");
+                            currentPlayer.money -= 250000;
+                            currentPlayer.jailCheck = false;
+                        }
+                    } else {
+                        System.out.println(currentPlayer.name + " successfully paid the jail fines.");
+                        currentPlayer.money -= 250000;
+                        currentPlayer.jailCheck = false;
+                    }
+                    diceRoll = diceRoll1 + diceRoll2;
+                    currentPlayer.position += diceRoll;
+                    playerTurn(currentPlayer, diceRoll);
+                }
+            } else if (currentPlayer.bankruptcy) {
+                int count = 0;
+                System.out.println(currentPlayer.name + " has already declared bankrupty.");
+                for (Player player : players) {
+                    if (!player.bankruptcy)
+                        count++;
+                }
+                System.out.println(count + " more player remaining in the game.");
+            } else {
+                playerTurn(currentPlayer,0);
+            }
+            if (onePlayerLeft() == 1) {
+                for (Player player : players) {
+                    if (!player.bankruptcy) {
+                        System.out.println(player.name + " wins!");
+                        gameRunning = false;
+                    }
+                }
+            }
+            if (currentPlayer.hasLoan) {
+                currentPlayer.loanPeriodCheck = true;
+                playerLoan(currentPlayer, 0, false);
+            }
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        }
+        System.out.println("DuitRia has come to an end, thanks for playing!");
+    }
+
     Board() {
         
     SwingUtilities.invokeLater(() -> {
@@ -224,14 +288,6 @@ public class Board extends JFrame implements ActionListener {
     panelDefault.setBorder(border);
     panelDefault.setLayout(null);
     panelBoard.add(panelDefault);
-    
-    keyboard = new Scanner(System.in);
-    players = new ArrayList<>();
-    tiles = new ArrayList<>();
-    rand = new Random();
-    initializePlayers(playerNum);
-    sortedPlayerTurn();
-    initializeTile(panelBoard);
     
     miniTilesUpAndBottom tile22 = new miniTilesUpAndBottom(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png");
     miniTilesUpAndBottom tile21 = new miniTilesUpAndBottom(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png");
@@ -348,6 +404,14 @@ public class Board extends JFrame implements ActionListener {
     panelLoan.setLayout(null);
     panelLoan.add(buttonLoan);
     panelBoard.add(panelLoan);
+    
+    keyboard = new Scanner(System.in);
+    players = new ArrayList<>();
+    tiles = new ArrayList<>();
+    rand = new Random();
+    initializePlayers(playerNum);
+    sortedPlayerTurn();
+    initializeTile(panelBoard);
     
     });
 
