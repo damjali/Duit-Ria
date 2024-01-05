@@ -8,8 +8,8 @@ public class Main {
         System.setProperty("sun.java2d.uiScale", "1.0");
         HomeScreenGUI homescreengui = new HomeScreenGUI();
         //hello bro
-        DuitRIa game = new DuitRIa();
-        game.playGame();
+        // DuitRIa game = new DuitRIa();
+        // game.playGame();
     
 }
 }
