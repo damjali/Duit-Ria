@@ -47,7 +47,7 @@ public class Board extends JFrame implements ActionListener {
     playerNum = PlayerNumber.playerNum;
    
     
-    Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+    z
     this.setVisible(true); 
     this.setSize(1920,1080); 
     this.setTitle("DuitRIA"); 
