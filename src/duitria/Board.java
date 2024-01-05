@@ -47,11 +47,22 @@ public class Board extends JFrame implements ActionListener {
     }
 
     private void initializePlayers(int playerNum) {
-        players = new ArrayList<>();
-        players.add(new Player(playerName1));
-        players.add(new Player(playerName2));
-        players.add(new Player(playerName3));
-        players.add(new Player(playerName4));
+        switch (playerNum) {
+            case 2:
+            players.add(new Player(playerName1));
+            players.add(new Player(playerName2));
+            break;
+            case 3:
+            players.add(new Player(playerName1));
+            players.add(new Player(playerName2));
+            players.add(new Player(playerName3));
+            break;
+            default:
+            players.add(new Player(playerName1));
+            players.add(new Player(playerName2));
+            players.add(new Player(playerName3));
+            players.add(new Player(playerName4));
+        }
     }
 
     private void sortedPlayerTurn() {
@@ -74,16 +85,24 @@ public class Board extends JFrame implements ActionListener {
             count++;
         }
     }
-
     
+    private void initializeTile() {
 
+    }
     Board() {
         
     SwingUtilities.invokeLater(() -> {
+    keyboard = new Scanner(System.in);
+    players = new ArrayList<>();
+    tiles = new ArrayList<>();
+    rand = new Random();
+    initializePlayers(playerNum);
+    sortedPlayerTurn();
+    initializeTile();
 
     playerNum = PlayerNumber.playerNum;
     
-    
+    Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     this.setVisible(true); 
     this.setSize(1920,1080); 
     this.setTitle("DuitRIA"); 
@@ -165,7 +184,50 @@ public class Board extends JFrame implements ActionListener {
     panelDefault.setLayout(null);
     panelBoard.add(panelDefault);
     
-    
+    tiles.add(new Go("Go",2000000));
+    // bottom tile
+    tiles.add(new TileUpAndBottom(766, 842, panelBoard, "src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green"));
+    tiles.add(new FateCardUpAndBottom(690, 842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate"));
+    tiles.add(new TileUpAndBottom(614,842, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", "Jonker Street",600000 ,60000 ,"Green"));
+    tiles.add(new TaxUpAndBottom(538,842, panelBoard,"src\\duitria.tiles\\TAX.png", "Tax",2000000 ));
+    tiles.add(new SpecialTileUpAndBottom("KLIA",2000000 ,200000));
+    tiles.add(new TileUpAndBottom("Masjid Jamek",1000000 ,100000 ,"Blue"));
+    tiles.add(new FateCardUpAndBottom("Fate Card"));
+    tiles.add(new TileUpAndBottom("Batu Caves",1000000 ,100000 ,"Blue"));
+    tiles.add(new TileUpAndBottom("Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
+    tiles.add(new JailUpAndBottom("Jail"));
+    // left tile
+    tiles.add(new TileLeftAndRight("National Museum",1400000 ,140000 ,"Maroon"));
+    tiles.add(new TileLeftAndRight("Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
+    tiles.add(new TileLeftAndRight("Royal Palace",1400000 ,140000 ,"Maroon"));
+    tiles.add(new TileLeftAndRight("Merdeka Square",1400000 ,140000 ,"Maroon"));
+    tiles.add(new SpecialTileLeftAndRight("KLIA 2",2000000 ,200000));
+    tiles.add(new TileLeftAndRight("A'Famosa Resort",1700000 ,170000, "Light Blue"));
+    tiles.add(new FateCardLeftAndRight("Fate Card"));
+    tiles.add(new TileLeftAndRight("Kellie Castle",1800000 ,180000, "Light Blue"));
+    tiles.add(new TileLeftAndRight("Stadthuys",2000000 ,200000, "Light Blue"));
+    tiles.add(new FreeParkingLeftAndRight("Free Parking"));
+    // up tile
+    tiles.add(new TileUpAndBottom("Fraser's Hill",2200000 ,220000, "Purple"));
+    tiles.add(new FateCardUpAndBottom("Fate Card"));
+    tiles.add(new TileUpAndBottom("Cameron Highlands",2200000 ,220000, "Purple"));
+    tiles.add(new TileUpAndBottom("Genting Highland",2400000 ,240000, "Purple"));
+    tiles.add(new SpecialTileUpAndBottom("KL Sentral Station",2000000 ,200000));
+    tiles.add(new TileUpAndBottom("Pahang National Park",2600000 ,260000 ,"Orange"));
+    tiles.add(new TileUpAndBottom("Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
+    tiles.add(new TileUpAndBottom("Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
+    tiles.add(new TileUpAndBottom("Kinabalu National Park", 600000 ,270000 ,"Orange"));
+    tiles.add(new GoToJailUpAndBottom("Go To Jail"));
+    // right tile
+    tiles.add(new TileLeftAndRight("Tioman Islands",3000000 ,300000 ,"Red"));
+    tiles.add(new TileLeftAndRight("Perhentian Islands",3000000 ,300000 ,"Red"));
+    tiles.add(new FateCardLeftAndRight("Fate Card"));
+    tiles.add(new TileLeftAndRight("Sepadan Islands",3200000 ,320000 ,"Red"));
+    tiles.add(new SpecialTileLeftAndRight("Pudu Sentral Station",2000000 ,200000));
+    tiles.add(new FateCardLeftAndRight("Fate Card"));
+    tiles.add(new TileLeftAndRight("KLCC",3500000 ,350000, "Yellow"));
+    tiles.add(new TaxLeftAndRight("Tax",2000000));
+    tiles.add(new TileLeftAndRight("Sepang II Circuit",4000000 ,400000, "Yellow"));
     
     miniTilesUpAndBottom tile22 = new miniTilesUpAndBottom(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png");
     miniTilesUpAndBottom tile21 = new miniTilesUpAndBottom(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png");
@@ -302,14 +364,7 @@ public class Board extends JFrame implements ActionListener {
 
 }
 
- class miniTilesUpAndBottom extends JPanel{
-    String name;        // tile's name
-    int cost;           // tile's cost
-    int baseRent;       // tile's base rent
-    String tileColour;  // tile's colour group
-    Player owner;       // tile's ownership (based on player's reference)
-    int houseCost;      // tile's housecost
-    int numOfHouse;     // tile's number of houses built
+class miniTilesUpAndBottom extends JPanel{
     miniTilesUpAndBottom(int a, int b, JPanel panelBoard, String path){
         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
@@ -333,6 +388,104 @@ public class Board extends JFrame implements ActionListener {
     }
 }
 
+class TileUpAndBottom extends miniTilesUpAndBottom {
+    String name;        // tile's name
+    int cost;           // tile's cost
+    int baseRent;       // tile's base rent
+    String tileColour;  // tile's colour group
+    Player owner;       // tile's ownership (based on player's reference)
+    int houseCost;      // tile's housecost
+    int numOfHouse;     // tile's number of houses built
+    TileUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.tileColour = tileColour;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
+    }
+    public int calculateRent(Boolean doubleRent) {
+        int calculatedRent = 0;
+        if (doubleRent)
+            calculatedRent += baseRent;
+        if (numOfHouse == 0)
+            calculatedRent += baseRent;
+        else if (numOfHouse == 1)
+            calculatedRent += (baseRent * 2);
+        else if (numOfHouse >= 2 && numOfHouse <= 4)
+            calculatedRent += ((baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1))));
+        return calculatedRent;
+    }
+}
+
+class SpecialTileUpAndBottom extends miniTilesUpAndBottom {
+    String name;    // special tile's name
+    int cost;       // special tile's cost
+    int baseRent;   // special tile's base rent
+    Player owner;   // special tile's ownership (based on player's reference)
+    SpecialTileUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        owner = null;
+    }
+}
+
+class TaxUpAndBottom extends miniTilesUpAndBottom {
+    String name;    // tax's tile name
+    int cost;       // tax's cost
+    TaxUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int cost) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+    }
+}
+
+class GoUpAndBottom extends miniTilesUpAndBottom {
+    String name;    // go tile's name
+    int payment;    // go tile's payment
+    GoUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int payment) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.payment = payment;
+    }
+}
+
+class FateCardUpAndBottom extends miniTilesUpAndBottom {
+    String name;    // fatecard tile's name
+    FateCardUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
+class FreeParkingUpAndBottom extends miniTilesUpAndBottom {
+    String name;    //free parking tile's name
+    FreeParkingUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
+class JailUpAndBottom extends miniTilesUpAndBottom {
+    String name;    // jail tile's name
+    JailUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
+class GoToJailUpAndBottom extends miniTilesUpAndBottom {
+    String name;    // go to jail tile's name
+    GoToJailUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
  class miniTilesLeftAndRight extends JPanel{
      
      miniTilesLeftAndRight(int a, int b, JPanel panelBoard, String path){
@@ -353,6 +506,103 @@ public class Board extends JFrame implements ActionListener {
      }
 }
 
+class TileLeftAndRight extends miniTilesLeftAndRight {
+    String name;        // tile's name
+    int cost;           // tile's cost
+    int baseRent;       // tile's base rent
+    String tileColour;  // tile's colour group
+    Player owner;       // tile's ownership (based on player's reference)
+    int houseCost;      // tile's housecost
+    int numOfHouse;     // tile's number of houses built
+    TileLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.tileColour = tileColour;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
+    }
+    public int calculateRent(Boolean doubleRent) {
+        int calculatedRent = 0;
+        if (doubleRent)
+            calculatedRent += baseRent;
+        if (numOfHouse == 0)
+            calculatedRent += baseRent;
+        else if (numOfHouse == 1)
+            calculatedRent += (baseRent * 2);
+        else if (numOfHouse >= 2 && numOfHouse <= 4)
+            calculatedRent += ((baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1))));
+        return calculatedRent;
+    }
+}
+
+class SpecialTileLeftAndRight extends miniTilesLeftAndRight {
+    String name;    // special tile's name
+    int cost;       // special tile's cost
+    int baseRent;   // special tile's base rent
+    Player owner;   // special tile's ownership (based on player's reference)
+    SpecialTileLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        owner = null;
+    }
+}
+
+class TaxLeftAndRight extends miniTilesLeftAndRight {
+    String name;    // tax's tile name
+    int cost;       // tax's cost
+    TaxLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int cost) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+    }
+}
+
+class GoLeftAndRight extends miniTilesLeftAndRight {
+    String name;    // go tile's name
+    int payment;    // go tile's payment
+    GoLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int payment) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+        this.payment = payment;
+    }
+}
+
+class FateCardLeftAndRight extends miniTilesLeftAndRight {
+    String name;    // fatecard tile's name
+    FateCardLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
+class FreeParkingLeftAndRight extends miniTilesLeftAndRight {
+    String name;    //free parking tile's name
+    FreeParkingLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
+class JailLeftAndRight extends miniTilesLeftAndRight {
+    String name;    // jail tile's name
+    JailLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
+
+class GoToJailLeftAndRight extends miniTilesLeftAndRight {
+    String name;    // go to jail tile's name
+    GoToJailLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
+        super(a, b, panelBoard, path);
+        this.name = name;
+    }
+}
 class playerCard extends JPanel {
 
     String playerName;

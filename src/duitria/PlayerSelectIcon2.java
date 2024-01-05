@@ -27,7 +27,12 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
 
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
+    
+    String player1;
+    String player2;
 
+    playerIcons playerIcon1;
+    playerIcons playerIcon2;
 
     PlayerSelectIcon2 (){
 
@@ -55,8 +60,8 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
      panelBackground.add(buttonStart);
 
      
-     playerIcons playerIcon1 = new playerIcons(348, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
-     playerIcons playerIcon2 = new playerIcons(655, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
+     playerIcon1 = new playerIcons(348, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
+     playerIcon2 = new playerIcons(655, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
 
 
      
@@ -71,9 +76,10 @@ public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
         Board board = new Board();
         this.dispose();
+        player1 = playerIcon1.playerNameTextField.getText();
+        player2 = playerIcon2.playerNameTextField.getText();
+        board.initializePlayers(player1, player2, null, null);
     }
-    
-    
 }
 
 
