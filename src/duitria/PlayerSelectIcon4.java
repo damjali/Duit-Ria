@@ -28,7 +28,6 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
 
-
     String player1;
     String player2;
     String player3;
@@ -38,8 +37,7 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
     playerIcons playerIcon2;
     playerIcons playerIcon3;
     playerIcons playerIcon4;
-
-
+    
     PlayerSelectIcon4 (){
 
     SwingUtilities.invokeLater(() -> {
@@ -89,7 +87,7 @@ public void actionPerformed(ActionEvent e){
         player2 = playerIcon2.playerNameTextField.getText();
         player3 = playerIcon3.playerNameTextField.getText();
         player4 = playerIcon4.playerNameTextField.getText();
-        board.setName(player1, player2, player3, player4);
+        board.initializePlayers(player1, player2, player3, player4);
     }
     
     
