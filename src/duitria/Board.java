@@ -400,7 +400,7 @@ class playerCard extends JPanel {
             labelPlayerName.setText(this.playerName);
             panelPlayerName.setOpaque(false);
             labelPlayerName.setBounds(10, 10, 370, 38); 
-            labelPlayerName.setFont(new Font("Inter", Font.BOLD, 40));
+            labelPlayerName.setFont(new Font("Inter", Font.BOLD, 35));
             panelPlayerName.add(labelPlayerName);
             this.add(panelPlayerName);
 

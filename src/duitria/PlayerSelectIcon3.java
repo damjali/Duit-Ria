@@ -54,9 +54,9 @@ public class PlayerSelectIcon3 extends JFrame implements ActionListener {
      panelBackground.add(buttonStart);
 
      
-     playerIcons playerIcon1 = new playerIcons(195, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png");
-     playerIcons playerIcon2 = new playerIcons(503, 50,panelBackground,"src\\duitria\\Tokens\\kisspng-hasbro-monopoly-brik-game-car-monopoly-5b210efdcddc05.4082535715288931818432.png");
-     playerIcons playerIcon3 = new playerIcons(809, 50,panelBackground,"src\\duitria\\Tokens\\pngfind.com-monopoly-png-2578492.png");
+     playerIcons playerIcon1 = new playerIcons(195, 110,panelBackground,"src\\playertoken\\CAT.png");
+     playerIcons playerIcon2 = new playerIcons(503, 110,panelBackground,"src\\playertoken\\CAR.png");
+     playerIcons playerIcon3 = new playerIcons(809, 110,panelBackground,"src\\playertoken\\HAT.png");
 
 
 
@@ -108,7 +108,7 @@ class playerIcons extends JPanel{
 playerIcons(int x, int y, JPanel panelBackground, String path){
     SwingUtilities.invokeLater(() -> {
     this.setBackground(new Color(217,217,217));
-    this.setBounds(x, y, 266, 500);
+    this.setBounds(x, y, 266, 350);
     this.setLayout(null);
     panelBackground.add(this);
     this.setBorder(border);
@@ -118,15 +118,15 @@ playerIcons(int x, int y, JPanel panelBackground, String path){
     JPanel panelPlayerName = new JPanel();
 
     panelImage.setBackground(new Color(143,143,143));
-    panelImage.setBounds(6, 7, 253, 433);
+    panelImage.setBounds(6, 7, 253, 253);
     labelToken.setIcon(imageicon.getResizedImage(path, 253, 253));
-    labelToken.setBounds(0, (panelImage.getHeight()/2)-117, 235, 253);
+    labelToken.setBounds(0, 0, 253, 253);
     panelImage.setLayout(null);
     panelImage.add(labelToken);
     this.add(panelImage);
     panelImage.setBorder(border);
 
-    panelPlayerName.setBounds(6, 447, 253, 48);
+    panelPlayerName.setBounds(6, 288, 253, 48);
     panelPlayerName.setBorder(border);
     panelPlayerName.setLayout(null);
     this.playerNameTextField.setBounds(0, 0, 253, 48);
