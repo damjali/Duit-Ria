@@ -1,4 +1,3 @@
-
 package duitria;
 import java.io.*;
 
@@ -8,9 +7,9 @@ public class Main {
         System.setProperty("sun.java2d.uiScale", "1.0");
         HomeScreenGUI homescreengui = new HomeScreenGUI();
         //hello bro
-    
+    public static void main(String[] args) {
+        DuitRIa game = new DuitRIa();
+        game.playGame();
+    }
 }
 }
-
-
-    
