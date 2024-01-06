@@ -201,7 +201,7 @@ public class Board extends JFrame implements ActionListener {
         }
         System.out.println("DuitRia has come to an end, thanks for playing!");
     }
-    
+
     private boolean canSell(Player player) {
         int tileCount = 0, houseCount = 0, specialTileCount = 0;
         for (Object currentTile : tiles) {
@@ -1001,7 +1001,7 @@ public class Board extends JFrame implements ActionListener {
     this.setLayout(null);
     
     JPanel panelBoard = new JPanel();
-//    panelBoard.setBackground(new Color(0xA3FF9B));
+    //panelBoard.setBackground(new Color(0xA3FF9B));
     panelBoard.setBackground(Color.BLACK);
     panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
     this.add(panelBoard);
@@ -1010,8 +1010,8 @@ public class Board extends JFrame implements ActionListener {
     
     //For Tile Free Parking
     JPanel panelFreeParking = new JPanel();
-    panelFreeParking.setBounds(0, 0, 158, 158);
     panelFreeParking.setBackground(Color.WHITE);
+    panelFreeParking.setBounds(0, 0, 158, 158);
     JLabel labelImageFreeParking = new JLabel();
     labelImageFreeParking.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\FREE PARKING.png",158,158));
     labelImageFreeParking.setBounds(0, 0, 158, 158);
@@ -1062,7 +1062,7 @@ public class Board extends JFrame implements ActionListener {
     panelDefault.setBackground(Color.WHITE);
     JLabel labelImageDefault = new JLabel();
     labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\1 PETALING STREET.png",228,474));
-//    labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\0 DEFAULT CURRENT TILE.png",228,474));
+    //labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\0 DEFAULT CURRENT TILE.png",228,474));
     labelImageDefault.setBounds(0, 0, 228, 474);
     panelDefault.add(labelImageDefault);
     panelDefault.setBorder(border);
@@ -1233,8 +1233,7 @@ class miniTilesUpAndBottom extends JPanel{
             panelBoard.add(this); 
         });
     }
-     
-
+    
     private void setIcon(ImageIcon icon) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
