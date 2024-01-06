@@ -10,6 +10,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 
@@ -20,8 +24,8 @@ public class diceRoll extends JFrame {
     int diceValuePlayer1,diceValuePlayer2,diceValuePlayer3,diceValuePlayer4;
     String player1, player2, player3, player4;
     boolean differentValues = false;
-    Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    int[] diceValues = new int[4]; // Array to store dice values
+    Border border = BorderFactory.createLineBorder(Color.WHITE,1);
+    ArrayList<playerDiceMove> arrayListPlayers = new ArrayList<playerDiceMove>();
     boolean allPlayersRolled = false;
 
     public diceRoll(){
@@ -80,11 +84,31 @@ public class diceRoll extends JFrame {
         diceTwoImg.setBounds(390, 50, 200, 200);
         jPanel.add(diceTwoImg);
 
+        //3. Start Game Button
+        JButton startGameButton = new JButton("Start Game!");
+        startGameButton.setBounds(260, 550, 200, 50);
+        startGameButton.setEnabled(false);
+        startGameButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String newPlayer1 = arrayListPlayers.get(0).playerName;
+                String newPlayer2 = arrayListPlayers.get(1).playerName;
+                String newPlayer3 = arrayListPlayers.get(2).playerName;
+                String newPlayer4 = arrayListPlayers.get(3).playerName;
+
+                Board board = new Board();
+                board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
+            }
+        });
         //3. Roll Button
+
         Random rand = new Random();
         JButton rollButton = new JButton("Roll!");
-        rollButton.setBounds(250, 550, 200, 50);
+        rollButton.setBounds(50, 550, 200, 50);
         rollButton.addActionListener(new ActionListener() {
+
+
+
+        
 
             @Override
 
@@ -98,11 +122,9 @@ public class diceRoll extends JFrame {
                     @Override
                     public void run() {
 
-
-                        
-
                         long endTime = System.currentTimeMillis();
                         try{
+                            
                             while((endTime - startTime)/1000F < 0.5){
                                 // roll dice
                                 int diceOne = rand.nextInt(1, 7);
@@ -134,25 +156,35 @@ public class diceRoll extends JFrame {
                                 diceTwoImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE" + diceTwo + ".png",200,200));
 
                                
-                                
+                            
                                 // sleep thread
                                 Thread.sleep(60);
 
                                 endTime = System.currentTimeMillis();
                                 
                             }
-                                playerdicemove1.diceValue = playerdicemove1.diceValue2;
-                                playerdicemove2.diceValue = playerdicemove2.diceValue2;
-                                playerdicemove3.diceValue = playerdicemove3.diceValue2;
-                                playerdicemove4.diceValue = playerdicemove4.diceValue2;
 
-                                playerdicemove1.diceValue = 0;
-                                playerdicemove2.diceValue = 0;
-                                playerdicemove3.diceValue = 0;
-                                playerdicemove4.diceValue = 0;
+
+                            if (count%4==0){
+                            playerdicemove1.diceValue2 = playerdicemove1.diceValue;
+
+                            }
+                            if (count%4==1){
+                            playerdicemove2.diceValue2 = playerdicemove2.diceValue;
+ 
+                            } 
+                            if (count%4==2){
+                            playerdicemove3.diceValue2 = playerdicemove3.diceValue;
+
+                            }
+                            if (count%4==3){
+                            playerdicemove4.diceValue2 = playerdicemove4.diceValue;
+ 
+                            }
+
 
                           count++;
-                          System.out.println(count);
+                          System.out.println("count is : " + count);
                             
                             if (count%4==0){
                                 if (playerdicemove1.diceValue2 != playerdicemove2.diceValue2 && 
@@ -163,6 +195,28 @@ public class diceRoll extends JFrame {
                                     playerdicemove2.diceValue2 != playerdicemove4.diceValue2 &&  
                                     
                                     playerdicemove3.diceValue2 != playerdicemove4.diceValue2 ){
+                                    
+                                    rollButton.setEnabled(false);
+                                    startGameButton.setEnabled(true);
+                                }
+                                else {
+                                    
+
+
+                                    arrayListPlayers.add(playerdicemove1);
+                                    arrayListPlayers.add(playerdicemove2);
+                                    arrayListPlayers.add(playerdicemove3);
+                                    arrayListPlayers.add(playerdicemove4);
+
+                                    Collections.sort(arrayListPlayers, new Comparator<duitria.diceRoll.playerDiceMove>() {
+                                            @Override
+                                            public int compare(duitria.diceRoll.playerDiceMove playerdicemove1, duitria.diceRoll.playerDiceMove playerdicemove2) {
+                                                
+                                                return Integer.compare(playerdicemove1.diceValue, playerdicemove2.diceValue);
+                                            }
+                                        });
+
+
                                     rollButton.setEnabled(true);
                                 }
                                 
@@ -185,6 +239,7 @@ public class diceRoll extends JFrame {
             }
         });
         jPanel.add(rollButton);
+        jPanel.add(startGameButton);
 
         this.getContentPane().add(jPanel);
 
@@ -205,6 +260,7 @@ class playerDiceMove extends JPanel{
     JLabel playerLabelName = new JLabel();
     JLabel labelDiceValue1 = new JLabel();
     JLabel labelDiceValue = new JLabel();
+    String playerName;
     int diceValue;
     int diceValue2;
 
@@ -213,6 +269,7 @@ class playerDiceMove extends JPanel{
         this.setBackground(new Color(143,143,143));
         this.setBorder(border);
         this.setLayout(null);
+        this.playerName = playerName;
   
 
         panelPlayerName.setBounds(0, 0, 135, 30);
