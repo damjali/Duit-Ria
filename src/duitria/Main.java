@@ -10,6 +10,5 @@ public class Main {
         //hello bro
         // DuitRIa game = new DuitRIa();
         // game.playGame();
-    
-}
+    }
 }

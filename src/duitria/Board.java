@@ -750,16 +750,16 @@ public class Board extends JFrame implements ActionListener {
             }
         } else if (currentTile instanceof FateCard) {
             FateCard fateCard = (FateCard) currentTile;
-            System.out.println(player.name + " landed on the " + fateCard.name + ".");
+            System.out.println(player.name + " landed on " + fateCard.name + ".");
             System.out.print(player.name + " drew a fate card: ");
             fateCardOutcome(player);
         } else if (currentTile instanceof Jail) {
             Jail jail = (Jail) currentTile;
-            System.out.println(player.name + " landed on the " + jail.name + ".");
-            System.out.println(player.name + " is visitng the jail.");
+            System.out.println(player.name + " landed on " + jail.name + ".");
+            System.out.println(player.name + " is visiting the jail.");
         } else if (currentTile instanceof Tax) {
             Tax tax = (Tax) currentTile;
-            System.out.println(player.name + " landed on the " + tax.name + ".");
+            System.out.println(player.name + " landed on " + tax.name + ".");
             System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
             if (tax.cost >= player.money) {
                 System.out.println("You don't have enough money to pay taxes.");
@@ -774,11 +774,11 @@ public class Board extends JFrame implements ActionListener {
             }
         } else if (currentTile instanceof FreeParking) {
             FreeParking freeParking = (FreeParking) currentTile;
-            System.out.println(player.name + " landed on the " + freeParking.name);
+            System.out.println(player.name + " landed on " + freeParking.name);
             System.out.println(player.name + " is resting.");
         } else if (currentTile instanceof GoToJail) {
             GoToJail goToJail = (GoToJail) currentTile;
-            System.out.println(player.name + " landed on the " + goToJail.name + ".");
+            System.out.println(player.name + " landed on " + goToJail.name + ".");
             System.out.println(player.name + " has to go to jail.");
             player.jailCheck = true;
             player.position = 10;
@@ -1189,8 +1189,10 @@ public class Board extends JFrame implements ActionListener {
     initializePlayers(playerNum);
     sortedPlayerTurn();
     initializeTile(panelBoard);
-    playGame();
     initializePlayerCard();
+    playGame();
+    
+
 
     });
 
@@ -1276,8 +1278,8 @@ class SpecialTileUpAndBottom extends miniTilesUpAndBottom {
     int cost;       // special tile's cost
     int baseRent;   // special tile's base rent
     Player owner;   // special tile's ownership (based on player's reference)
-    SpecialTileUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent) {
-        super(a, b, panelBoard, path);
+    SpecialTileUpAndBottom(int x, int y, JPanel panelBoard, String path, String name, int cost, int baseRent) {
+        super(x, y, panelBoard, path);
         this.name = name;
         this.cost = cost;
         this.baseRent = baseRent;
@@ -1288,8 +1290,8 @@ class SpecialTileUpAndBottom extends miniTilesUpAndBottom {
 class TaxUpAndBottom extends miniTilesUpAndBottom {
     String name;    // tax's tile name
     int cost;       // tax's cost
-    TaxUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int cost) {
-        super(a, b, panelBoard, path);
+    TaxUpAndBottom(int x, int y, JPanel panelBoard, String path, String name, int cost) {
+        super(x, y, panelBoard, path);
         this.name = name;
         this.cost = cost;
     }
@@ -1298,8 +1300,8 @@ class TaxUpAndBottom extends miniTilesUpAndBottom {
 class GoUpAndBottom extends miniTilesUpAndBottom {
     String name;    // go tile's name
     int payment;    // go tile's payment
-    GoUpAndBottom(int a, int b, JPanel panelBoard, String path, String name, int payment) {
-        super(a, b, panelBoard, path);
+    GoUpAndBottom(int x, int y, JPanel panelBoard, String path, String name, int payment) {
+        super(x, y, panelBoard, path);
         this.name = name;
         this.payment = payment;
     }
@@ -1307,42 +1309,42 @@ class GoUpAndBottom extends miniTilesUpAndBottom {
 
 class FateCardUpAndBottom extends miniTilesUpAndBottom {
     String name;    // fatecard tile's name
-    FateCardUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    FateCardUpAndBottom(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
 class FreeParkingUpAndBottom extends miniTilesUpAndBottom {
     String name;    //free parking tile's name
-    FreeParkingUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    FreeParkingUpAndBottom(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
 class JailUpAndBottom extends miniTilesUpAndBottom {
     String name;    // jail tile's name
-    JailUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    JailUpAndBottom(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
 class GoToJailUpAndBottom extends miniTilesUpAndBottom {
     String name;    // go to jail tile's name
-    GoToJailUpAndBottom(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    GoToJailUpAndBottom(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
  class miniTilesLeftAndRight extends JPanel{
      
-     miniTilesLeftAndRight(int a, int b, JPanel panelBoard, String path){
+     miniTilesLeftAndRight(int x, int y, JPanel panelBoard, String path){
          SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-            this.setBounds(a, b, 158, 76);
+            this.setBounds(x, y, 158, 76);
             this.setBackground(Color.WHITE);
             this.setBorder(border);
             this.setLayout(null);
@@ -1365,8 +1367,8 @@ class TileLeftAndRight extends miniTilesLeftAndRight {
     Player owner;       // tile's ownership (based on player's reference)
     int houseCost;      // tile's housecost
     int numOfHouse;     // tile's number of houses built
-    TileLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
-        super(a, b, panelBoard, path);
+    TileLeftAndRight(int x, int y, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
+        super(x, y, panelBoard, path);
         this.name = name;
         this.cost = cost;
         this.baseRent = baseRent;
@@ -1394,8 +1396,8 @@ class SpecialTileLeftAndRight extends miniTilesLeftAndRight {
     int cost;       // special tile's cost
     int baseRent;   // special tile's base rent
     Player owner;   // special tile's ownership (based on player's reference)
-    SpecialTileLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int cost, int baseRent) {
-        super(a, b, panelBoard, path);
+    SpecialTileLeftAndRight(int x, int y, JPanel panelBoard, String path, String name, int cost, int baseRent) {
+        super(x, y, panelBoard, path);
         this.name = name;
         this.cost = cost;
         this.baseRent = baseRent;
@@ -1406,8 +1408,8 @@ class SpecialTileLeftAndRight extends miniTilesLeftAndRight {
 class TaxLeftAndRight extends miniTilesLeftAndRight {
     String name;    // tax's tile name
     int cost;       // tax's cost
-    TaxLeftAndRight(int a, int b, JPanel panelBoard, String path, String name, int cost) {
-        super(a, b, panelBoard, path);
+    TaxLeftAndRight(int x, int y, JPanel panelBoard, String path, String name, int cost) {
+        super(x, y, panelBoard, path);
         this.name = name;
         this.cost = cost;
     }
@@ -1415,32 +1417,32 @@ class TaxLeftAndRight extends miniTilesLeftAndRight {
 
 class FateCardLeftAndRight extends miniTilesLeftAndRight {
     String name;    // fatecard tile's name
-    FateCardLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    FateCardLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
 class FreeParkingLeftAndRight extends miniTilesLeftAndRight {
     String name;    //free parking tile's name
-    FreeParkingLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    FreeParkingLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
 class JailLeftAndRight extends miniTilesLeftAndRight {
     String name;    // jail tile's name
-    JailLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    JailLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
 
 class GoToJailLeftAndRight extends miniTilesLeftAndRight {
     String name;    // go to jail tile's name
-    GoToJailLeftAndRight(int a, int b, JPanel panelBoard, String path, String name) {
-        super(a, b, panelBoard, path);
+    GoToJailLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
+        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
@@ -1451,7 +1453,7 @@ class playerCard extends JPanel {
     double playerMoney;
     String playerStatus;
 
-    playerCard(int a, int b, JFrame frame, String playerName, double playerLand, double playerMoney, String playerStatus) {
+    playerCard(int x, int y, JFrame frame, String playerName, double playerLand, double playerMoney, String playerStatus) {
         
         SwingUtilities.invokeLater(() -> {
 
@@ -1462,7 +1464,7 @@ class playerCard extends JPanel {
 
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
             this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(a, b, 375, 175);
+            this.setBounds(x, y, 375, 175);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
@@ -1510,7 +1512,7 @@ class playerCard extends JPanel {
     }
 
     //Not set player money , land and status yet
-    playerCard(int a, int b, JFrame frame, String playerName) {
+    playerCard(int x, int y, JFrame frame, String playerName) {
         SwingUtilities.invokeLater(() -> {
 
             this.playerName = playerName;
@@ -1520,7 +1522,7 @@ class playerCard extends JPanel {
 
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
             this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(a, b, 375, 175);
+            this.setBounds(x, y, 375, 175);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
@@ -1571,7 +1573,7 @@ class playerLogHistory extends JPanel{
     String tileNumber;
     String playerLogHistory;
      
-     playerLogHistory(int a, int b, JFrame frame, String playerName){
+     playerLogHistory(int x, int y, JFrame frame, String playerName){
          SwingUtilities.invokeLater(() -> {
 
             this.playerName = playerName;
@@ -1580,7 +1582,7 @@ class playerLogHistory extends JPanel{
 
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(a, b, 420, 150);
+            this.setBounds(x, y, 420, 150);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
