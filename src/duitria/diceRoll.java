@@ -94,9 +94,12 @@ public class diceRoll extends JFrame {
                 String newPlayer2 = arrayListPlayers.get(1).playerName;
                 String newPlayer3 = arrayListPlayers.get(2).playerName;
                 String newPlayer4 = arrayListPlayers.get(3).playerName;
+                System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
+                diceRoll.this.dispose();
 
                 Board board = new Board();
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
+                
             }
         });
         //3. Roll Button
@@ -198,11 +201,6 @@ public class diceRoll extends JFrame {
                                     
                                     rollButton.setEnabled(false);
                                     startGameButton.setEnabled(true);
-                                }
-                                else {
-                                    
-
-
                                     arrayListPlayers.add(playerdicemove1);
                                     arrayListPlayers.add(playerdicemove2);
                                     arrayListPlayers.add(playerdicemove3);
@@ -215,6 +213,12 @@ public class diceRoll extends JFrame {
                                                 return Integer.compare(playerdicemove1.diceValue, playerdicemove2.diceValue);
                                             }
                                         });
+                                }
+                                else {
+                                    
+
+
+                                    
 
 
                                     rollButton.setEnabled(true);
