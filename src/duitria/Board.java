@@ -88,9 +88,9 @@ public class Board extends JFrame implements ActionListener {
         }
     }
 
-    private void initializeTile(JPanel panelBoard) {
+    private void initializeTile(JPanel panelBoard, Border border) {
         // BOTTOM RIGHT
-        tiles.add(new Go("Go",2000000));
+        tiles.add(new GoCornerTile(panelBoard, border, "Go",2000000));
         // BOTTOM TILE
         tiles.add(new TileUpAndBottom(766, 842, panelBoard, "src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green"));
         tiles.add(new FateCardUpAndBottom(690, 842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate"));
@@ -102,7 +102,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileUpAndBottom(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", "Batu Caves",1000000 ,100000 ,"Blue"));
         tiles.add(new TileUpAndBottom(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
         // BOTTOM LEFT
-        tiles.add(new Jail("Jail"));
+        tiles.add(new JailCornerTile(panelBoard, border, "Jail"));
         // LEFT TILE
         tiles.add(new TileLeftAndRight(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", "National Museum",1400000 ,140000 ,"Maroon"));
         tiles.add(new TileLeftAndRight(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", "Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
@@ -114,7 +114,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileLeftAndRight(0,234, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", "Kellie Castle",1800000 ,180000, "Light Blue"));
         tiles.add(new TileLeftAndRight(0,158, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", "Stadthuys",2000000 ,200000, "Light Blue"));
         // TOP LEFT
-        tiles.add(new FreeParking("Free Parking"));
+        tiles.add(new FreeParkingCornerTile(panelBoard, border, "Free Parking"));
         // UP TILE
         tiles.add(new TileUpAndBottom(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", "Fraser's Hill",2200000 ,220000, "Purple"));
         tiles.add(new FateCardUpAndBottom(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", "Fate Card"));
@@ -126,7 +126,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new TileUpAndBottom(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
         tiles.add(new TileUpAndBottom(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 600000 ,270000 ,"Orange"));
         // TOP RIGHT
-        tiles.add(new GoToJail("Go To Jail"));
+        tiles.add(new GoToJailCornerTile(panelBoard, border, "Go To Jail"));
         // RIGHT TILE
         tiles.add(new TileLeftAndRight(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", "Tioman Islands",3000000 ,300000 ,"Red"));
         tiles.add(new TileLeftAndRight(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", "Perhentian Islands",3000000 ,300000 ,"Red"));
@@ -595,15 +595,15 @@ public class Board extends JFrame implements ActionListener {
 
     private void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
         if (previousPlayerPosition + diceRoll >= 40) {
-            Go go = (Go) tiles.get(0);
+            GoCornerTile go = (GoCornerTile) tiles.get(0);
             System.out.printf(Locale.US, player.name + " has passed the Go Tile. " + player.name + " has received RM%,d.\n", go.payment);
             player.money += go.payment;
             if (player.buyProperty)
                 player.buyHouse = true;
             player.buyProperty = true;
         }
-        if (currentTile instanceof Tile) {
-            Tile propertyTile = (Tile) currentTile;
+        if (currentTile instanceof TileUpAndBottom) {
+            TileUpAndBottom propertyTile = (TileUpAndBottom) currentTile;
             System.out.println(player.name + " landed on " + propertyTile.name + ".");
             if (propertyTile.owner == null && !player.hasLoan) {
                 if (player.buyProperty) {
@@ -753,8 +753,8 @@ public class Board extends JFrame implements ActionListener {
             System.out.println(player.name + " landed on " + fateCard.name + ".");
             System.out.print(player.name + " drew a fate card: ");
             fateCardOutcome(player);
-        } else if (currentTile instanceof Jail) {
-            Jail jail = (Jail) currentTile;
+        } else if (currentTile instanceof JailCornerTile) {
+            JailCornerTile jail = (JailCornerTile) currentTile;
             System.out.println(player.name + " landed on " + jail.name + ".");
             System.out.println(player.name + " is visiting the jail.");
         } else if (currentTile instanceof Tax) {
@@ -772,17 +772,21 @@ public class Board extends JFrame implements ActionListener {
                 player.money -= tax.cost;
                 System.out.println(player.name + " successfully paid the taxes.");
             }
-        } else if (currentTile instanceof FreeParking) {
-            FreeParking freeParking = (FreeParking) currentTile;
+        } else if (currentTile instanceof FreeParkingCornerTile) {
+            FreeParkingCornerTile freeParking = (FreeParkingCornerTile) currentTile;
             System.out.println(player.name + " landed on " + freeParking.name);
             System.out.println(player.name + " is resting.");
-        } else if (currentTile instanceof GoToJail) {
-            GoToJail goToJail = (GoToJail) currentTile;
+        } else if (currentTile instanceof GoToJailCornerTile) {
+            GoToJailCornerTile goToJail = (GoToJailCornerTile) currentTile;
             System.out.println(player.name + " landed on " + goToJail.name + ".");
             System.out.println(player.name + " has to go to jail.");
             player.jailCheck = true;
             player.position = 10;
         }
+    }
+
+    private void boardTile(Player player, Object currentTile) {
+
     }
 
     private void fateCardOutcome(Player player) {
@@ -1031,7 +1035,7 @@ public class Board extends JFrame implements ActionListener {
     panelGO.add(labelImageGo);
     panelGO.setLayout(null);
     panelBoard.add(panelGO);
-   
+    
     //For Tile GO TO JAIL
     JPanel panelGoToJail = new JPanel();
     panelGoToJail.setBounds(842, 0, 158, 158);
@@ -1188,7 +1192,7 @@ public class Board extends JFrame implements ActionListener {
     rand = new Random();
     initializePlayers(playerNum);
     sortedPlayerTurn();
-    initializeTile(panelBoard);
+    initializeTile(panelBoard, border);
     initializePlayerCard();
     playGame();
     
@@ -1198,8 +1202,6 @@ public class Board extends JFrame implements ActionListener {
 
     }
 
-    
-    
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==buttonRoll){
             System.out.println("Bruh Moment");
@@ -1209,12 +1211,78 @@ public class Board extends JFrame implements ActionListener {
            GameRules gamerules = new GameRules();
         }
     }
-
-
 }
-class CornerTiles extends JPanel {
-    CornerTiles(int x, int y, JPanel panelBoard, String path) {
+class GoCornerTile extends JPanel {
+    String name;
+    int payment;
+    GoCornerTile(JPanel panelBoard, Border border, String name, int payment) {
+        //For Tile GO
+        this.name = name;
+        this.payment = payment;
+        JPanel panelGO = new JPanel();
+        panelGO.setBounds(842, 842, 158, 158);
+        panelGO.setBackground(Color.WHITE);
+        panelGO.setBorder(border);
+        JLabel labelImageGo = new JLabel();
+        labelImageGo.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\GO.png",158,158));
+        labelImageGo.setBounds(0, 0, 158, 158);
+        panelGO.add(labelImageGo);
+        panelGO.setLayout(null);
+        panelBoard.add(panelGO);
+    }
+}
 
+class JailCornerTile extends JPanel {
+    String name;
+    JailCornerTile(JPanel panelBoard, Border border, String name) {
+        //For Tile JAIL
+        this.name = name;
+        JPanel panelJail = new JPanel();
+        panelJail.setBounds(0, 842, 158, 158);
+        panelJail.setBackground(Color.WHITE);
+        JLabel labelImageJail = new JLabel();
+        labelImageJail.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\JAIL.png",158,158));
+        labelImageJail.setBounds(0, 0, 158, 158);
+        panelJail.add(labelImageJail);
+        panelJail.setBorder(border);
+        panelJail.setLayout(null);
+        panelBoard.add(panelJail);
+    }
+}
+
+class FreeParkingCornerTile extends JPanel {
+    String name;
+    FreeParkingCornerTile(JPanel panelBoard, Border border, String name) {
+        //For Tile Free Parking
+        this.name = name;
+        JPanel panelFreeParking = new JPanel();
+        panelFreeParking.setBackground(Color.WHITE);
+        panelFreeParking.setBounds(0, 0, 158, 158);
+        JLabel labelImageFreeParking = new JLabel();
+        labelImageFreeParking.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\FREE PARKING.png",158,158));
+        labelImageFreeParking.setBounds(0, 0, 158, 158);
+        panelFreeParking.add(labelImageFreeParking);
+        panelFreeParking.setBorder(border);
+        panelFreeParking.setLayout(null);
+        panelBoard.add(panelFreeParking);
+    }
+} 
+
+class GoToJailCornerTile extends JPanel {
+    String name;
+    GoToJailCornerTile(JPanel panelBoard, Border border, String name) {
+        //For Tile GO TO JAIL
+        this.name = name;
+        JPanel panelGoToJail = new JPanel();
+        panelGoToJail.setBounds(842, 0, 158, 158);
+        panelGoToJail.setBackground(Color.WHITE);
+        JLabel labelImageGoToJail = new JLabel();
+        labelImageGoToJail.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\GO TO JAIL.png",158,158));
+        labelImageGoToJail.setBounds(0, 0, 158, 158);
+        panelGoToJail.add(labelImageGoToJail);
+        panelGoToJail.setBorder(border);
+        panelGoToJail.setLayout(null);
+        panelBoard.add(panelGoToJail);
     }
 }
 
