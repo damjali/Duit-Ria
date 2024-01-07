@@ -1073,47 +1073,6 @@ public class Board extends JFrame implements ActionListener {
     panelDefault.setLayout(null);
     panelBoard.add(panelDefault);
     
-    miniTiles tile22 = new miniTiles(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png");
-    miniTiles tile21 = new miniTiles(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png");
-    miniTiles tile20 = new miniTiles(614,0, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png");
-    miniTiles tile19 = new miniTiles(538,0, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png");
-    miniTiles tile18 = new miniTiles(462,0, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png");
-    miniTiles tile17 = new miniTiles(386,0, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png");
-    miniTiles tile16 = new miniTiles(310,0, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png");
-    miniTiles fate4 = new miniTiles(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png");
-    miniTiles tile15 = new miniTiles(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png");
-        
-    miniTiles tile1 = new miniTiles(766,842, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png");
-    miniTiles fate1 = new miniTiles(690,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
-    miniTiles tile2 = new miniTiles(614,842, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png");
-    miniTiles tax = new miniTiles(538,842, panelBoard,"src\\duitria.tiles\\TAX.png");
-    miniTiles tile3 = new miniTiles(462,842, panelBoard,"src\\duitria.tiles\\3 KLIA.png");
-    miniTiles tile4 = new miniTiles(386,842, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png");
-    miniTiles fate2 = new miniTiles(310,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
-    miniTiles tile5 = new miniTiles(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png");
-    miniTiles tile6 = new miniTiles(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png");
-
-    miniTilesLeftAndRight tile7 = new miniTilesLeftAndRight(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png");
-    miniTilesLeftAndRight tile8 = new miniTilesLeftAndRight(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png");
-    miniTilesLeftAndRight tile9 = new miniTilesLeftAndRight(0,614, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png");
-    miniTilesLeftAndRight tile10 = new miniTilesLeftAndRight(0,538, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png");
-    miniTilesLeftAndRight tile11 = new miniTilesLeftAndRight(0,462, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png");
-    miniTilesLeftAndRight tile12 = new miniTilesLeftAndRight(0,386, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png");
-    miniTilesLeftAndRight fate3 = new miniTilesLeftAndRight(0,310, panelBoard,"src\\duitria.tiles\\FATE LEFT.png");
-    miniTilesLeftAndRight tile13 = new miniTilesLeftAndRight(0,234, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png");
-    miniTilesLeftAndRight tile14 = new miniTilesLeftAndRight(0,158, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png");
-    
-    miniTilesLeftAndRight tile28 = new miniTilesLeftAndRight(842,766, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png");
-    miniTilesLeftAndRight tax2 = new miniTilesLeftAndRight(842,690, panelBoard,"src\\duitria.tiles\\TAX 2.png");
-    miniTilesLeftAndRight tile27 = new miniTilesLeftAndRight(842,614, panelBoard,"src\\duitria.tiles\\27 KLCC.png");
-    miniTilesLeftAndRight fate6 = new miniTilesLeftAndRight(842,538, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png");
-    miniTilesLeftAndRight tile26 = new miniTilesLeftAndRight(842,462, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png");
-    miniTilesLeftAndRight tile25 = new miniTilesLeftAndRight(842,386, panelBoard,"src\\duitria.tiles\\25 SEPADAN ISLANDS.png");
-    miniTilesLeftAndRight fate5 = new miniTilesLeftAndRight(842,310,panelBoard,"src\\duitria.tiles\\FATE RIGHT.png");
-    miniTilesLeftAndRight tile24 = new miniTilesLeftAndRight(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png");
-    miniTilesLeftAndRight tile23 = new miniTilesLeftAndRight(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png");
-
-    
     //INITIALIZE PLAYER CARD PANEL DEPENDS ON THE NUMBER OF PLAYERS INITIALIZED
     
     //INITIALIZE GAME RULE PANEL
