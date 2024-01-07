@@ -1,7 +1,10 @@
 package duitria;
 
 import java.util.*;
+import java.io.*;
+
 public class DuitRIa {
+    private SaveFile saveFile;
     private List<Player> players;
     private List<Object> tiles;
     private int currentPlayerIndex;
@@ -12,7 +15,16 @@ public class DuitRIa {
         players = new ArrayList<>();
         tiles = new ArrayList<>();
         rand = new Random();
+        saveFile = new SaveFile();
         while (true) {
+            System.out.println("Welcome to DuitRia.");
+            if (isFileAvailable("saveFile.ser")) {
+                System.out.print("Do you want to start a new game or open the saved file? (Y/N): ");
+                String choice = keyboard.nextLine();
+                if (choice.equalsIgnoreCase("Y")) {
+                    saveFile.loadGame("saveFile.ser");
+                }
+            }
             System.out.print("How many players are playing: ");
             int playerNum = keyboard.nextInt();
             keyboard.nextLine();
@@ -24,6 +36,10 @@ public class DuitRIa {
         }
         sortedPlayerTurn();
         initializeTile();
+    }
+    private boolean isFileAvailable(String fileName) {
+        File file = new File(fileName);
+        return file.exists() && file.isFile();
     }
     private void initializePlayers(int playerNum) {
         for (int i = 1; i <= playerNum; i++) {
@@ -257,8 +273,8 @@ public class DuitRIa {
             System.out.println(player.name + " landed on the " + fateCard.name + ".");
             System.out.print(player.name + " drew a fate card: ");
             fateCardOutcome(player);
-        } else if (currentTile instanceof JailCornerTile) {
-            JailCornerTile jail = (JailCornerTile) currentTile;
+        } else if (currentTile instanceof Jail) {
+            Jail jail = (Jail) currentTile;
             System.out.println(player.name + " landed on the " + jail.name + ".");
             System.out.println(player.name + " is visitng the jail.");
         } else if (currentTile instanceof Tax) {
@@ -276,12 +292,12 @@ public class DuitRIa {
                 player.money -= tax.cost;
                 System.out.println(player.name + " successfully paid the taxes.");
             }
-        } else if (currentTile instanceof FreeParkingCornerTile) {
-            FreeParkingCornerTile freeParking = (FreeParkingCornerTile) currentTile;
+        } else if (currentTile instanceof FreeParking) {
+            FreeParking freeParking = (FreeParking) currentTile;
             System.out.println(player.name + " landed on the " + freeParking.name);
             System.out.println(player.name + " is resting.");
-        } else if (currentTile instanceof GoToJailCornerTile) {
-            GoToJailCornerTile goToJail = (GoToJailCornerTile) currentTile;
+        } else if (currentTile instanceof GoToJail) {
+            GoToJail goToJail = (GoToJail) currentTile;
             System.out.println(player.name + " landed on the " + goToJail.name + ".");
             System.out.println(player.name + " has to go to jail.");
             player.jailCheck = true;
@@ -927,5 +943,6 @@ public class DuitRIa {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
         System.out.println("DuitRia has come to an end, thanks for playing!");
+        saveFile.saveGame(players, tiles, "saveFile.ser");
     }
 }

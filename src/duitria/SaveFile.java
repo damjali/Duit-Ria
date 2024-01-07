@@ -3,6 +3,10 @@ import java.io.*;
 import java.util.*;
 
 class SaveFile {
+    File file;
+    SaveFile() {
+        file = new File("savefile.ser");
+    }
     void saveGame(List<Player> players, List<Object> tiles, String fileName) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(players);

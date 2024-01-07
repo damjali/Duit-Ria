@@ -92,51 +92,51 @@ public class Board extends JFrame implements ActionListener {
         // BOTTOM RIGHT
         tiles.add(new GoCornerTile(panelBoard, border, "Go",2000000));
         // BOTTOM TILE
-        tiles.add(new Tile(766, 842, panelBoard, "src\\duitria.tiles\\1 PETALING STREET.png", 76, 158, "Petaling Street",600000 ,60000 ,"Green"));
-        tiles.add(new FateCard(690, 842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", 76, 158, "Fate"));
-        tiles.add(new Tile(614,842, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", 76, 158, "Jonker Street",600000 ,60000 ,"Green"));
-        tiles.add(new Tax(538,842, panelBoard,"src\\duitria.tiles\\TAX.png", 76, 158, "Tax",2000000 ));
-        tiles.add(new SpecialTile(462,842, panelBoard,"src\\duitria.tiles\\3 KLIA.png", 76, 158, "KLIA",2000000 ,200000));
-        tiles.add(new Tile(386,842, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png", 76, 158, "Masjid Jamek",1000000 ,100000 ,"Blue"));
-        tiles.add(new FateCard(310,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", 76, 158, "Fate Card"));
-        tiles.add(new Tile(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", 76, 158, "Batu Caves",1000000 ,100000 ,"Blue"));
-        tiles.add(new Tile(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", 76, 158, "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
+        tiles.add(new MiniTile(766, 842, panelBoard, "src\\duitria.tiles\\1 PETALING STREET.png", 76, 158, "Petaling Street",600000 ,60000 ,"Green"));
+        tiles.add(new MiniFateCard(690, 842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", 76, 158, "Fate"));
+        tiles.add(new MiniTile(614,842, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", 76, 158, "Jonker Street",600000 ,60000 ,"Green"));
+        tiles.add(new MiniTax(538,842, panelBoard,"src\\duitria.tiles\\TAX.png", 76, 158, "Tax",2000000 ));
+        tiles.add(new MiniSpecialTile(462,842, panelBoard,"src\\duitria.tiles\\3 KLIA.png", 76, 158, "KLIA",2000000 ,200000));
+        tiles.add(new MiniTile(386,842, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png", 76, 158, "Masjid Jamek",1000000 ,100000 ,"Blue"));
+        tiles.add(new MiniFateCard(310,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", 76, 158, "Fate Card"));
+        tiles.add(new MiniTile(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", 76, 158, "Batu Caves",1000000 ,100000 ,"Blue"));
+        tiles.add(new MiniTile(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", 76, 158, "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
         // BOTTOM LEFT
         tiles.add(new JailCornerTile(panelBoard, border, "Jail"));
         // LEFT TILE
-        tiles.add(new Tile(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", 158, 76, "National Museum",1400000 ,140000 ,"Maroon"));
-        tiles.add(new Tile(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", 158, 76, "Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
-        tiles.add(new Tile(0,614, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png", 158, 76, "Royal Palace",1400000 ,140000 ,"Maroon"));
-        tiles.add(new Tile(0,538, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png", 158, 76, "Merdeka Square",1400000 ,140000 ,"Maroon"));
-        tiles.add(new SpecialTile(0,462, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png", 158, 76, "KLIA 2",2000000 ,200000));
-        tiles.add(new Tile(0,386, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png", 158, 76, "A'Famosa Resort",1700000 ,170000, "Light Blue"));
-        tiles.add(new FateCard(0,310, panelBoard,"src\\duitria.tiles\\FATE LEFT.png", 158, 76, "Fate Card"));
-        tiles.add(new Tile(0,234, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", 158, 76, "Kellie Castle",1800000 ,180000, "Light Blue"));
-        tiles.add(new Tile(0,158, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", 158, 76, "Stadthuys",2000000 ,200000, "Light Blue"));
+        tiles.add(new MiniTile(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", 158, 76, "National Museum",1400000 ,140000 ,"Maroon"));
+        tiles.add(new MiniTile(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", 158, 76, "Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
+        tiles.add(new MiniTile(0,614, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png", 158, 76, "Royal Palace",1400000 ,140000 ,"Maroon"));
+        tiles.add(new MiniTile(0,538, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png", 158, 76, "Merdeka Square",1400000 ,140000 ,"Maroon"));
+        tiles.add(new MiniSpecialTile(0,462, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png", 158, 76, "KLIA 2",2000000 ,200000));
+        tiles.add(new MiniTile(0,386, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png", 158, 76, "A'Famosa Resort",1700000 ,170000, "Light Blue"));
+        tiles.add(new MiniFateCard(0,310, panelBoard,"src\\duitria.tiles\\FATE LEFT.png", 158, 76, "Fate Card"));
+        tiles.add(new MiniTile(0,234, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", 158, 76, "Kellie Castle",1800000 ,180000, "Light Blue"));
+        tiles.add(new MiniTile(0,158, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", 158, 76, "Stadthuys",2000000 ,200000, "Light Blue"));
         // TOP LEFT
         tiles.add(new FreeParkingCornerTile(panelBoard, border, "Free Parking"));
         // UP TILE
-        tiles.add(new Tile(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", 76, 158, "Fraser's Hill",2200000 ,220000, "Purple"));
-        tiles.add(new FateCard(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", 76, 158, "Fate Card"));
-        tiles.add(new Tile(310,0, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png", 76, 158, "Cameron Highlands",2200000 ,220000, "Purple"));
-        tiles.add(new Tile(386,0, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png", 76, 158, "Genting Highland",2400000 ,240000, "Purple"));
-        tiles.add(new SpecialTile(462,0, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png", 76, 158, "KL Sentral Station",2000000 ,200000));
-        tiles.add(new Tile(538,0, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png", 76, 158, "Pahang National Park",2600000 ,260000 ,"Orange"));
-        tiles.add(new Tile(614,0, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png", 76, 158, "Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
-        tiles.add(new Tile(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", 76, 158, "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
-        tiles.add(new Tile(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", 76, 158, "Kinabalu National Park", 600000 ,270000 ,"Orange"));
+        tiles.add(new MiniTile(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", 76, 158, "Fraser's Hill",2200000 ,220000, "Purple"));
+        tiles.add(new MiniFateCard(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", 76, 158, "Fate Card"));
+        tiles.add(new MiniTile(310,0, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png", 76, 158, "Cameron Highlands",2200000 ,220000, "Purple"));
+        tiles.add(new MiniTile(386,0, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png", 76, 158, "Genting Highland",2400000 ,240000, "Purple"));
+        tiles.add(new MiniSpecialTile(462,0, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png", 76, 158, "KL Sentral Station",2000000 ,200000));
+        tiles.add(new MiniTile(538,0, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png", 76, 158, "Pahang National Park",2600000 ,260000 ,"Orange"));
+        tiles.add(new MiniTile(614,0, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png", 76, 158, "Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
+        tiles.add(new MiniTile(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", 76, 158, "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
+        tiles.add(new MiniTile(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", 76, 158, "Kinabalu National Park", 600000 ,270000 ,"Orange"));
         // TOP RIGHT
         tiles.add(new GoToJailCornerTile(panelBoard, border, "Go To Jail"));
         // RIGHT TILE
-        tiles.add(new Tile(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", 158, 76, "Tioman Islands",3000000 ,300000 ,"Red"));
-        tiles.add(new Tile(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", 158, 76, "Perhentian Islands",3000000 ,300000 ,"Red"));
-        tiles.add(new FateCard(842,310,panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", 158, 76, "Fate Card"));
-        tiles.add(new Tile(842,386, panelBoard,"src\\duitria.tiles\\25 SEPADAN ISLANDS.png", 158, 76, "Sepadan Islands",3200000 ,320000 ,"Red"));
-        tiles.add(new SpecialTile(842,462, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png", 158, 76, "Pudu Sentral Station",2000000 ,200000));
-        tiles.add(new FateCard(842,538, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", 158, 76, "Fate Card"));
-        tiles.add(new Tile(842,614, panelBoard,"src\\duitria.tiles\\27 KLCC.png", 158, 76, "KLCC",3500000 ,350000, "Yellow"));
-        tiles.add(new Tax(842,690, panelBoard,"src\\duitria.tiles\\TAX 2.png", 158, 76, "Tax",2000000));
-        tiles.add(new Tile(842,766, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", 158, 76, "Sepang II Circuit",4000000 ,400000, "Yellow"));
+        tiles.add(new MiniTile(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", 158, 76, "Tioman Islands",3000000 ,300000 ,"Red"));
+        tiles.add(new MiniTile(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", 158, 76, "Perhentian Islands",3000000 ,300000 ,"Red"));
+        tiles.add(new MiniFateCard(842,310,panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", 158, 76, "Fate Card"));
+        tiles.add(new MiniTile(842,386, panelBoard,"src\\duitria.tiles\\25 SEPADAN ISLANDS.png", 158, 76, "Sepadan Islands",3200000 ,320000 ,"Red"));
+        tiles.add(new MiniSpecialTile(842,462, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png", 158, 76, "Pudu Sentral Station",2000000 ,200000));
+        tiles.add(new MiniFateCard(842,538, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", 158, 76, "Fate Card"));
+        tiles.add(new MiniTile(842,614, panelBoard,"src\\duitria.tiles\\27 KLCC.png", 158, 76, "KLCC",3500000 ,350000, "Yellow"));
+        tiles.add(new MiniTax(842,690, panelBoard,"src\\duitria.tiles\\TAX 2.png", 158, 76, "Tax",2000000));
+        tiles.add(new MiniTile(842,766, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", 158, 76, "Sepang II Circuit",4000000 ,400000, "Yellow"));
     }
     
     void playGame() {
@@ -1244,8 +1244,8 @@ class GoToJailCornerTile extends JPanel {
     }
 }
 
-class miniTiles extends JPanel{
-    miniTiles(int x, int y, int width, int height, JPanel panelBoard, String filePath){
+class MiniBoardTile extends JPanel{
+    MiniBoardTile(int x, int y, int width, int height, JPanel panelBoard, String filePath){
         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBounds(x, y, width, height);
@@ -1267,7 +1267,7 @@ class miniTiles extends JPanel{
     }
 }
 
-class Tile extends miniTiles {
+class MiniTile extends MiniBoardTile {
     String name;        // tile's name
     int cost;           // tile's cost
     int baseRent;       // tile's base rent
@@ -1275,7 +1275,7 @@ class Tile extends miniTiles {
     Player owner;       // tile's ownership (based on player's reference)
     int houseCost;      // tile's housecost
     int numOfHouse;     // tile's number of houses built
-    Tile(int x, int y, JPanel panelBoard, String path, int width, int height, String name, int cost, int baseRent, String tileColour) {
+    MiniTile(int x, int y, JPanel panelBoard, String path, int width, int height, String name, int cost, int baseRent, String tileColour) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
         this.cost = cost;
@@ -1299,12 +1299,12 @@ class Tile extends miniTiles {
     }
 }
 
-class SpecialTile extends miniTiles {
+class MiniSpecialTile extends MiniBoardTile {
     String name;    // special tile's name
     int cost;       // special tile's cost
     int baseRent;   // special tile's base rent
     Player owner;   // special tile's ownership (based on player's reference)
-    SpecialTile(int x, int y, JPanel panelBoard, String path, int width, int height, String name, int cost, int baseRent) {
+    MiniSpecialTile(int x, int y, JPanel panelBoard, String path, int width, int height, String name, int cost, int baseRent) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
         this.cost = cost;
@@ -1313,19 +1313,19 @@ class SpecialTile extends miniTiles {
     }
 }
 
-class Tax extends miniTiles {
+class MiniTax extends MiniBoardTile {
     String name;    // tax's tile name
     int cost;       // tax's cost
-    Tax(int x, int y, JPanel panelBoard, String path, int width, int height, String name, int cost) {
+    MiniTax(int x, int y, JPanel panelBoard, String path, int width, int height, String name, int cost) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
         this.cost = cost;
     }
 }
 
-class FateCard extends miniTiles {
+class MiniFateCard extends MiniBoardTile {
     String name;    // fatecard tile's name
-    FateCard(int x, int y, JPanel panelBoard, String path, int width, int height, String name) {
+    MiniFateCard(int x, int y, JPanel panelBoard, String path, int width, int height, String name) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
