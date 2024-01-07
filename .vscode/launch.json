@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Test2",
+            "request": "launch",
+            "mainClass": "duitria.Test2",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "duitria.Test",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
