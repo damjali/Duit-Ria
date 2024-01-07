@@ -1,5 +1,8 @@
 package duitria;
-class Player {
+
+import java.io.Serializable;
+
+class Player implements Serializable {
     String name;            // player's name
     int money;              // total money of the player
     int loanAmount;         // player's loan amount
