@@ -1,0 +1,102 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+<<<<<<< HEAD
+            "name": "GameStart",
+            "request": "launch",
+            "mainClass": "duitria.GameStart",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "duitria.Main",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "PlayerSelectIcon",
+            "request": "launch",
+            "mainClass": "duitria.PlayerSelectIcon",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "duitria.Main",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
+            "name": "GameStart",
+            "request": "launch",
+            "mainClass": "duitria.GameStart",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
+            "name": "DuitRIa",
+            "request": "launch",
+            "mainClass": "duitria.DuitRIa",
+            "projectName": "Duit-Ria-2_972e16ac"
+        },
+        {
+            "type": "java",
+            "name": "GUI",
+            "request": "launch",
+            "mainClass": "duitria.GUI",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
+=======
+>>>>>>> origin/master
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+<<<<<<< HEAD
+            "name": "DuitRIa",
+            "request": "launch",
+            "mainClass": "duitria.DuitRIa",
+            "projectName": "Duit-Ria_a610233a"
+        },
+        {
+            "type": "java",
+            "name": "JavaFX$SimpleWindow",
+            "request": "launch",
+            "mainClass": "duitria.JavaFX$SimpleWindow",
+            "projectName": "Duit-Ria_a610233a",
+            "vmArgs": "--module-path C:/Users/Adam Razali/Desktop/Coding/javafx-sdk-21.0.1/lib/ --add-modules javafx.controls,javafx.fxml"
+=======
+            "name": "DuitRiaTest",
+            "request": "launch",
+            "mainClass": "duitria.DuitRiaTest",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "duitria.Main",
+            "projectName": "Duit-Ria_93bca6c7"
+        },
+        {
+            "type": "java",
+            "name": "testGround",
+            "request": "launch",
+            "mainClass": "duitria.testGround",
+            "projectName": "Duit-Ria_93bca6c7"
+>>>>>>> origin/master
+        }
+    ]
+}

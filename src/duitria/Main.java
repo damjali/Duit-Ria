@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package duitria;
 
-/**
- *
- * @author Adam Razali
- */
+package duitria;
+import java.io.*;
+
 public class Main {
-    
+
+    public static void main(String[] args) {
+        // System.setProperty("sun.java2d.uiScale", "1.0");
+        // HomeScreenGUI homescreengui = new HomeScreenGUI();
+        //hello bro
+        DuitRIa game = new DuitRIa();
+        game.playGame();
+    }
 }
