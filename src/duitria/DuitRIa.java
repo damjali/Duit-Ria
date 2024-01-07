@@ -1,4 +1,5 @@
 package duitria;
+
 import java.util.*;
 public class DuitRIa {
     private List<Player> players;
@@ -256,8 +257,8 @@ public class DuitRIa {
             System.out.println(player.name + " landed on the " + fateCard.name + ".");
             System.out.print(player.name + " drew a fate card: ");
             fateCardOutcome(player);
-        } else if (currentTile instanceof Jail) {
-            Jail jail = (Jail) currentTile;
+        } else if (currentTile instanceof JailCornerTile) {
+            JailCornerTile jail = (JailCornerTile) currentTile;
             System.out.println(player.name + " landed on the " + jail.name + ".");
             System.out.println(player.name + " is visitng the jail.");
         } else if (currentTile instanceof Tax) {
@@ -275,12 +276,12 @@ public class DuitRIa {
                 player.money -= tax.cost;
                 System.out.println(player.name + " successfully paid the taxes.");
             }
-        } else if (currentTile instanceof FreeParking) {
-            FreeParking freeParking = (FreeParking) currentTile;
+        } else if (currentTile instanceof FreeParkingCornerTile) {
+            FreeParkingCornerTile freeParking = (FreeParkingCornerTile) currentTile;
             System.out.println(player.name + " landed on the " + freeParking.name);
             System.out.println(player.name + " is resting.");
-        } else if (currentTile instanceof GoToJail) {
-            GoToJail goToJail = (GoToJail) currentTile;
+        } else if (currentTile instanceof GoToJailCornerTile) {
+            GoToJailCornerTile goToJail = (GoToJailCornerTile) currentTile;
             System.out.println(player.name + " landed on the " + goToJail.name + ".");
             System.out.println(player.name + " has to go to jail.");
             player.jailCheck = true;

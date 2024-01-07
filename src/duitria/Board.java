@@ -47,7 +47,7 @@ public class Board extends JFrame implements ActionListener {
         playerName4 = name4;
     }
 
-    private void initializePlayers(int playerNum) {
+    private void initializePlayers() {
         switch (playerNum) {
             case 2:
             players.add(new Player(playerName1));
@@ -595,7 +595,7 @@ public class Board extends JFrame implements ActionListener {
 
     private void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
         if (previousPlayerPosition + diceRoll >= 40) {
-            Go go = (Go) tiles.get(0);
+            GoCornerTile go = (GoCornerTile) tiles.get(0);
             System.out.printf(Locale.US, player.name + " has passed the Go Tile. " + player.name + " has received RM%,d.\n", go.payment);
             player.money += go.payment;
             if (player.buyProperty)
@@ -753,8 +753,8 @@ public class Board extends JFrame implements ActionListener {
             System.out.println(player.name + " landed on the " + fateCard.name + ".");
             System.out.print(player.name + " drew a fate card: ");
             fateCardOutcome(player);
-        } else if (currentTile instanceof Jail) {
-            Jail jail = (Jail) currentTile;
+        } else if (currentTile instanceof JailCornerTile) {
+            JailCornerTile jail = (JailCornerTile) currentTile;
             System.out.println(player.name + " landed on the " + jail.name + ".");
             System.out.println(player.name + " is visitng the jail.");
         } else if (currentTile instanceof Tax) {
@@ -772,12 +772,12 @@ public class Board extends JFrame implements ActionListener {
                 player.money -= tax.cost;
                 System.out.println(player.name + " successfully paid the taxes.");
             }
-        } else if (currentTile instanceof FreeParking) {
-            FreeParking freeParking = (FreeParking) currentTile;
+        } else if (currentTile instanceof FreeParkingCornerTile) {
+            FreeParkingCornerTile freeParking = (FreeParkingCornerTile) currentTile;
             System.out.println(player.name + " landed on the " + freeParking.name);
             System.out.println(player.name + " is resting.");
-        } else if (currentTile instanceof GoToJail) {
-            GoToJail goToJail = (GoToJail) currentTile;
+        } else if (currentTile instanceof GoToJailCornerTile) {
+            GoToJailCornerTile goToJail = (GoToJailCornerTile) currentTile;
             System.out.println(player.name + " landed on the " + goToJail.name + ".");
             System.out.println(player.name + " has to go to jail.");
             player.jailCheck = true;
@@ -978,11 +978,10 @@ public class Board extends JFrame implements ActionListener {
         return activePlayerAmount;
     }
 
-
     private void initializePlayerCard() {
         int yCords = 40;
         for (Player player : players) {
-            playerCards.add(new playerCard(0, yCords, this, player.name));
+            playerCards.add(new playerCard(0, yCords, this, player));
             yCords += 205;
         }
     }
@@ -1093,7 +1092,7 @@ public class Board extends JFrame implements ActionListener {
     playerLogHistory playerLog2 = new playerLogHistory(1500,300,this,playerName2);
     playerLogHistory playerLog3 = new playerLogHistory(1500,460,this,playerName3);
     playerLogHistory playerLog4 = new playerLogHistory(1500,620,this,playerName1);
-    playerLogHistory playerLog5 = new playerLogHistory(1500,780,this, playerName1);
+    playerLogHistory playerLog5 = new playerLogHistory(1500,780,this,playerName1);
     
     //Initialize Roll panel Button
     JPanel panelRoll = new JPanel();
@@ -1149,7 +1148,7 @@ public class Board extends JFrame implements ActionListener {
     tiles = new ArrayList<>();
     playerCards = new ArrayList<>();
     rand = new Random();
-    initializePlayers(playerNum);
+    initializePlayers();
     sortedPlayerTurn();
     initializeTile(panelBoard, border);
     initializePlayerCard();
@@ -1397,9 +1396,8 @@ class playerCard extends JPanel {
     }
 
     //Not set player money , land and status yet
-    playerCard(int x, int y, JFrame frame, String playerName) {
+    playerCard(int x, int y, JFrame frame, Player player) {
         SwingUtilities.invokeLater(() -> {
-
             this.playerName = playerName;
             this.playerLand = playerLand;
             this.playerMoney = playerMoney;
