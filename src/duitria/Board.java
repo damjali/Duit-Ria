@@ -205,28 +205,15 @@ public class Board extends JFrame implements ActionListener {
     private boolean canSell(Player player) {
         int tileCount = 0, houseCount = 0, specialTileCount = 0;
         for (Object currentTile : tiles) {
-            if (currentTile instanceof TileUpAndBottom) {
-                TileUpAndBottom propertyTile = (TileUpAndBottom) currentTile;
+            if (currentTile instanceof Tile) {
+                Tile propertyTile = (Tile) currentTile;
                 if (propertyTile.owner == player) {
                     tileCount++;
                     houseCount += propertyTile.numOfHouse;
                 }
             }
-            if (currentTile instanceof TileLeftAndRight) {
-                TileLeftAndRight propertyTile = (TileLeftAndRight) currentTile;
-                if (propertyTile.owner == player) {
-                    tileCount++;
-                    houseCount += propertyTile.numOfHouse;
-                }
-            }
-            if (currentTile instanceof SpecialTileUpAndBottom) {
-                SpecialTileUpAndBottom specialTile = (SpecialTileUpAndBottom) currentTile;
-                if (specialTile.owner == player) {
-                    specialTileCount++;
-                }
-            }
-            if (currentTile instanceof SpecialTileLeftAndRight) {
-                SpecialTileLeftAndRight specialTile = (SpecialTileLeftAndRight) currentTile;
+            if (currentTile instanceof SpecialTile) {
+                SpecialTile specialTile = (SpecialTile) currentTile;
                 if (specialTile.owner == player) {
                     specialTileCount++;
                 }
@@ -239,38 +226,23 @@ public class Board extends JFrame implements ActionListener {
     }
 
     private void sellingProperties(Player player, int cost, boolean creatorDebt, boolean playerDebt, Player tileOwner) { 
-        List<Object> propertySelector = new ArrayList<>();
-        List<Object> specialTileSelector = new ArrayList<>();
+        List<Tile> propertySelector = new ArrayList<>();
+        List<SpecialTile> specialTileSelector = new ArrayList<>();
         player.propertySellCheck = true;
         boolean hasPaid = false;
         int tileCount, houseCount, specialTileCount, tileCost, houseCost, specialTileCost;
         if (creatorDebt) {
             for (Object currentTile : tiles) {
-                if (currentTile instanceof TileUpAndBottom) {
-                    TileUpAndBottom propertyTile = (TileUpAndBottom) currentTile;
+                if (currentTile instanceof Tile) {
+                    Tile propertyTile = (Tile) currentTile;
                     if (propertyTile.owner == player) {
                         propertyTile.numOfHouse = 0;
                         propertyTile.owner = null;
                         System.out.println(player.name + " has given up " + propertyTile.name + " to the Creator.");
                     }
                 }
-                if (currentTile instanceof TileLeftAndRight) {
-                    TileLeftAndRight propertyTile = (TileLeftAndRight) currentTile;
-                    if (propertyTile.owner == player) {
-                        propertyTile.numOfHouse = 0;
-                        propertyTile.owner = null;
-                        System.out.println(player.name + " has given up " + propertyTile.name + " to the Creator.");
-                    }
-                }
-                if (currentTile instanceof SpecialTileUpAndBottom) {
-                    SpecialTileUpAndBottom specialTile = (SpecialTileUpAndBottom) currentTile;
-                    if (specialTile.owner == player) {
-                        specialTile.owner = null;
-                        System.out.println(player.name + " has given up " + specialTile.name + " to the Creator.");
-                    }
-                }
-                if (currentTile instanceof SpecialTileLeftAndRight) {
-                    SpecialTileLeftAndRight specialTile = (SpecialTileLeftAndRight) currentTile;
+                if (currentTile instanceof SpecialTile) {
+                    SpecialTile specialTile = (SpecialTile) currentTile;
                     if (specialTile.owner == player) {
                         specialTile.owner = null;
                         System.out.println(player.name + " has given up " + specialTile.name + " to the Creator.");
@@ -292,8 +264,8 @@ public class Board extends JFrame implements ActionListener {
             specialTileCount = 0;
             specialTileCost = 0;
             for (Object currentTile : tiles) {
-                if (currentTile instanceof TileUpAndBottom) {
-                    TileUpAndBottom propertyTile = (TileUpAndBottom) currentTile;
+                if (currentTile instanceof Tile) {
+                    Tile propertyTile = (Tile) currentTile;
                     if (propertyTile.owner == player) {
                         tileCount++;
                         tileCost += propertyTile.cost;
@@ -302,26 +274,8 @@ public class Board extends JFrame implements ActionListener {
                         propertySelector.add(propertyTile);
                     }
                 }
-                if (currentTile instanceof TileLeftAndRight) {
-                    TileLeftAndRight propertyTile = (TileLeftAndRight) currentTile;
-                    if (propertyTile.owner == player) {
-                        tileCount++;
-                        tileCost += propertyTile.cost;
-                        houseCount += propertyTile.numOfHouse;
-                        houseCost += (propertyTile.numOfHouse * 200000);
-                        propertySelector.add(propertyTile);
-                    }
-                }
-                if (currentTile instanceof SpecialTileUpAndBottom) {
-                    SpecialTileUpAndBottom specialTile = (SpecialTileUpAndBottom) currentTile;
-                    if (specialTile.owner == player) {
-                        specialTileCount++;
-                        specialTileCost += specialTile.cost;
-                        specialTileSelector.add(specialTile);
-                    }
-                }
-                if (currentTile instanceof SpecialTileLeftAndRight) {
-                    SpecialTileLeftAndRight specialTile = (SpecialTileLeftAndRight) currentTile;
+                if (currentTile instanceof SpecialTile) {
+                    SpecialTile specialTile = (SpecialTile) currentTile;
                     if (specialTile.owner == player) {
                         specialTileCount++;
                         specialTileCost += specialTile.cost;
@@ -336,22 +290,15 @@ public class Board extends JFrame implements ActionListener {
                 System.out.printf(Locale.US, "You have a total of RM%,.0f in house(s) (after Creator's cut).\n", (houseCost * 0.5));
                 System.out.printf(Locale.US, "You have to sell atleast RM%,d.\n", (cost - player.money));
                 System.out.println("You may choose from which property you want to sell the houses from.");
-                for (Object currentTile : propertySelector) {
+                for (Tile propertyTile : propertySelector) {
                     count++;
-                    if (currentTile instanceof TileUpAndBottom) {
-                        TileUpAndBottom propertyTile = (TileUpAndBottom) currentTile;
-                        System.out.println(count + ". " + propertyTile.name + ": " + propertyTile.numOfHouse + " house(s).");
-                    }
-                    if (currentTile instanceof TileLeftAndRight) {
-                        TileLeftAndRight propertyTile = (TileLeftAndRight) currentTile;
-                        System.out.println(count + ". " + propertyTile.name + ": " + propertyTile.numOfHouse + " house(s).");
-                    }
+                    System.out.println(count + ". " + propertyTile.name + ": " + propertyTile.numOfHouse + " house(s).");
                 }
                 while (true) {
                     System.out.print("Property choice. (1 - " + count + "): ");
                     choice = keyboard.nextInt();
                     keyboard.nextLine();
-                    Object propertyTile = propertySelector.get(choice - 1);
+                    Tile propertyTile = propertySelector.get(choice - 1);
                     while ((choice < 0 || choice > count) || propertyTile.numOfHouse < 1) {
                         System.out.print("Please pick again. : ");
                         choice = keyboard.nextInt();
@@ -513,7 +460,7 @@ public class Board extends JFrame implements ActionListener {
             }
         }
     }
-
+    
     private void playerLoan(Player player, int cost, boolean debtCheck) {
         if (!player.hasLoan) {
             System.out.println("Do you want to take a loan?");
@@ -648,15 +595,15 @@ public class Board extends JFrame implements ActionListener {
 
     private void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
         if (previousPlayerPosition + diceRoll >= 40) {
-            GoCornerTile go = (GoCornerTile) tiles.get(0);
+            Go go = (Go) tiles.get(0);
             System.out.printf(Locale.US, player.name + " has passed the Go Tile. " + player.name + " has received RM%,d.\n", go.payment);
             player.money += go.payment;
             if (player.buyProperty)
                 player.buyHouse = true;
             player.buyProperty = true;
         }
-        if (currentTile instanceof TileUpAndBottom) {
-            TileUpAndBottom propertyTile = (TileUpAndBottom) currentTile;
+        if (currentTile instanceof Tile) {
+            Tile propertyTile = (Tile) currentTile;
             System.out.println(player.name + " landed on " + propertyTile.name + ".");
             if (propertyTile.owner == null && !player.hasLoan) {
                 if (player.buyProperty) {
@@ -756,109 +703,8 @@ public class Board extends JFrame implements ActionListener {
                     }
                 }
             }
-        } else if (currentTile instanceof TileLeftAndRight) {
-            TileLeftAndRight propertyTile = (TileLeftAndRight) currentTile;
-            System.out.println(player.name + " landed on " + propertyTile.name + ".");
-            if (propertyTile.owner == null && !player.hasLoan) {
-                if (player.buyProperty) {
-                    System.out.printf(Locale.US, "Do you want to buy " + propertyTile.name + " for RM%,d? (Y/N):", propertyTile.cost);
-                    String choice = keyboard.nextLine();
-                    if (choice.equalsIgnoreCase("Y")) {
-                        if (propertyTile.cost >= player.money) {
-                            System.out.println("Not enough money to buy " + propertyTile.name + ".");
-                            if (canSell(player)) {
-                                System.out.printf("Do you want to sell assets to buy this land? (Y/N):");
-                                String sellChoice = keyboard.nextLine();
-                                if (sellChoice.equalsIgnoreCase("Y")) {
-                                    sellingProperties(player, propertyTile.cost, false, false, null);
-                                    if (!player.bankruptcy && propertyTile.cost < player.money) {
-                                        System.out.println(player.name + " bought " + propertyTile.name + ".");
-                                        player.money -= propertyTile.cost;
-                                        propertyTile.owner = player;
-                                    }
-                                }
-                            } else 
-                                playerLoan(player, propertyTile.cost, false);
-                        } else {
-                            System.out.println(player.name + " bought " + propertyTile.name + ".");
-                            player.money -= propertyTile.cost;
-                            propertyTile.owner = player;
-                        }
-                    }
-                }
-            } else if (propertyTile.owner != player) {
-                int colourCount = 0;
-                Boolean doubleRent = false;
-                for (Object otherTile : tiles) {
-                    if (otherTile instanceof Tile) {
-                        Tile otherPropertyTile = (Tile) otherTile;
-                        if (otherPropertyTile.tileColour.equals(propertyTile.tileColour))
-                            colourCount++;
-                    }
-                }
-                switch (propertyTile.tileColour) {
-                    case "Green", "Yellow":
-                        if (colourCount == 2)
-                            doubleRent = true;
-                        break;
-                    case "Blue", "Maroon", "Light Blue", "Purple", "Orange", "Red":
-                        if (colourCount == 3)
-                            doubleRent = true;
-                        break;
-                }
-                int rentAmount = propertyTile.baseRent + propertyTile.calculateRent(doubleRent);
-                System.out.println(propertyTile.name + " is owned by " + propertyTile.owner.name + ".");
-                System.out.printf(player.name + " has to pay rent of RM%,d.\n", rentAmount);
-                if (rentAmount >= player.money) {
-                    System.out.println("You don't have enough money to pay the rent.");
-                    sellingProperties(player, rentAmount, false, true, propertyTile.owner);
-                    if (!player.bankruptcy && rentAmount < player.money) {
-                        player.money -= rentAmount;
-                        propertyTile.owner.money += rentAmount;
-                        System.out.println(player.name + " successfully paid the rent.");
-                    }
-                } else {
-                    player.money -= rentAmount;
-                    propertyTile.owner.money += rentAmount;
-                    System.out.println(player.name + " successfully paid the rent.");
-                }
-            } else {
-                System.out.println(player.name + " is visiting his land.");
-                if (player.buyHouse && !player.hasLoan) {
-                    if (propertyTile.numOfHouse >= 0 && propertyTile.numOfHouse < 4) {
-                        System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
-                        String choice = keyboard.nextLine();
-                        if (choice.equalsIgnoreCase("Y")) {
-                            boolean buyHouseCheck = true;
-                            int housePrice = propertyTile.houseCost;
-                            int numOfHouseCanBuy = Math.min((player.money / housePrice) - propertyTile.numOfHouse, 4);
-                            System.out.println("You can buy " + numOfHouseCanBuy + " more houses.");
-                            while (buyHouseCheck && player.money > propertyTile.houseCost) {
-                                System.out.print("How many do you want to buy? : ");
-                                int numOfHouse = keyboard.nextInt();
-                                keyboard.nextLine();
-                                if (numOfHouse >= 0 && numOfHouse <= numOfHouseCanBuy) {
-                                    if (housePrice * numOfHouse >= player.money) {
-                                        System.out.println("You don't have enough money to buy that amount of houses.");
-                                        System.out.println("Please pick again.");
-                                    } else {
-                                        System.out.printf(Locale.US, "You bought the house for RM%,d.\n", (housePrice * numOfHouse));
-                                        propertyTile.numOfHouse += numOfHouse;
-                                        player.money -= housePrice * numOfHouse;
-                                        buyHouseCheck = false;
-                                    }
-                                } else {
-                                    System.out.println("Please buy in the amount of available houses.");
-                                }
-                            }
-                        }
-                    } else {
-                        System.out.println("You have bought the maximum amount of houses (4).");
-                    }
-                }
-            }
-        } else if (currentTile instanceof SpecialTileUpAndBottom) {
-            SpecialTileUpAndBottom specialTile = (SpecialTileUpAndBottom) currentTile;
+        } else if (currentTile instanceof SpecialTile) {
+            SpecialTile specialTile = (SpecialTile) currentTile;
             System.out.println(player.name + " landed on " + specialTile.name + ".");
             if (specialTile.owner == null && !player.hasLoan) {
                 if (player.buyProperty) {
@@ -902,68 +748,18 @@ public class Board extends JFrame implements ActionListener {
             } else {
                 System.out.println(player.name + " is vitising his tile.");
             }
-        } else if (currentTile instanceof SpecialTileLeftAndRight) {
-            SpecialTileLeftAndRight specialTile = (SpecialTileLeftAndRight) currentTile;
-            System.out.println(player.name + " landed on " + specialTile.name + ".");
-            if (specialTile.owner == null && !player.hasLoan) {
-                if (player.buyProperty) {
-                    System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
-                    String choice = keyboard.nextLine();
-                    if (choice.equalsIgnoreCase("Y")) {
-                        if (specialTile.cost >= player.money) {
-                            System.out.println("You do not enough money to buy " + specialTile.name + ".");
-                            if (canSell(player)) {
-                                sellingProperties(player, specialTile.cost, false, false, null);
-                                if (!player.bankruptcy && specialTile.cost < player.money) {
-                                    System.out.println(player.name + " bought " + specialTile.name + ".");
-                                    player.money -= specialTile.cost;
-                                    specialTile.owner = player;
-                                }
-                            } else
-                                playerLoan(player, specialTile.cost, false);
-                        } else {
-                            System.out.println(player.name + " bought " + specialTile.name + ".");
-                            player.money -= specialTile.cost;
-                            specialTile.owner = player;
-                        }
-                    }
-                }
-            } else if (specialTile.owner != player) {
-                System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
-                System.out.printf(player.name + " has to pay rent of RM%,d.\n", specialTile.baseRent);
-                if (specialTile.baseRent >= player.money) {
-                    System.out.println("You don't have enough money to pay the rent.");
-                    sellingProperties(player, specialTile.baseRent, false, true, specialTile.owner);
-                    if (!player.bankruptcy && specialTile.baseRent < player.money) {
-                        player.money -= specialTile.baseRent;
-                        specialTile.owner.money += specialTile.baseRent;
-                        System.out.println(player.name + " successfully paid the rent.");
-                    }
-                } else {
-                    player.money -= specialTile.baseRent;
-                    specialTile.owner.money += specialTile.baseRent;
-                    System.out.println(player.name + " successfully paid the rent.");
-                }
-            } else {
-                System.out.println(player.name + " is vitising his tile.");
-            }
-        } else if (currentTile instanceof FateCardUpAndBottom) {
-            FateCardUpAndBottom fateCard = (FateCardUpAndBottom) currentTile;
-            System.out.println(player.name + " landed on " + fateCard.name + ".");
+        } else if (currentTile instanceof FateCard) {
+            FateCard fateCard = (FateCard) currentTile;
+            System.out.println(player.name + " landed on the " + fateCard.name + ".");
             System.out.print(player.name + " drew a fate card: ");
             fateCardOutcome(player);
-        } else if (currentTile instanceof FateCardLeftAndRight) {
-            FateCardLeftAndRight fateCard = (FateCardLeftAndRight) currentTile;
-            System.out.println(player.name + " landed on " + fateCard.name + ".");
-            System.out.print(player.name + " drew a fate card: ");
-            fateCardOutcome(player);
-        } else if (currentTile instanceof JailCornerTile) {
-            JailCornerTile jail = (JailCornerTile) currentTile;
-            System.out.println(player.name + " landed on " + jail.name + ".");
-            System.out.println(player.name + " is visiting the jail.");
-        } else if (currentTile instanceof TaxUpAndBottom) {
-            TaxUpAndBottom tax = (TaxUpAndBottom) currentTile;
-            System.out.println(player.name + " landed on " + tax.name + ".");
+        } else if (currentTile instanceof Jail) {
+            Jail jail = (Jail) currentTile;
+            System.out.println(player.name + " landed on the " + jail.name + ".");
+            System.out.println(player.name + " is visitng the jail.");
+        } else if (currentTile instanceof Tax) {
+            Tax tax = (Tax) currentTile;
+            System.out.println(player.name + " landed on the " + tax.name + ".");
             System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
             if (tax.cost >= player.money) {
                 System.out.println("You don't have enough money to pay taxes.");
@@ -976,28 +772,13 @@ public class Board extends JFrame implements ActionListener {
                 player.money -= tax.cost;
                 System.out.println(player.name + " successfully paid the taxes.");
             }
-        } else if (currentTile instanceof TaxLeftAndRight) {
-            TaxLeftAndRight tax = (TaxLeftAndRight) currentTile;
-            System.out.println(player.name + " landed on " + tax.name + ".");
-            System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
-            if (tax.cost >= player.money) {
-                System.out.println("You don't have enough money to pay taxes.");
-                sellingProperties(player, tax.cost, true, false, null);
-                if (!player.bankruptcy && tax.cost < player.money) {
-                    player.money -= tax.cost;
-                    System.out.println(player.name + " successfully paid the taxes.");
-                }
-            } else {
-                player.money -= tax.cost;
-                System.out.println(player.name + " successfully paid the taxes.");
-            }
-        } else if (currentTile instanceof FreeParkingCornerTile) {
-            FreeParkingCornerTile freeParking = (FreeParkingCornerTile) currentTile;
-            System.out.println(player.name + " landed on " + freeParking.name);
+        } else if (currentTile instanceof FreeParking) {
+            FreeParking freeParking = (FreeParking) currentTile;
+            System.out.println(player.name + " landed on the " + freeParking.name);
             System.out.println(player.name + " is resting.");
-        } else if (currentTile instanceof GoToJailCornerTile) {
-            GoToJailCornerTile goToJail = (GoToJailCornerTile) currentTile;
-            System.out.println(player.name + " landed on " + goToJail.name + ".");
+        } else if (currentTile instanceof GoToJail) {
+            GoToJail goToJail = (GoToJail) currentTile;
+            System.out.println(player.name + " landed on the " + goToJail.name + ".");
             System.out.println(player.name + " has to go to jail.");
             player.jailCheck = true;
             player.position = 10;
@@ -1588,114 +1369,6 @@ class FateCard extends miniTiles {
     String name;    // fatecard tile's name
     FateCard(int x, int y, JPanel panelBoard, String path, int width, int height, String name) {
         super(x, y, width, height, panelBoard, path);
-        this.name = name;
-    }
-}
-
- class miniTilesLeftAndRight extends JPanel{
-     
-     miniTilesLeftAndRight(int x, int y, JPanel panelBoard, String path){
-         SwingUtilities.invokeLater(() -> {
-            Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-            this.setBounds(x, y, 158, 76);
-            this.setBackground(Color.WHITE);
-            this.setBorder(border);
-            this.setLayout(null);
-            
-            ImageIcon icon = imageicon.getResizedImage(path,158, 76);
-            JLabel labelImage = new JLabel();
-            labelImage.setIcon(icon);
-            labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
-            this.add(labelImage);
-            panelBoard.add(this);
-         });
-     }
-}
-
-class TileLeftAndRight extends miniTilesLeftAndRight {
-    String name;        // tile's name
-    int cost;           // tile's cost
-    int baseRent;       // tile's base rent
-    String tileColour;  // tile's colour group
-    Player owner;       // tile's ownership (based on player's reference)
-    int houseCost;      // tile's housecost
-    int numOfHouse;     // tile's number of houses built
-    TileLeftAndRight(int x, int y, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
-        super(x, y, panelBoard, path);
-        this.name = name;
-        this.cost = cost;
-        this.baseRent = baseRent;
-        this.tileColour = tileColour;
-        houseCost = 200000;
-        owner = null;
-        numOfHouse = 0;
-    }
-    public int calculateRent(Boolean doubleRent) {
-        int calculatedRent = 0;
-        if (doubleRent)
-            calculatedRent += baseRent;
-        if (numOfHouse == 0)
-            calculatedRent += baseRent;
-        else if (numOfHouse == 1)
-            calculatedRent += (baseRent * 2);
-        else if (numOfHouse >= 2 && numOfHouse <= 4)
-            calculatedRent += ((baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1))));
-        return calculatedRent;
-    }
-}
-
-class SpecialTileLeftAndRight extends miniTilesLeftAndRight {
-    String name;    // special tile's name
-    int cost;       // special tile's cost
-    int baseRent;   // special tile's base rent
-    Player owner;   // special tile's ownership (based on player's reference)
-    SpecialTileLeftAndRight(int x, int y, JPanel panelBoard, String path, String name, int cost, int baseRent) {
-        super(x, y, panelBoard, path);
-        this.name = name;
-        this.cost = cost;
-        this.baseRent = baseRent;
-        owner = null;
-    }
-}
-
-class TaxLeftAndRight extends miniTilesLeftAndRight {
-    String name;    // tax's tile name
-    int cost;       // tax's cost
-    TaxLeftAndRight(int x, int y, JPanel panelBoard, String path, String name, int cost) {
-        super(x, y, panelBoard, path);
-        this.name = name;
-        this.cost = cost;
-    }
-}
-
-class FateCardLeftAndRight extends miniTilesLeftAndRight {
-    String name;    // fatecard tile's name
-    FateCardLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
-        super(x, y, panelBoard, path);
-        this.name = name;
-    }
-}
-
-class FreeParkingLeftAndRight extends miniTilesLeftAndRight {
-    String name;    //free parking tile's name
-    FreeParkingLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
-        super(x, y, panelBoard, path);
-        this.name = name;
-    }
-}
-
-class JailLeftAndRight extends miniTilesLeftAndRight {
-    String name;    // jail tile's name
-    JailLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
-        super(x, y, panelBoard, path);
-        this.name = name;
-    }
-}
-
-class GoToJailLeftAndRight extends miniTilesLeftAndRight {
-    String name;    // go to jail tile's name
-    GoToJailLeftAndRight(int x, int y, JPanel panelBoard, String path, String name) {
-        super(x, y, panelBoard, path);
         this.name = name;
     }
 }
