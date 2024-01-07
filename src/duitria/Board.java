@@ -1911,15 +1911,3 @@ class imageicon{
     }
     
 }
-
-class imagetile{
-    public static ImageIcon getResizedTile(String path, int width, int height){
-        ImageIcon imageTile = new ImageIcon(new ImageIcon(path)
-                                .getImage()
-                                .getScaledInstance(
-                                    width, 
-                                    height, 
-                                    Image.SCALE_SMOOTH));
-        return imageTile;
-    }
-}
