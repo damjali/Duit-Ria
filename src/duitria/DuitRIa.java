@@ -1,6 +1,10 @@
 package duitria;
+
 import java.util.*;
+import java.io.*;
+
 public class DuitRIa {
+    private SaveFile saveFile;
     private List<Player> players;
     private List<Object> tiles;
     private int currentPlayerIndex;
@@ -11,7 +15,16 @@ public class DuitRIa {
         players = new ArrayList<>();
         tiles = new ArrayList<>();
         rand = new Random();
+        saveFile = new SaveFile();
         while (true) {
+            System.out.println("Welcome to DuitRia.");
+            if (isFileAvailable("saveFile.ser")) {
+                System.out.print("Do you want to start a new game or open the saved file? (Y/N): ");
+                String choice = keyboard.nextLine();
+                if (choice.equalsIgnoreCase("Y")) {
+                    saveFile.loadGame("saveFile.ser");
+                }
+            }
             System.out.print("How many players are playing: ");
             int playerNum = keyboard.nextInt();
             keyboard.nextLine();
@@ -23,6 +36,10 @@ public class DuitRIa {
         }
         sortedPlayerTurn();
         initializeTile();
+    }
+    private boolean isFileAvailable(String fileName) {
+        File file = new File(fileName);
+        return file.exists() && file.isFile();
     }
     private void initializePlayers(int playerNum) {
         for (int i = 1; i <= playerNum; i++) {
@@ -926,5 +943,6 @@ public class DuitRIa {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
         System.out.println("DuitRia has come to an end, thanks for playing!");
+        saveFile.saveGame(players, tiles, "saveFile.ser");
     }
 }

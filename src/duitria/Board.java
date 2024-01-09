@@ -261,7 +261,7 @@ public class Board extends JFrame implements ActionListener {
 
     }
 
-    private void initializePlayers(int playerNum) {
+    private void initializePlayers() {
         switch (playerNum) {
             case 2:
             players.add(new Player(playerName1));
@@ -279,6 +279,7 @@ public class Board extends JFrame implements ActionListener {
             players.add(new Player(playerName4));
         }
     }
+
 
     private void initializeTile(JPanel panelBoard, Border border) {
         // BOTTOM RIGHT
