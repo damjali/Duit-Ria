@@ -1,4 +1,3 @@
-
 package duitria;
 
 import java.awt.Color;
@@ -15,12 +14,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
 public class Board extends JFrame implements ActionListener {
+    
+    public static void main(String[] args) {
+
+        System.setProperty("sun.java2d.uiScale", "1.0");
+        Board board = new Board();
+
+    }
     
     private SaveFile saveFile;
     private List<Player> players;
@@ -29,6 +37,8 @@ public class Board extends JFrame implements ActionListener {
     private Scanner keyboard;
     private Random rand;
 
+    JLabel diceOneImg;
+    JLabel diceTwoImg;
 
     JButton buttonRoll = new JButton();
     JButton buttonGameRules = new JButton();
@@ -63,6 +73,8 @@ public class Board extends JFrame implements ActionListener {
     SwingUtilities.invokeLater(() -> {
 
     playerNum = PlayerNumber.playerNum;
+
+
    
     
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
@@ -78,11 +90,13 @@ public class Board extends JFrame implements ActionListener {
     
     JPanel panelBoard = new JPanel();
 //    panelBoard.setBackground(new Color(0xA3FF9B));
-panelBoard.setBackground(Color.BLACK);
+    panelBoard.setBackground(Color.BLACK);
     panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
     this.add(panelBoard);
     panelBoard.setLayout(null);
     panelBoard.setBorder(border);
+
+
     
     
     //For Tile Free Parking
@@ -98,7 +112,8 @@ panelBoard.setBackground(Color.BLACK);
     
     panelBoard.add(panelFreeParking);
 
-    //For Tile GO
+
+//For Tile GO
     JPanel panelGO = new JPanel();
     panelGO.setBounds(842, 842, 158, 158);
     panelGO.setBackground(Color.WHITE);
@@ -166,7 +181,9 @@ panelBoard.setBackground(Color.BLACK);
    miniTilesUpAndBottom tile4 = new miniTilesUpAndBottom(386,842, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png");
    miniTilesUpAndBottom fate2 = new miniTilesUpAndBottom(310,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
    miniTilesUpAndBottom tile5 = new miniTilesUpAndBottom(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png");
-   miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png");
+
+
+miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png");
 
     miniTilesLeftAndRight tile7 = new miniTilesLeftAndRight(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png");
     miniTilesLeftAndRight tile8 = new miniTilesLeftAndRight(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png");
@@ -188,8 +205,8 @@ panelBoard.setBackground(Color.BLACK);
     miniTilesLeftAndRight tile24 = new miniTilesLeftAndRight(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png");
     miniTilesLeftAndRight tile23 = new miniTilesLeftAndRight(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png");
 
-    
-    //INITIALIZE PLAYER CARD PANEL
+
+//INITIALIZE PLAYER CARD PANEL
     playerCard playerCard1 = new playerCard(0,40,this,playerName1);
     playerCard playerCard2 = new playerCard(0,245,this,playerName2);
     playerCard playerCard3 = new playerCard(0,450,this,playerName3);
@@ -221,6 +238,19 @@ panelBoard.setBackground(Color.BLACK);
     buttonRoll.setBounds(0 , 0, 150,150);
     buttonRoll.addActionListener(this);
     buttonRoll.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\dice.png", 150, 150));
+    diceOneImg = new JLabel();
+    diceTwoImg = new JLabel();
+
+    //for dice animation
+    diceOneImg = new JLabel();
+    diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE1.png",100,100));
+    diceOneImg.setBounds(172, 728, 100, 100);
+    panelBoard.add(diceOneImg);
+
+    diceTwoImg = new JLabel();
+    diceTwoImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE1.png",100,100));
+    diceTwoImg.setBounds(728, 728, 100, 100);
+    panelBoard.add(diceTwoImg);
     
     panelRoll.setBackground(Color.WHITE);
     panelRoll.setBorder(border);
@@ -272,11 +302,63 @@ panelBoard.setBackground(Color.BLACK);
     
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==buttonRoll){
-            System.out.println("Bruh Moment");
+                 buttonRoll.setEnabled(false);
+
+                // roll for 3 seconds
+                long startTime = System.currentTimeMillis();
+                Thread rollThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        long endTime = System.currentTimeMillis();
+                        try{
+                            
+                            while((endTime - startTime)/1000F < 0.5){
+                                // roll dice
+                                int diceOne = rand.nextInt(1, 7);
+                                int diceTwo = rand.nextInt(1, 7);
+                                int sum = diceOne + diceTwo;
+
+                                // update dice images
+                                diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE" + diceOne + ".png",100,100));
+                                diceTwoImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE" + diceTwo + ".png",100,100));
+
+                               
+                            
+                                // sleep thread
+                                Thread.sleep(60);
+
+                                endTime = System.currentTimeMillis();
+                                
+                            
+                                
+                            }
+                                                        
+                            buttonRoll.setEnabled(true);
+                        }
+                        catch(InterruptedException e){
+                            System.out.println("Threading Error: " + e);
+                        }
+                    
+                }
+                });
+                rollThread.start();
         }
     
         if(e.getSource()==buttonGameRules){
            GameRules gamerules = new GameRules();
+        }
+
+        if (e.getSource() == buttonLoan){
+
+        }
+
+        if (e.getSource() == buttonBuy){
+            
+        }
+
+        if (e.getSource() == buttonSell){
+            
         }
     }
 
@@ -284,7 +366,9 @@ panelBoard.setBackground(Color.BLACK);
 }
 
  class miniTilesUpAndBottom extends JPanel{ 
-     
+
+     JLabel labelTokenPlayer1 = new JLabel();
+
      miniTilesUpAndBottom(int a, int b, JPanel panelBoard, String path){
          SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
@@ -293,12 +377,28 @@ panelBoard.setBackground(Color.BLACK);
             this.setBorder(border);
             this.setLayout(null);
 
+
+
             ImageIcon icon = imageicon.getResizedImage(path,76, 158);
             JLabel labelImage = new JLabel();
             labelImage.setIcon(icon);
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
+
+                        
+            labelTokenPlayer1.setIcon(imageicon.getResizedImage("src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png", 40, 40));
+            labelTokenPlayer1.setBounds(8, 90, 40, 40);
+            this.add(labelTokenPlayer1);
+
+
+            this.setComponentZOrder(labelImage, 1); 
+            this.setComponentZOrder(labelTokenPlayer1, 0);
+
+
             panelBoard.add(this); 
+
+
+
          });
      }
      
@@ -309,8 +409,14 @@ panelBoard.setBackground(Color.BLACK);
 }
 
  class miniTilesLeftAndRight extends JPanel{
-     
+
+     JLabel labelTokenPlayer1 = new JLabel();
+     JLabel labelTokenPlayer2 = new JLabel();
+     JLabel labelTokenPlayer3 = new JLabel();
+     JLabel labelTokenPlayer4 = new JLabel();
+
      miniTilesLeftAndRight(int a, int b, JPanel panelBoard, String path){
+
          SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBounds(a, b, 158, 76);
@@ -324,6 +430,8 @@ panelBoard.setBackground(Color.BLACK);
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
             panelBoard.add(this);
+
+
          });
      }
 }
@@ -393,7 +501,8 @@ class playerCard extends JPanel {
         });
     }
 
-    //Not set player money , land and status yet
+
+//Not set player money , land and status yet
     playerCard(int a, int b, JFrame frame, String playerName) {
         SwingUtilities.invokeLater(() -> {
 
@@ -487,7 +596,7 @@ class playerCard extends JPanel {
             this.add(panelPlayerLogMove);
 
 
-            JPanel panelPlayerLogDescription = new JPanel();
+JPanel panelPlayerLogDescription = new JPanel();
             panelPlayerLogDescription.setBounds(0, 50, 420, 99); // Set bounds for the panel
             // panelPlayerLogDescription.setBorder(border); // Set a background color for visibility
             panelPlayerLogDescription.setOpaque(false);
@@ -540,6 +649,3 @@ class imagetile{
     }
     
 }
-
-
-

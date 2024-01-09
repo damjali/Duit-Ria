@@ -1,6 +1,8 @@
 package duitria;
 
-class Tile {
+import java.io.Serializable;
+
+class Tile implements Serializable{
     String name;        // tile's name
     int cost;           // tile's cost
     int baseRent;       // tile's base rent
@@ -30,7 +32,7 @@ class Tile {
         return calculatedRent;
     }
 }
-class SpecialTile {
+class SpecialTile implements Serializable{
     String name;    // special tile's name
     int cost;       // special tile's cost
     int baseRent;   // special tile's base rent
@@ -42,7 +44,7 @@ class SpecialTile {
         owner = null;
     }
 }
-class Tax {
+class Tax implements Serializable{
     String name;    // tax's tile name
     int cost;       // tax's cost
     public Tax(String name, int cost) {
@@ -50,7 +52,7 @@ class Tax {
         this.cost = cost;
     }
 }
-class Go {
+class Go implements Serializable{
     String name;    // go tile's name
     int payment;    // go tile's payment
     public Go(String name, int payment) {
@@ -58,25 +60,25 @@ class Go {
         this.payment = payment;
     }
 }
-class FateCard {
+class FateCard implements Serializable{
     String name;    // fatecard tile's name
     public FateCard(String name) {
         this.name = name;
     }
 }
-class FreeParking {
+class FreeParking implements Serializable{
     String name;    //free parking tile's name
     public FreeParking(String name) {
         this.name = name;
     }
 }
-class Jail {
+class Jail implements Serializable{
     String name;    // jail tile's name
     public Jail(String name) {
         this.name = name;
     }
 }
-class GoToJail {
+class GoToJail implements Serializable{
     String name;    // go to jail tile's name
     public GoToJail(String name) {
         this.name = name;
