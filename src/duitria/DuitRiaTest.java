@@ -17,7 +17,7 @@ public class DuitRiaTest {
         // decide who starts
         int playerDice[] = new int[numOfPlayer];
         playerTurns(playerDice, playerNames);
-
+        
         // Pause before start
         //gamePause(keyboard);
 
