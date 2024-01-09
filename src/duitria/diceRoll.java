@@ -20,6 +20,12 @@ import java.util.Comparator;
 
 public class diceRoll extends JFrame {
 
+public static void main(String[] args) {
+    System.setProperty("sun.java2d.uiScale", "1.0");
+    Board board = new Board();
+}
+
+
     int count = 0;
     int diceValuePlayer1,diceValuePlayer2,diceValuePlayer3,diceValuePlayer4;
     String player1, player2, player3, player4;
