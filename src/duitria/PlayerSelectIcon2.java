@@ -28,6 +28,8 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
 
+    String player1, player2;
+    playerIcons playerIcon1, playerIcon2;
 
     PlayerSelectIcon2 (){
 
@@ -71,6 +73,9 @@ public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
         Board board = new Board();
         this.dispose();
+        player1 = playerIcon1.playerNameTextField.getText();
+        player2 = playerIcon2.playerNameTextField.getText();
+        board.setName(player1, player2, null, null);
     }
     
     

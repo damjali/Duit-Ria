@@ -28,17 +28,8 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
 
-
-    String player1;
-    String player2;
-    String player3;
-    String player4;
-
-    playerIcons playerIcon1;
-    playerIcons playerIcon2;
-    playerIcons playerIcon3;
-    playerIcons playerIcon4;
-
+    String player1, player2, player3, player4;
+    playerIcons playerIcon1, playerIcon2, playerIcon3, playerIcon4;
 
     PlayerSelectIcon4 (){
 
