@@ -140,6 +140,9 @@ public class Board extends JFrame implements ActionListener {
     Board() {
     SwingUtilities.invokeLater(() -> {
 
+        SwingUtilities.invokeLater(() -> {
+
+        //Any declarations add here
         keyboard = new Scanner(System.in);
         players = new ArrayList<>();
         playerCards = new ArrayList<>();
@@ -313,60 +316,60 @@ miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\
     diceOneImg = new JLabel();
     diceTwoImg = new JLabel();
 
-    //for dice animation
-    diceOneImg = new JLabel();
-    diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE1.png",100,100));
-    diceOneImg.setBounds(172, 728, 100, 100);
-    panelBoard.add(diceOneImg);
+        //for dice animation
+        diceOneImg = new JLabel();
+        diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE1.png",100,100));
+        diceOneImg.setBounds(172, 728, 100, 100);
+        panelBoard.add(diceOneImg);
 
-    diceTwoImg = new JLabel();
-    diceTwoImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE1.png",100,100));
-    diceTwoImg.setBounds(728, 728, 100, 100);
-    panelBoard.add(diceTwoImg);
-    
-    panelRoll.setBackground(Color.WHITE);
-    panelRoll.setBorder(border);
-    panelRoll.setLayout(null);
-    panelRoll.add(buttonRoll);
-    this.add(panelRoll);
-    
-    //Initialize Buy Button
-    JPanel panelBuy = new JPanel();
-    panelBuy.setBounds(700 , 375, 100,50);
-    buttonBuy.setBounds(0 , 0, 100,50);
-    buttonBuy.addActionListener(this);
-    buttonBuy.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
-    panelBuy.setBackground(Color.WHITE);
-    panelBuy.setBorder(border);
-    panelBuy.setLayout(null);
-    panelBuy.add(buttonBuy);
-    panelBoard.add(panelBuy);
-    
-    //Initialize Sell Button
-    JPanel panelSell = new JPanel();
-    panelSell.setBounds(700 , 475, 100,50);
-    buttonSell.setBounds(0 , 0, 100,50);
-    buttonSell.addActionListener(this);
-    buttonSell.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\SELL.png", 100, 50));
-    panelSell.setBackground(Color.WHITE);
-    panelSell.setBorder(border);
-    panelSell.setLayout(null);
-    panelSell.add(buttonSell);
-    panelBoard.add(panelSell);
-    
-    //Initialize Loan Button
-    JPanel panelLoan = new JPanel();
-    panelLoan.setBounds(700 , 575, 100,50);
-    buttonLoan.setBounds(0 , 0, 100,50);
-    buttonLoan.addActionListener(this);
-    buttonLoan.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\LOAN.png", 100, 50));
-    panelLoan.setBackground(Color.WHITE);
-    panelLoan.setBorder(border);
-    panelLoan.setLayout(null);
-    panelLoan.add(buttonLoan);
-    panelBoard.add(panelLoan);
-    
-    });
+        diceTwoImg = new JLabel();
+        diceTwoImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE1.png",100,100));
+        diceTwoImg.setBounds(728, 728, 100, 100);
+        panelBoard.add(diceTwoImg);
+        
+        panelRoll.setBackground(Color.WHITE);
+        panelRoll.setBorder(border);
+        panelRoll.setLayout(null);
+        panelRoll.add(buttonRoll);
+        this.add(panelRoll);
+        
+        //Initialize Buy Button
+        JPanel panelBuy = new JPanel();
+        panelBuy.setBounds(700 , 375, 100,50);
+        buttonBuy.setBounds(0 , 0, 100,50);
+        buttonBuy.addActionListener(this);
+        buttonBuy.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
+        panelBuy.setBackground(Color.WHITE);
+        panelBuy.setBorder(border);
+        panelBuy.setLayout(null);
+        panelBuy.add(buttonBuy);
+        panelBoard.add(panelBuy);
+        
+        //Initialize Sell Button
+        JPanel panelSell = new JPanel();
+        panelSell.setBounds(700 , 475, 100,50);
+        buttonSell.setBounds(0 , 0, 100,50);
+        buttonSell.addActionListener(this);
+        buttonSell.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\SELL.png", 100, 50));
+        panelSell.setBackground(Color.WHITE);
+        panelSell.setBorder(border);
+        panelSell.setLayout(null);
+        panelSell.add(buttonSell);
+        panelBoard.add(panelSell);
+        
+        //Initialize Loan Button
+        JPanel panelLoan = new JPanel();
+        panelLoan.setBounds(700 , 575, 100,50);
+        buttonLoan.setBounds(0 , 0, 100,50);
+        buttonLoan.addActionListener(this);
+        buttonLoan.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\LOAN.png", 100, 50));
+        panelLoan.setBackground(Color.WHITE);
+        panelLoan.setBorder(border);
+        panelLoan.setLayout(null);
+        panelLoan.add(buttonLoan);
+        panelBoard.add(panelLoan);
+        
+        });
 
     }
 
@@ -566,6 +569,7 @@ class MiniFateCard extends BoardTile {
      JLabel labelHouse2 = new JLabel();
      JLabel labelHouse3 = new JLabel();
      JLabel labelHouse4 = new JLabel();
+     JButton buttonTiles = new JButton();
 
      miniTilesUpAndBottom(int a, int b, JPanel panelBoard, String path){
          SwingUtilities.invokeLater(() -> {
@@ -583,48 +587,16 @@ class MiniFateCard extends BoardTile {
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
 
-                        
-            labelTokenPlayer1.setIcon(imageicon.getResizedImage("src\\duitria\\Tokens\\kisspng-scottish-terrier-hasbro-monopoly-token-madness-gam-5aeec53ce326f6.3711203115255975009304.png", 40, 40));
-            labelTokenPlayer1.setBounds(8, 90, 40, 40);
-            this.add(labelTokenPlayer1);
-
-            labelHouse1.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
-            labelHouse1.setBounds(48, 80, 15, 15);
-            this.add(labelHouse1);
-
-            labelHouse2.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
-            labelHouse2.setBounds(48, 100, 15, 15);
-            this.add(labelHouse2);
-
-            labelHouse3.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
-            labelHouse3.setBounds(48, 120, 15, 15);
-            this.add(labelHouse3);
-
-            labelHouse4.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
-            labelHouse4.setBounds(48, 140, 15, 15);
-            this.add(labelHouse4);
-
-
-
-            this.setComponentZOrder(labelImage, 1); 
-            this.setComponentZOrder(labelTokenPlayer1, 0);
-            this.setComponentZOrder(labelHouse1, 0);
-            this.setComponentZOrder(labelHouse2, 0);
-            this.setComponentZOrder(labelHouse3, 0);
-            this.setComponentZOrder(labelHouse4, 0);
-
+            buttonTiles.setBounds(0, 0, 76, 158);
+            buttonTiles.setIcon(imageicon.getResizedImage(path, 75, 158));
+            this.add(buttonTiles);
 
             panelBoard.add(this); 
-
-
-
          });
      }
      
 
-    private void setIcon(ImageIcon icon) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }
 
  class miniTilesLeftAndRight extends JPanel{
@@ -633,6 +605,7 @@ class MiniFateCard extends BoardTile {
      JLabel labelTokenPlayer2 = new JLabel();
      JLabel labelTokenPlayer3 = new JLabel();
      JLabel labelTokenPlayer4 = new JLabel();
+     JButton buttonTiles = new JButton();
 
      miniTilesLeftAndRight(int a, int b, JPanel panelBoard, String path){
 
@@ -649,6 +622,11 @@ class MiniFateCard extends BoardTile {
             labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
             this.add(labelImage);
             panelBoard.add(this);
+
+            buttonTiles.setBounds(0, 0, 158, 76);
+            buttonTiles.setIcon(imageicon.getResizedImage(path, 158, 76));
+            this.add(buttonTiles);
+
 
 
          });
@@ -795,7 +773,7 @@ class PlayerCard extends JPanel {
 
             this.playerName = playerName;
             this.tileNumber = "6";
-            this.playerLogHistory = "Paid Rent RM 500 to Ali";
+            this.playerLogHistory = "<html>Paid Rent RM 500 to Ali</html>";
 
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
             this.setBackground(Color.LIGHT_GRAY);
