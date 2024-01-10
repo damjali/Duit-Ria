@@ -170,7 +170,7 @@ public class DuitRIa {
         tiles.add(new Tile("Pahang National Park",2600000 ,260000 ,"Orange"));
         tiles.add(new Tile("Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
         tiles.add(new Tile("Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
-        tiles.add(new Tile("Kinabalu National Park", 600000 ,270000 ,"Orange"));
+        tiles.add(new Tile("Kinabalu National Park", 2700000 ,270000 ,"Orange"));
         tiles.add(new GoToJail("Go To Jail"));
         tiles.add(new Tile("Tioman Islands",3000000 ,300000 ,"Red"));
         tiles.add(new Tile("Perhentian Islands",3000000 ,300000 ,"Red"));
