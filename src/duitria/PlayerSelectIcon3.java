@@ -78,12 +78,13 @@ public class PlayerSelectIcon3 extends JFrame implements ActionListener {
 
 public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
-        Board board = new Board();
         this.dispose();
         player1 = playerIcon1.playerNameTextField.getText();
         player2 = playerIcon2.playerNameTextField.getText();
-        player3 = playerIcon2.playerNameTextField.getText();
-        board.setName(player1, player2, player3, null);
+        player3 = playerIcon3.playerNameTextField.getText();
+        diceRoll diceroll = new diceRoll(3);
+        diceroll.getName(player1, player2, player3);
+        diceroll.addGuiComponents(3);
     }
     
     

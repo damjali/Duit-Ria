@@ -88,9 +88,10 @@ public void actionPerformed(ActionEvent e){
         player3 = playerIcon3.playerNameTextField.getText();
         player4 = playerIcon4.playerNameTextField.getText();
         // board.setName(player1, player2, player3, player4);
-        diceRoll diceroll = new diceRoll();
+        diceRoll diceroll = new diceRoll(4);
         diceroll.getName(player1, player2, player3, player4);
-        diceroll.addGuiComponents();
+        diceroll.addGuiComponents(4);
+
     }
     
     
