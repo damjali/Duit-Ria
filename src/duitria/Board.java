@@ -381,11 +381,11 @@ public class Board extends JFrame implements ActionListener {
             System.out.println("Make general repair on all your property, RM200,000 for each house.");
             int generalRepairTotal = 0;
             for (Object currentTile : tiles) {
-                if (currentTile instanceof Tile) {
-                    Tile propertyTile = (Tile) currentTile;
-                    if (propertyTile.owner == player) {
-                        generalRepairTotal += (propertyTile.numOfHouse * 200000);
-                        System.out.printf(Locale.US, propertyTile.name + " costs RM%,d.\n", (propertyTile.numOfHouse * 200000));
+                if (currentTile instanceof MiniTile) {
+                    MiniTile currentPropertyTile = (MiniTile) currentTile;
+                    if (currentPropertyTile.owner == player) {
+                        generalRepairTotal += (currentPropertyTile.numOfHouse * 200000);
+                        System.out.printf(Locale.US, currentPropertyTile.name + " costs RM%,d.\n", (currentPropertyTile.numOfHouse * 200000));
                     }
                 }
             }
@@ -846,17 +846,17 @@ public class Board extends JFrame implements ActionListener {
         player.bankruptcy = true;
         player.propertySellCheck = false;
         for (Object currentTile : tiles) {
-            if (currentTile instanceof Tile) {
-                Tile propertyTile = (Tile) currentTile;
-                if (propertyTile.owner == player) {
-                    propertyTile.owner = null;
-                    propertyTile.numOfHouse = 0;
+            if (currentTile instanceof MiniTile) {
+                MiniTile currentPropertyTile = (MiniTile) currentTile;
+                if (currentPropertyTile.owner == player) {
+                    currentPropertyTile.owner = null;
+                    currentPropertyTile.numOfHouse = 0;
                 }
             }
-            if (currentTile instanceof SpecialTile) {
-                SpecialTile specialTile = (SpecialTile) currentTile;
-                if (specialTile.owner == player) {
-                    specialTile.owner = null;
+            if (currentTile instanceof MiniSpecialTile) {
+                MiniSpecialTile currentSpecialTile = (MiniSpecialTile) currentTile;
+                if (currentSpecialTile.owner == player) {
+                    currentSpecialTile.owner = null;
                 }
             }
         }
