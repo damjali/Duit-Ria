@@ -368,6 +368,10 @@ miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\
  class miniTilesUpAndBottom extends JPanel{ 
 
      JLabel labelTokenPlayer1 = new JLabel();
+     JLabel labelHouse1 = new JLabel();
+     JLabel labelHouse2 = new JLabel();
+     JLabel labelHouse3 = new JLabel();
+     JLabel labelHouse4 = new JLabel();
 
      miniTilesUpAndBottom(int a, int b, JPanel panelBoard, String path){
          SwingUtilities.invokeLater(() -> {
@@ -390,9 +394,30 @@ miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\
             labelTokenPlayer1.setBounds(8, 90, 40, 40);
             this.add(labelTokenPlayer1);
 
+            labelHouse1.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
+            labelHouse1.setBounds(48, 80, 15, 15);
+            this.add(labelHouse1);
+
+            labelHouse2.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
+            labelHouse2.setBounds(48, 100, 15, 15);
+            this.add(labelHouse2);
+
+            labelHouse3.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
+            labelHouse3.setBounds(48, 120, 15, 15);
+            this.add(labelHouse3);
+
+            labelHouse4.setIcon(imageicon.getResizedImage("src\\HOUSE.png", 15, 15));
+            labelHouse4.setBounds(48, 140, 15, 15);
+            this.add(labelHouse4);
+
+
 
             this.setComponentZOrder(labelImage, 1); 
             this.setComponentZOrder(labelTokenPlayer1, 0);
+            this.setComponentZOrder(labelHouse1, 0);
+            this.setComponentZOrder(labelHouse2, 0);
+            this.setComponentZOrder(labelHouse3, 0);
+            this.setComponentZOrder(labelHouse4, 0);
 
 
             panelBoard.add(this); 
