@@ -44,13 +44,13 @@ public class Board extends JFrame implements ActionListener {
 
     String playerName1, playerName2, playerName3, playerName4;
     int playerNum;
-    private List<PlayerLogHistory> playerLogs;
-    private List<PlayerCard> playerCards;
-    private List<Player> players;
-    private List<Object> tiles;
-    private int currentPlayerIndex;
-    private Scanner keyboard;
-    private Random rand;
+    public List<PlayerLogHistory> playerLogs;
+    public List<PlayerCard> playerCards;
+    public List<Player> players;
+    public List<Object> tiles;
+    public int currentPlayerIndex;
+    public Scanner keyboard;
+    public Random rand;
 
     public void setName(String name1, String name2, String name3, String name4){
         playerName1 = name1;
@@ -59,7 +59,7 @@ public class Board extends JFrame implements ActionListener {
         playerName4 = name4;
     }
 
-    private void initializeTile(JPanel panelBoard, Border border) {
+    public void initializeTile(JPanel panelBoard, Border border) {
         // Corner Tile (bottom right)
         tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, border, "src\\duitria.tiles\\GO.png", "Go", 2000000));
         // Bottom Tile
@@ -110,7 +110,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SPEANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow"));
     }
     
-    private void initializePlayer() {
+    public void initializePlayer() {
         switch (playerNum) {
             case 2:
             players.add(new Player(playerName1));
@@ -129,7 +129,7 @@ public class Board extends JFrame implements ActionListener {
         }
     }
 
-    private void initializePlayerCard(List<Object> tiles) {
+    public void initializePlayerCard(List<Object> tiles) {
         int yCords = 40;
         for (Player player : players) {
             playerCards.add(new PlayerCard(0, yCords, this, player, tiles));
@@ -139,9 +139,6 @@ public class Board extends JFrame implements ActionListener {
     
     Board() {
     SwingUtilities.invokeLater(() -> {
-
-        SwingUtilities.invokeLater(() -> {
-
         //Any declarations add here
         keyboard = new Scanner(System.in);
         players = new ArrayList<>();
