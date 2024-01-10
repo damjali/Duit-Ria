@@ -61,7 +61,7 @@ public class Board extends JFrame implements ActionListener {
 
     public void initializeTile(JPanel panelBoard, Border border) {
         // Corner Tile (bottom right)
-        tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, border, "src\\duitria.tiles\\GO.png", "Go", 2000000));
+        tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, "src\\duitria.tiles\\GO.png", "Go", 2000000));
         // Bottom Tile
         tiles.add(new MiniTile(766, 842, 76, 158, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green"));
         tiles.add(new MiniFateCard(690,842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate"));
@@ -73,31 +73,31 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new MiniTile(234, 842, 76, 158, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", "Batu Caves",1000000 ,100000 ,"Blue"));
         tiles.add(new MiniTile(158, 842, 76, 158, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
         // Corner Tile (bottom left)
-        tiles.add(new MiniJail(0, 842, 158, 158, panelBoard, border, "src\\duitria.tiles\\JAIL.png", "Jail"));
+        tiles.add(new MiniJail(0, 842, 158, 158, panelBoard, "src\\duitria.tiles\\JAIL.png", "Jail"));
         // Left Tile
         tiles.add(new MiniTile(0, 766, 158, 76, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", "National Museum",1400000 ,140000 ,"Maroon"));
         tiles.add(new MiniTile(0, 690, 158, 76, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", "Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
-        tiles.add(new MiniTile(0, 614, 158, 76, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE", "Royal Palace",1400000 ,140000 ,"Maroon"));
+        tiles.add(new MiniTile(0, 614, 158, 76, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png", "Royal Palace",1400000 ,140000 ,"Maroon"));
         tiles.add(new MiniTile(0, 538, 158, 76, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png", "Merdeka Square",1400000 ,140000 ,"Maroon"));
         tiles.add(new MiniSpecialTile(0, 462, 158, 76, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png", "KLIA 2",2000000 ,200000));
-        tiles.add(new MiniTile(0, 386, 158, 76, panelBoard,"src\\duitria.tiles\\12 A FAMOSA RESORT.png", "A'Famosa Resort",1700000 ,170000, "Light Blue"));
+        tiles.add(new MiniTile(0, 386, 158, 76, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png", "A'Famosa Resort",1700000 ,170000, "Light Blue"));
         tiles.add(new MiniFateCard(0, 310, 158, 76, panelBoard,"src\\duitria.tiles\\FATE LEFT.png", "Fate Card"));
         tiles.add(new MiniTile(0, 234, 158, 76, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", "Kellie Castle",1800000 ,180000, "Light Blue"));
         tiles.add(new MiniTile(0, 158, 158, 76, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", "Stadthuys",2000000 ,200000, "Light Blue"));
         // Corner Tile (top left)
-        tiles.add(new MiniFreeParking(0, 0, 158, 158, panelBoard, border, "src\\duitria.tiles\\FREE PARKING.png", "Free Parking"));
+        tiles.add(new MiniFreeParking(0, 0, 158, 158, panelBoard, "src\\duitria.tiles\\FREE PARKING.png", "Free Parking"));
         // Top Tile
         tiles.add(new MiniTile(158, 0, 76, 158, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", "Fraser's Hill",2200000 ,220000, "Purple"));
         tiles.add(new MiniFateCard(234, 0, 76, 158, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", "Fate Card"));
         tiles.add(new MiniTile(310, 0, 76, 158, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png", "Cameron Highlands",2200000 ,220000, "Purple"));
-        tiles.add(new MiniTile(386, 0, 76, 158, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLANDS.png", "Genting Highland",2400000 ,240000, "Purple"));
+        tiles.add(new MiniTile(386, 0, 76, 158, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png", "Genting Highland",2400000 ,240000, "Purple"));
         tiles.add(new MiniSpecialTile(462, 0, 76, 158, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png", "KL Sentral Station",2000000 ,200000));
         tiles.add(new MiniTile(538, 0, 76, 158, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png", "Pahang National Park",2600000 ,260000 ,"Orange"));
         tiles.add(new MiniTile(614, 0, 76, 158, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png", "Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
         tiles.add(new MiniTile(690, 0, 76, 158, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
         tiles.add(new MiniTile(766, 0, 76, 158, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 600000 ,270000 ,"Orange"));
         // Corner Tile (top right)
-        tiles.add(new MiniGoToJail(842, 0, 158, 158, panelBoard, border, "src\\duitria.tiles\\GO TO JAIL.png", "Go To Jail"));
+        tiles.add(new MiniGoToJail(842, 0, 158, 158, panelBoard, "src\\duitria.tiles\\GO TO JAIL.png", "Go To Jail"));
         // Right Tile
         tiles.add(new MiniTile(842, 158, 158, 76, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", "Tioman Islands",3000000 ,300000 ,"Red"));
         tiles.add(new MiniTile(842, 234, 158, 76, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", "Perhentian Islands",3000000 ,300000 ,"Red"));
@@ -106,8 +106,8 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new MiniSpecialTile(842, 462, 158, 76, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png", "Pudu Sentral Station",2000000 ,200000));
         tiles.add(new MiniFateCard(842, 538, 158, 76, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", "Fate Card"));
         tiles.add(new MiniTile(842, 614, 158, 76, panelBoard,"src\\duitria.tiles\\27 KLCC.png", "KLCC",3500000 ,350000, "Yellow"));
-        tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX.png", "Tax",2000000));
-        tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SPEANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow"));
+        tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000));
+        tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow"));
     }
     
     public void initializePlayer() {
@@ -145,7 +145,6 @@ public class Board extends JFrame implements ActionListener {
         playerCards = new ArrayList<>();
         tiles = new ArrayList<>();
         rand = new Random();
-        
         playerNum = PlayerNumber.playerNum;
 
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
@@ -435,46 +434,52 @@ miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\
     }
     
 class CornerBoardTile extends JPanel {
-    CornerBoardTile(int x, int y, int width, int height, JPanel panelBoard, Border border, String path) {
-        JPanel panelCornerTile = new JPanel();
-        panelCornerTile.setBounds(x, y, width, height);
-        panelCornerTile.setBackground(Color.WHITE);
-        JLabel labelCornerTile = new JLabel();
-        labelCornerTile.setIcon(imageicon.getResizedImage(path, width, height));
-        labelCornerTile.setBounds(x, y, width, height);
-        panelCornerTile.add(labelCornerTile);
-        panelCornerTile.setBorder(border);
-        panelCornerTile.setLayout(null);
-        panelBoard.add(panelCornerTile);
+    CornerBoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
+        SwingUtilities.invokeLater(() -> {
+            Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+            this.setBounds(x, y, width, height);
+            this.setBackground(Color.WHITE);
+            this.setBorder(border);
+            this.setLayout(null);
+            
+            ImageIcon icon = imageicon.getResizedImage(path, width, height);
+            JLabel labelImage = new JLabel();
+            labelImage.setIcon(icon);
+            labelImage.setBounds(0, 0, this.getWidth(), this.getHeight());
+            this.add(labelImage);
+            panelBoard.add(this);
+            });
     }
 }
+
+
 class MiniGo extends CornerBoardTile {
     String name;    // go tile's name
     int payment;    // go tile's payment
-    MiniGo(int x, int y, int width, int height, JPanel panelBoard, Border border, String path, String name, int payment) {
-        super(x, y, width, height, panelBoard, border, path);
+    MiniGo(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int payment) {
+        super(x, y, width, height, panelBoard, path);
         this.name = name;
         this.payment = payment;
     }
 }
 class MiniJail extends CornerBoardTile {
     String name;    // jail tile's name
-    MiniJail(int x, int y, int width, int height, JPanel panelBoard, Border border, String path, String name) {
-        super(x, y, width, height, panelBoard, border, path);
+    MiniJail(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
+        super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
 }
 class MiniFreeParking extends CornerBoardTile {
     String name;    //free parking tile's name
-    MiniFreeParking(int x, int y, int width, int height, JPanel panelBoard, Border border, String path, String name) {
-        super(x, y, width, height, panelBoard, border, path);
+    MiniFreeParking(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
+        super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
 }
 class MiniGoToJail extends CornerBoardTile {
     String name;    //free parking tile's name
-    MiniGoToJail(int x, int y, int width, int height, JPanel panelBoard, Border border, String path, String name) {
-        super(x, y, width, height, panelBoard, border, path);
+    MiniGoToJail(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
+        super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
 }
@@ -667,7 +672,7 @@ class PlayerCard extends JPanel {
 
 
             JPanel panelPlayerDescription = new JPanel();
-            panelPlayerDescription.setBounds(0, 50, 375, 110); // Set bounds for the panel
+            panelPlayerDescription.setBounds(0, 0, 375, 110); // Set bounds for the panel
             // panelPlayerDescription.setBorder(border); // Set a background color for visibility
             panelPlayerDescription.setOpaque(false);
             panelPlayerDescription.setBackground(Color.LIGHT_GRAY);
@@ -824,23 +829,6 @@ class imageicon{
                                     Image.SCALE_SMOOTH));
     
     return imageIcon;
-    }
-    
-}
-
-class imagetile{
-
-    public static ImageIcon getResizedTile(String path, int width, int height){
-        
-        
-        ImageIcon imageTile = new ImageIcon(new ImageIcon(path)
-                                .getImage()
-                                .getScaledInstance(
-                                    width, 
-                                    height, 
-                                    Image.SCALE_SMOOTH));
-    
-    return imageTile;
     }
     
 }
