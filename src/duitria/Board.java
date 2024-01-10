@@ -139,6 +139,7 @@ public class Board extends JFrame implements ActionListener {
     
     Board() {
     SwingUtilities.invokeLater(() -> {
+
         //Any declarations add here
         keyboard = new Scanner(System.in);
         players = new ArrayList<>();
@@ -147,129 +148,30 @@ public class Board extends JFrame implements ActionListener {
         rand = new Random();
         playerNum = PlayerNumber.playerNum;
 
-    Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    this.setVisible(true); 
-    this.setSize(1920,1080); 
-    this.setTitle("DuitRIA"); 
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-    this.setResizable(false); 
-    ImageIcon image = new ImageIcon("logo.png");
-    this.setIconImage(image.getImage()); 
-    this.getContentPane().setBackground(new Color (1, 50, 32));
-    this.setLayout(null);
+        //Frame Settings
+        Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+        this.setVisible(true); 
+        this.setSize(1920,1080); 
+        this.setTitle("DuitRIA"); 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        this.setResizable(false); 
+        ImageIcon image = new ImageIcon("logo.png");
+        this.setIconImage(image.getImage()); 
+        this.getContentPane().setBackground(new Color (1, 50, 32));
+        this.setLayout(null);
     
-    JPanel panelBoard = new JPanel();
-//    panelBoard.setBackground(new Color(0xA3FF9B));
-    panelBoard.setBackground(Color.BLACK);
-    panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
-    this.add(panelBoard);
-    panelBoard.setLayout(null);
-    panelBoard.setBorder(border);
+        JPanel panelBoard = new JPanel();
+        panelBoard.setBackground(Color.BLACK);
+        panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
+        this.add(panelBoard);
+        panelBoard.setLayout(null);
+        panelBoard.setBorder(border);
 
-
-    
-    //OLD TILE INITIALIZATION
-        /*
-    //For Tile Free Parking
-    JPanel panelFreeParking = new JPanel();
-    panelFreeParking.setBounds(0, 0, 158, 158);
-    panelFreeParking.setBackground(Color.WHITE);
-    JLabel labelImageFreeParking = new JLabel();
-    labelImageFreeParking.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\FREE PARKING.png",158,158));
-    labelImageFreeParking.setBounds(0, 0, 158, 158);
-    panelFreeParking.add(labelImageFreeParking);
-    panelFreeParking.setBorder(border);
-    panelFreeParking.setLayout(null);
-    panelBoard.add(panelFreeParking);
-
-    //For Tile GO
-    JPanel panelGO = new JPanel();
-    panelGO.setBounds(842, 842, 158, 158);
-    panelGO.setBackground(Color.WHITE);
-    panelGO.setBorder(border);
-    JLabel labelImageGo = new JLabel();
-    labelImageGo.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\GO.png",158,158));
-    labelImageGo.setBounds(0, 0, 158, 158);
-    panelGO.add(labelImageGo);
-    panelGO.setLayout(null);
-    panelBoard.add(panelGO);
-   
-    //For Tile GO TO JAIL
-    JPanel panelGoToJail = new JPanel();
-    panelGoToJail.setBounds(842, 0, 158, 158);
-    panelGoToJail.setBackground(Color.WHITE);
-    JLabel labelImageGoToJail = new JLabel();
-    labelImageGoToJail.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\GO TO JAIL.png",158,158));
-    labelImageGoToJail.setBounds(0, 0, 158, 158);
-    panelGoToJail.add(labelImageGoToJail);
-    panelGoToJail.setBorder(border);
-    panelGoToJail.setLayout(null);
-    panelBoard.add(panelGoToJail);
-    
-    //For Tile JAIL
-    JPanel panelJail = new JPanel();
-    panelJail.setBounds(0, 842, 158, 158);
-    panelJail.setBackground(Color.WHITE);
-    JLabel labelImageJail = new JLabel();
-    labelImageJail.setIcon(imageicon.getResizedImage("src\\duitria.tiles\\JAIL.png",158,158));
-    labelImageJail.setBounds(0, 0, 158, 158);
-    panelJail.add(labelImageJail);
-    panelJail.setBorder(border);
-    panelJail.setLayout(null);
-    panelBoard.add(panelJail);
-    
-   miniTilesUpAndBottom tile22 = new miniTilesUpAndBottom(766,0, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png");
-   miniTilesUpAndBottom tile21 = new miniTilesUpAndBottom(690,0, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png");
-   miniTilesUpAndBottom tile20 = new miniTilesUpAndBottom(614,0, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png");
-   miniTilesUpAndBottom tile19 = new miniTilesUpAndBottom(538,0, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png");
-   miniTilesUpAndBottom tile18 = new miniTilesUpAndBottom(462,0, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png");
-   miniTilesUpAndBottom tile17 = new miniTilesUpAndBottom(386,0, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png");
-   miniTilesUpAndBottom tile16 = new miniTilesUpAndBottom(310,0, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png");
-   miniTilesUpAndBottom fate4 = new miniTilesUpAndBottom(234,0, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png");
-   miniTilesUpAndBottom tile15 = new miniTilesUpAndBottom(158,0, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png");
-    
-    miniTilesUpAndBottom tile1 = new miniTilesUpAndBottom(766,842, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png");
-   miniTilesUpAndBottom fate1 = new miniTilesUpAndBottom(690,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
-   miniTilesUpAndBottom tile2 = new miniTilesUpAndBottom(614,842, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png");
-   miniTilesUpAndBottom tax = new miniTilesUpAndBottom(538,842, panelBoard,"src\\duitria.tiles\\TAX.png");
-   miniTilesUpAndBottom tile3 = new miniTilesUpAndBottom(462,842, panelBoard,"src\\duitria.tiles\\3 KLIA.png");
-   miniTilesUpAndBottom tile4 = new miniTilesUpAndBottom(386,842, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png");
-   miniTilesUpAndBottom fate2 = new miniTilesUpAndBottom(310,842, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png");
-   miniTilesUpAndBottom tile5 = new miniTilesUpAndBottom(234,842, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png");
-
-
-miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png");
-
-    miniTilesLeftAndRight tile7 = new miniTilesLeftAndRight(0,766, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png");
-    miniTilesLeftAndRight tile8 = new miniTilesLeftAndRight(0,690, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png");
-    miniTilesLeftAndRight tile9 = new miniTilesLeftAndRight(0,614, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png");
-    miniTilesLeftAndRight tile10 = new miniTilesLeftAndRight(0,538, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png");
-    miniTilesLeftAndRight tile11 = new miniTilesLeftAndRight(0,462, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png");
-    miniTilesLeftAndRight tile12 = new miniTilesLeftAndRight(0,386, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png");
-    miniTilesLeftAndRight fate3 = new miniTilesLeftAndRight(0,310, panelBoard,"src\\duitria.tiles\\FATE LEFT.png");
-    miniTilesLeftAndRight tile13 = new miniTilesLeftAndRight(0,234, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png");
-    miniTilesLeftAndRight tile14 = new miniTilesLeftAndRight(0,158, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png");
-    
-    miniTilesLeftAndRight tile28 = new miniTilesLeftAndRight(842,766, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png");
-    miniTilesLeftAndRight tax2 = new miniTilesLeftAndRight(842,690, panelBoard,"src\\duitria.tiles\\TAX 2.png");
-    miniTilesLeftAndRight tile27 = new miniTilesLeftAndRight(842,614, panelBoard,"src\\duitria.tiles\\27 KLCC.png");
-    miniTilesLeftAndRight fate6 = new miniTilesLeftAndRight(842,538, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png");
-    miniTilesLeftAndRight tile26 = new miniTilesLeftAndRight(842,462, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png");
-    miniTilesLeftAndRight tile25 = new miniTilesLeftAndRight(842,386, panelBoard,"src\\duitria.tiles\\25 SEPADAN ISLANDS.png");
-    miniTilesLeftAndRight fate5 = new miniTilesLeftAndRight(842,310,panelBoard,"src\\duitria.tiles\\FATE RIGHT.png");
-    miniTilesLeftAndRight tile24 = new miniTilesLeftAndRight(842,234, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png");
-    miniTilesLeftAndRight tile23 = new miniTilesLeftAndRight(842,158, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png");
-        */
         //NEW TILE INITIALIZATION
         initializeTile(panelBoard, border);
         initializePlayer();
         initializePlayerCard(tiles);
 
-    //OLD PLAYERCARD INITIALIZATION
-    //playerCard playerCard1 = new playerCard(0,40,this,playerName1);
-    //playerCard playerCard2 = new playerCard(0,245,this,playerName2);
-    //playerCard playerCard3 = new playerCard(0,450,this,playerName3);
-    //playerCard playerCard4 = new playerCard(0,655,this,playerName4);
     
     //For Default Tile
     JPanel panelDefault = new JPanel();
@@ -434,6 +336,7 @@ miniTilesUpAndBottom tile6 = new miniTilesUpAndBottom(158,842, panelBoard,"src\\
     }
     
 class CornerBoardTile extends JPanel {
+        JButton buttonTile = new JButton();
     CornerBoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
