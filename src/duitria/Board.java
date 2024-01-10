@@ -145,7 +145,6 @@ public class Board extends JFrame implements ActionListener {
         playerCards = new ArrayList<>();
         tiles = new ArrayList<>();
         rand = new Random();
-        
         playerNum = PlayerNumber.playerNum;
 
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
