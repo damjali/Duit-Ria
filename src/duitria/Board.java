@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
@@ -51,6 +52,9 @@ public class Board extends JFrame implements ActionListener {
     public int currentPlayerIndex;
     public Scanner keyboard;
     public Random rand;
+    public String saveFileNameChoice;
+    public int sum;
+    public Player currentPlayer;
 
     public void setName(String name1, String name2, String name3, String name4){
         playerName1 = name1;
@@ -59,7 +63,7 @@ public class Board extends JFrame implements ActionListener {
         playerName4 = name4;
     }
 
-    public void initializeTile(JPanel panelBoard, Border border) {
+    public void initializeTile(JPanel panelBoard) {
         // Corner Tile (bottom right)
         tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, "src\\duitria.tiles\\GO.png", "Go", 2000000));
         // Bottom Tile
@@ -95,7 +99,7 @@ public class Board extends JFrame implements ActionListener {
         tiles.add(new MiniTile(538, 0, 76, 158, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png", "Pahang National Park",2600000 ,260000 ,"Orange"));
         tiles.add(new MiniTile(614, 0, 76, 158, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png", "Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
         tiles.add(new MiniTile(690, 0, 76, 158, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
-        tiles.add(new MiniTile(766, 0, 76, 158, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 600000 ,270000 ,"Orange"));
+        tiles.add(new MiniTile(766, 0, 76, 158, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 2700000 ,270000 ,"Orange"));
         // Corner Tile (top right)
         tiles.add(new MiniGoToJail(842, 0, 158, 158, panelBoard, "src\\duitria.tiles\\GO TO JAIL.png", "Go To Jail"));
         // Right Tile
@@ -136,7 +140,200 @@ public class Board extends JFrame implements ActionListener {
             yCords += 205;
         }
     }
+
+    private void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
+        if (previousPlayerPosition + diceRoll >= 40) {
+            Go go = (Go) tiles.get(0);
+            System.out.printf(Locale.US, player.name + " has passed the Go Tile. " + player.name + " has received RM%,d.\n", go.payment);
+            player.money += go.payment;
+            if (player.buyProperty)
+                player.buyHouse = true;
+            player.buyProperty = true;
+        }
+        if (currentTile instanceof Tile) {
+            Tile propertyTile = (Tile) currentTile;
+            System.out.println(player.name + " landed on " + propertyTile.name + ".");
+            if (propertyTile.owner == null && !player.hasLoan) {
+                if (player.buyProperty) {
+                    System.out.printf(Locale.US, "Do you want to buy " + propertyTile.name + " for RM%,d? (Y/N):", propertyTile.cost);
+                    String choice = keyboard.nextLine();
+                    if (choice.equalsIgnoreCase("Y")) {
+                        if (propertyTile.cost >= player.money) {
+                            System.out.println("Not enough money to buy " + propertyTile.name + ".");
+                            if (canSell(player)) {
+                                System.out.printf("Do you want to sell assets to buy this land? (Y/N):");
+                                String sellChoice = keyboard.nextLine();
+                                if (sellChoice.equalsIgnoreCase("Y")) {
+                                    sellingProperties(player, propertyTile.cost, false, false, null);
+                                    if (!player.bankruptcy && propertyTile.cost < player.money) {
+                                        System.out.println(player.name + " bought " + propertyTile.name + ".");
+                                        player.money -= propertyTile.cost;
+                                        propertyTile.owner = player;
+                                    }
+                                }
+                            } else 
+                                playerLoan(player, propertyTile.cost, false);
+                        } else {
+                            System.out.println(player.name + " bought " + propertyTile.name + ".");
+                            player.money -= propertyTile.cost;
+                            propertyTile.owner = player;
+                        }
+                    }
+                }
+            } else if (propertyTile.owner != player) {
+                int colourCount = 0;
+                Boolean doubleRent = false;
+                for (Object otherTile : tiles) {
+                    if (otherTile instanceof Tile) {
+                        Tile otherPropertyTile = (Tile) otherTile;
+                        if (otherPropertyTile.tileColour.equals(propertyTile.tileColour))
+                            colourCount++;
+                    }
+                }
+                switch (propertyTile.tileColour) {
+                    case "Green", "Yellow":
+                        if (colourCount == 2)
+                            doubleRent = true;
+                        break;
+                    case "Blue", "Maroon", "Light Blue", "Purple", "Orange", "Red":
+                        if (colourCount == 3)
+                            doubleRent = true;
+                        break;
+                }
+                int rentAmount = propertyTile.baseRent + propertyTile.calculateRent(doubleRent);
+                System.out.println(propertyTile.name + " is owned by " + propertyTile.owner.name + ".");
+                System.out.printf(player.name + " has to pay rent of RM%,d.\n", rentAmount);
+                if (rentAmount >= player.money) {
+                    System.out.println("You don't have enough money to pay the rent.");
+                    sellingProperties(player, rentAmount, false, true, propertyTile.owner);
+                    if (!player.bankruptcy && rentAmount < player.money) {
+                        player.money -= rentAmount;
+                        propertyTile.owner.money += rentAmount;
+                        System.out.println(player.name + " successfully paid the rent.");
+                    }
+                } else {
+                    player.money -= rentAmount;
+                    propertyTile.owner.money += rentAmount;
+                    System.out.println(player.name + " successfully paid the rent.");
+                }
+            } else {
+                System.out.println(player.name + " is visiting his land.");
+                if (player.buyHouse && !player.hasLoan) {
+                    if (propertyTile.numOfHouse >= 0 && propertyTile.numOfHouse < 4) {
+                        System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
+                        String choice = keyboard.nextLine();
+                        if (choice.equalsIgnoreCase("Y")) {
+                            boolean buyHouseCheck = true;
+                            int housePrice = propertyTile.houseCost;
+                            int numOfHouseCanBuy = Math.min((player.money / housePrice) - propertyTile.numOfHouse, 4);
+                            System.out.println("You can buy " + numOfHouseCanBuy + " more houses.");
+                            while (buyHouseCheck && player.money > propertyTile.houseCost) {
+                                System.out.print("How many do you want to buy? : ");
+                                int numOfHouse = keyboard.nextInt();
+                                keyboard.nextLine();
+                                if (numOfHouse >= 0 && numOfHouse <= numOfHouseCanBuy) {
+                                    if (housePrice * numOfHouse >= player.money) {
+                                        System.out.println("You don't have enough money to buy that amount of houses.");
+                                        System.out.println("Please pick again.");
+                                    } else {
+                                        System.out.printf(Locale.US, "You bought the house for RM%,d.\n", (housePrice * numOfHouse));
+                                        propertyTile.numOfHouse += numOfHouse;
+                                        player.money -= housePrice * numOfHouse;
+                                        buyHouseCheck = false;
+                                    }
+                                } else {
+                                    System.out.println("Please buy in the amount of available houses.");
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println("You have bought the maximum amount of houses (4).");
+                    }
+                }
+            }
+        } else if (currentTile instanceof SpecialTile) {
+            SpecialTile specialTile = (SpecialTile) currentTile;
+            System.out.println(player.name + " landed on " + specialTile.name + ".");
+            if (specialTile.owner == null && !player.hasLoan) {
+                if (player.buyProperty) {
+                    System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
+                    String choice = keyboard.nextLine();
+                    if (choice.equalsIgnoreCase("Y")) {
+                        if (specialTile.cost >= player.money) {
+                            System.out.println("You do not enough money to buy " + specialTile.name + ".");
+                            if (canSell(player)) {
+                                sellingProperties(player, specialTile.cost, false, false, null);
+                                if (!player.bankruptcy && specialTile.cost < player.money) {
+                                    System.out.println(player.name + " bought " + specialTile.name + ".");
+                                    player.money -= specialTile.cost;
+                                    specialTile.owner = player;
+                                }
+                            } else
+                                playerLoan(player, specialTile.cost, false);
+                        } else {
+                            System.out.println(player.name + " bought " + specialTile.name + ".");
+                            player.money -= specialTile.cost;
+                            specialTile.owner = player;
+                        }
+                    }
+                }
+            } else if (specialTile.owner != player) {
+                System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
+                System.out.printf(player.name + " has to pay rent of RM%,d.\n", specialTile.baseRent);
+                if (specialTile.baseRent >= player.money) {
+                    System.out.println("You don't have enough money to pay the rent.");
+                    sellingProperties(player, specialTile.baseRent, false, true, specialTile.owner);
+                    if (!player.bankruptcy && specialTile.baseRent < player.money) {
+                        player.money -= specialTile.baseRent;
+                        specialTile.owner.money += specialTile.baseRent;
+                        System.out.println(player.name + " successfully paid the rent.");
+                    }
+                } else {
+                    player.money -= specialTile.baseRent;
+                    specialTile.owner.money += specialTile.baseRent;
+                    System.out.println(player.name + " successfully paid the rent.");
+                }
+            } else {
+                System.out.println(player.name + " is vitising his tile.");
+            }
+        } else if (currentTile instanceof FateCard) {
+            FateCard fateCard = (FateCard) currentTile;
+            System.out.println(player.name + " landed on the " + fateCard.name + ".");
+            System.out.print(player.name + " drew a fate card: ");
+            fateCardOutcome(player);
+        } else if (currentTile instanceof Jail) {
+            Jail jail = (Jail) currentTile;
+            System.out.println(player.name + " landed on the " + jail.name + ".");
+            System.out.println(player.name + " is visitng the jail.");
+        } else if (currentTile instanceof Tax) {
+            Tax tax = (Tax) currentTile;
+            System.out.println(player.name + " landed on the " + tax.name + ".");
+            System.out.printf(Locale.US, player.name + " has to pay the tax for RM%,d.\n", tax.cost);
+            if (tax.cost >= player.money) {
+                System.out.println("You don't have enough money to pay taxes.");
+                sellingProperties(player, tax.cost, true, false, null);
+                if (!player.bankruptcy && tax.cost < player.money) {
+                    player.money -= tax.cost;
+                    System.out.println(player.name + " successfully paid the taxes.");
+                }
+            } else {
+                player.money -= tax.cost;
+                System.out.println(player.name + " successfully paid the taxes.");
+            }
+        } else if (currentTile instanceof FreeParking) {
+            FreeParking freeParking = (FreeParking) currentTile;
+            System.out.println(player.name + " landed on the " + freeParking.name);
+            System.out.println(player.name + " is resting.");
+        } else if (currentTile instanceof GoToJail) {
+            GoToJail goToJail = (GoToJail) currentTile;
+            System.out.println(player.name + " landed on the " + goToJail.name + ".");
+            System.out.println(player.name + " has to go to jail.");
+            player.jailCheck = true;
+            player.position = 10;
+        }
+    }
     
+
     Board() {
     SwingUtilities.invokeLater(() -> {
 
@@ -160,18 +357,13 @@ public class Board extends JFrame implements ActionListener {
         this.getContentPane().setBackground(new Color (1, 50, 32));
         this.setLayout(null);
     
-        JPanel panelBoard = new JPanel();
-        panelBoard.setBackground(Color.BLACK);
-        panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
-        this.add(panelBoard);
-        panelBoard.setLayout(null);
-        panelBoard.setBorder(border);
-
-        //NEW TILE INITIALIZATION
-        initializeTile(panelBoard, border);
-        initializePlayer();
-        initializePlayerCard(tiles);
-
+    JPanel panelBoard = new JPanel();
+    //panelBoard.setBackground(new Color(0xA3FF9B));
+    panelBoard.setBackground(Color.BLACK);
+    panelBoard.setBounds((this.getWidth()/2)-500, (this.getHeight()/2)-525, 1000, 1000);
+    this.add(panelBoard);
+    panelBoard.setLayout(null);
+    panelBoard.setBorder(border);
     
     //For Default Tile
     JPanel panelDefault = new JPanel();
@@ -267,6 +459,10 @@ public class Board extends JFrame implements ActionListener {
         panelLoan.add(buttonLoan);
         panelBoard.add(panelLoan);
         
+        initializeTile(panelBoard);
+        initializePlayer();
+        initializePlayerCard(tiles);
+        currentPlayer = players.get(0);
         });
 
     }
@@ -282,7 +478,6 @@ public class Board extends JFrame implements ActionListener {
                 Thread rollThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-
                         long endTime = System.currentTimeMillis();
                         try{
                             
@@ -290,7 +485,7 @@ public class Board extends JFrame implements ActionListener {
                                 // roll dice
                                 int diceOne = rand.nextInt(1, 7);
                                 int diceTwo = rand.nextInt(1, 7);
-                                int sum = diceOne + diceTwo;
+                                sum = diceOne + diceTwo;
 
                                 // update dice images
                                 diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE" + diceOne + ".png",100,100));
@@ -306,10 +501,12 @@ public class Board extends JFrame implements ActionListener {
                             
                                 
                             }
-                                                        
+                            int previousPlayerPosition = currentPlayer.position;
+                            currentPlayer.position += sum % tiles.size();
+                            Object currentTile = tiles.get(currentPlayer.position);
+                            duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                             buttonRoll.setEnabled(true);
-                        }
-                        catch(InterruptedException e){
+                            } catch(InterruptedException e) {
                             System.out.println("Threading Error: " + e);
                         }
                     
