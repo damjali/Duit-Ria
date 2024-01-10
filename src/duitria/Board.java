@@ -864,6 +864,7 @@ public class Board extends JFrame implements ActionListener {
 
     Board() {
     SwingUtilities.invokeLater(() -> {
+
         //Any declarations add here
         keyboard = new Scanner(System.in);
         players = new ArrayList<>();
@@ -872,16 +873,17 @@ public class Board extends JFrame implements ActionListener {
         rand = new Random();
         playerNum = PlayerNumber.playerNum;
 
-    Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    this.setVisible(true); 
-    this.setSize(1920,1080); 
-    this.setTitle("DuitRIA"); 
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-    this.setResizable(false); 
-    ImageIcon image = new ImageIcon("logo.png");
-    this.setIconImage(image.getImage()); 
-    this.getContentPane().setBackground(new Color (1, 50, 32));
-    this.setLayout(null);
+        //Frame Settings
+        Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+        this.setVisible(true); 
+        this.setSize(1920,1080); 
+        this.setTitle("DuitRIA"); 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        this.setResizable(false); 
+        ImageIcon image = new ImageIcon("logo.png");
+        this.setIconImage(image.getImage()); 
+        this.getContentPane().setBackground(new Color (1, 50, 32));
+        this.setLayout(null);
     
     JPanel panelBoard = new JPanel();
     //panelBoard.setBackground(new Color(0xA3FF9B));
@@ -1080,6 +1082,7 @@ public class Board extends JFrame implements ActionListener {
     }
     
 class CornerBoardTile extends JPanel {
+        JButton buttonTile = new JButton();
     CornerBoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
