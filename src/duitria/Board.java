@@ -846,6 +846,7 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public void playerLoan(Player player, int cost, boolean debtCheck) {
+        SwingUtilities.invokeLater(() -> {
         if (!player.hasLoan) {
             System.out.println("Do you want to take a loan?");
             System.out.println("Loan is subjected to be paid back in full by 3 rounds.");
@@ -936,9 +937,12 @@ public class Board extends JFrame implements ActionListener {
                 player.loanPeriodCheck = false;
             }
         }
+    });
     }
 
     public void bankrupt(Player player) {
+        SwingUtilities.invokeLater(() -> {
+        
         if (player.bankruptcy) {
             System.out.println(player.name + " has already declared bankruptcy");
         } else {
@@ -963,6 +967,7 @@ public class Board extends JFrame implements ActionListener {
                 }
             }
         }
+    });
     }
 
     Board() {
@@ -1100,6 +1105,7 @@ public class Board extends JFrame implements ActionListener {
         });
     }
     public void playerCardUpdate() {
+         SwingUtilities.invokeLater(() -> {
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             PlayerCard playerCard = playerCards.get(i);
@@ -1117,10 +1123,18 @@ public class Board extends JFrame implements ActionListener {
                 }
             }
             String moneyFormat = String.format("Money : RM%,d", player.money);
+
             playerCard.labelPlayerMoney.setText(moneyFormat);
+            playerCard.labelPlayerMoney.setBounds(5, 5, 375, 36);
+
             playerCard.labelPlayerLand.setText("Land : " + ownedTile);
+            playerCard.labelPlayerLand.setBounds(5, 42, 375, 36);
+
             playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
+            playerCard.labelPlayerStatus.setBounds(5, 79, 375, 36);
+        
         }
+        });
     }
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==buttonRoll){
