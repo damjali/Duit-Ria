@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
@@ -1469,9 +1470,50 @@ class PlayerCard extends JPanel {
     }
 }
 
+// class PlayerLogHistoryTest extends JPanel {
+//     JTextArea logTextArea;
 
+//     PlayerLogHistoryTest() {
+//         super("Player Log History");
+//         initComponents();
+//     }
 
- class PlayerLogHistory extends JPanel {
+//     private void initComponents() {
+//         logTextArea = new JTextArea();
+//         logTextArea.setEditable(false);
+
+//         JScrollPane scrollPane = new JScrollPane(logTextArea);
+//         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+//         getContentPane().setLayout(new BorderLayout());
+//         getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+//         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//         setSize(400, 300);
+//         setLocationRelativeTo(null);
+//     }
+
+//     public void addLogEntry(String playerName, String action) {
+//         String timestamp = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//         String logEntry = "[" + timestamp + "] " + playerName + ": " + action + "\n";
+
+//         logTextArea.insert(logEntry, 0); // Insert at the beginning
+//     }
+
+//     public static void main(String[] args) {
+//         SwingUtilities.invokeLater(() -> {
+//             PlayerLogHistory playerLogHistory = new PlayerLogHistory();
+//             playerLogHistory.setVisible(true);
+
+//             // Example: Add log entries
+//             playerLogHistory.addLogEntry("Player1", "Bought a property");
+//             playerLogHistory.addLogEntry("Player2", "Paid rent");
+//             playerLogHistory.addLogEntry("Player1", "Passed Go");
+//         });
+//     }
+// }
+
+class PlayerLogHistory extends JPanel {
     
     PlayerLogHistory(int x, int y, JFrame frame, Player player){
         SwingUtilities.invokeLater(() -> {
