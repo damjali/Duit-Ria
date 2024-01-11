@@ -174,11 +174,13 @@ public class Board extends JFrame implements ActionListener {
         if (currentTile instanceof MiniTile) {
             playerCurrentTile = currentTile;
             propertyTile = (MiniTile) currentTile;
-            toString += player.name + " landed on " + propertyTile.name + ".\n";
             System.out.println(player.name + " landed on " + propertyTile.name + ".");
+            toString += player.name + " landed on " + propertyTile.name + ".\n";
+            System.out.println(toString);
             if (propertyTile.owner == null && !player.hasLoan) { // BUY PROPERTY
                 if (player.buyProperty) {
                     buttonBuy.setEnabled(true);
+                    buttonRoll.setEnabled(true);
                 }
             } else if (propertyTile.owner != player) { // PAY RENT
                 int colourCount = 0;
@@ -266,6 +268,7 @@ public class Board extends JFrame implements ActionListener {
             if (specialTile.owner == null && !player.hasLoan) { // BUY LAND
                 if (player.buyProperty) {
                     buttonBuy.setEnabled(true);
+                    buttonRoll.setEnabled(true);
                 }
             } else if (specialTile.owner != player) {
                 System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
@@ -1149,6 +1152,7 @@ public class Board extends JFrame implements ActionListener {
                         duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                         playerCardUpdate();
                         playerLogHistory(currentPlayer);
+                        System.out.println(currentPlayer.toString);
                         buttonRoll.setEnabled(true);
                         } catch(InterruptedException e) {
                         System.out.println("Threading Error: " + e);
@@ -1534,6 +1538,7 @@ class PlayerLogHistory extends JPanel {
             panelPlayerLogMove.setOpaque(false);
             labelPlayerMove.setBounds(10, 5, 420, 40); 
             labelPlayerMove.setFont(new Font("Inter", Font.BOLD, 25));
+            labelPlayerMove.setHorizontalAlignment(JLabel.LEFT);
             panelPlayerLogMove.add(labelPlayerMove);
             this.add(panelPlayerLogMove);
 
@@ -1549,6 +1554,7 @@ class PlayerLogHistory extends JPanel {
             labelPlayerLogDescription.setText(player.toString);
             labelPlayerLogDescription.setBounds(10, 5, 410, 36); 
             labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 20));
+            labelPlayerLogDescription.setHorizontalAlignment(JLabel.LEFT);
             panelPlayerLogDescription.add(labelPlayerLogDescription);
 
         });
