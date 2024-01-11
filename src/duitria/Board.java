@@ -177,6 +177,7 @@ public class Board extends JFrame implements ActionListener {
             System.out.println(player.name + " landed on " + propertyTile.name + ".");
             toString += player.name + " landed on " + propertyTile.name + ".\n";
             System.out.println(toString);
+            playerLogHistory(player);
             if (propertyTile.owner == null && !player.hasLoan) { // BUY PROPERTY
                 if (player.buyProperty) {
                     buttonBuy.setEnabled(true);
