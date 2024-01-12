@@ -1034,7 +1034,7 @@ public class Board extends JFrame implements ActionListener {
         // PlayerLogHistory playerLog2 = new PlayerLogHistory(1500,300,this,playerName2);
         // PlayerLogHistory playerLog3 = new PlayerLogHistory(1500,460,this,playerName3);
         // PlayerLogHistory playerLog4 = new PlayerLogHistory(1500,620,this,playerName1);
-        // PlayerLogHistory playerLog5 = new PlayerLogHistory(1500,780,this, playerName1);
+        // PlayerLogHistory playerLog5 = new PlayerLogHistory(1500,780,this,playerName1);
         
         //Initialize Roll panel Button
         JPanel panelRoll = new JPanel();
