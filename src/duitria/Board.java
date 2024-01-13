@@ -46,9 +46,11 @@ public class Board extends JFrame implements ActionListener {
 
     JButton buttonRoll = new JButton();
     JButton buttonGameRules = new JButton();
-    JButton buttonBuy = new JButton();
+    JButton buttonBuyLand = new JButton();
     JButton buttonSell = new JButton();
     JButton buttonLoan = new JButton();
+    JButton buttonBankrupt = new JButton();
+    JButton buttonBuyHouse = new JButton();
 
     String playerName1, playerName2, playerName3, playerName4;
     int playerNum;
@@ -83,7 +85,7 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public void initializeTile(JPanel panelBoard) {
-        SwingUtilities.invokeLater(() -> {
+
             // Corner Tile (bottom right)
             tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, "src\\duitria.tiles\\GO.png", "Go", 2000000));
             // Bottom Tile
@@ -132,7 +134,8 @@ public class Board extends JFrame implements ActionListener {
             tiles.add(new MiniTile(842, 614, 158, 76, panelBoard,"src\\duitria.tiles\\27 KLCC.png", "KLCC",3500000 ,350000, "Yellow"));
             tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000));
             tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow"));
-        });
+            revalidate();
+
     }
     
     public void initializePlayer() {
@@ -163,6 +166,7 @@ public class Board extends JFrame implements ActionListener {
                 playerCards.add(new PlayerCard(0, yCords, this, player, tiles));
                 yCords += 205;
             }
+            revalidate();
         });
     }
 
@@ -175,6 +179,7 @@ public class Board extends JFrame implements ActionListener {
             //     playerLogs.subList(limit, playerLogs.size()).clear();
             // }
             yCordsPlayerLog += 160;
+            revalidate();
         });
     }
 
@@ -198,7 +203,7 @@ public class Board extends JFrame implements ActionListener {
                 System.out.println(toString);
                 if (propertyTile.owner == null && !player.hasLoan) { // BUY PROPERTY
                     if (player.buyProperty) {
-                        buttonBuy.setEnabled(true);
+                        buttonBuyLand.setEnabled(true);
                         buttonRoll.setEnabled(true);
                     }
                 } else if (propertyTile.owner != player && propertyTile.owner != null) { // PAY RENT
@@ -237,7 +242,7 @@ public class Board extends JFrame implements ActionListener {
                     toString += player.name + " landed on " + propertyTile.name + ".\n";
                     System.out.println(player.name + " is visiting his land.");
                     if (player.buyHouse && !player.hasLoan) {
-                        buttonBuy.setEnabled(true);
+                        buttonBuyLand.setEnabled(true);
                         buttonRoll.setEnabled(true);
                         if (propertyTile.numOfHouse >= 0 && propertyTile.numOfHouse < 4 && player.money > 200000) { // PUT BUTTON BUY HOUSE
                             System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
@@ -279,7 +284,7 @@ public class Board extends JFrame implements ActionListener {
                 toString += player.name + " landed on " + specialTile.name + ".\n";
                 if (specialTile.owner == null && !player.hasLoan) { // BUY LAND
                     if (player.buyProperty) {
-                        buttonBuy.setEnabled(true);
+                        buttonBuyLand.setEnabled(true);
                         buttonRoll.setEnabled(true);
                     }
                 } else if (specialTile.owner != player) {
@@ -966,7 +971,6 @@ public class Board extends JFrame implements ActionListener {
         rand = new Random();
         playerNum = PlayerNumber.playerNum;
 
-        frame = new JFrame();
         //Frame Settings
         Border border = BorderFactory.createLineBorder(Color.BLACK,1);
         this.setVisible(true); 
@@ -1027,6 +1031,22 @@ public class Board extends JFrame implements ActionListener {
         buttonRoll.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\dice.png", 150, 150));
         diceOneImg = new JLabel();
         diceTwoImg = new JLabel();
+
+        //Initialize Button Bankcrupt
+        buttonBankrupt = new JButton();
+        buttonBankrupt.setBounds(314, 860, 125, 50);
+        buttonBankrupt.setText("Backrupt");
+        buttonBankrupt.setEnabled(true);
+        buttonBankrupt.addActionListener(this);
+        this.add(buttonBankrupt);
+
+         //Initialize Button Buy House
+         buttonBankrupt = new JButton();
+         buttonBankrupt.setBounds(314, 860, 125, 50);
+         buttonBankrupt.setText("Backrupt");
+         buttonBankrupt.setEnabled(true);
+         buttonBankrupt.addActionListener(this);
+         this.add(buttonBankrupt);
     
         //for dice animation
         diceOneImg = new JLabel();
@@ -1045,19 +1065,35 @@ public class Board extends JFrame implements ActionListener {
         panelRoll.add(buttonRoll);
         this.add(panelRoll);
         
-        //Initialize Buy Button
-        JPanel panelBuy = new JPanel();
-        panelBuy.setBounds(700 , 375, 100,50);
-        buttonBuy.setBounds(0 , 0, 100,50);
-        buttonBuy.addActionListener(this);
-        buttonBuy.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
-        buttonBuy.setEnabled(false);
-        panelBuy.setBackground(Color.WHITE);
-        panelBuy.setBorder(border);
-        panelBuy.setLayout(null);
-        panelBuy.add(buttonBuy);
-        panelBoard.add(panelBuy);
+        //Initialize Buy Land Button
+        JPanel panelBuyLand = new JPanel();
+        panelBuyLand.setBounds(700 , 275, 100,50);
+        buttonBuyLand.setBounds(0 , 0, 100,50);
+        buttonBuyLand.addActionListener(this);
+        // buttonBuyLand.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
+        buttonBuyLand.setText("Buy Land");
+        buttonBuyLand.setEnabled(false);
+        panelBuyLand.setBackground(Color.WHITE);
+        panelBuyLand.setBorder(border);
+        panelBuyLand.setLayout(null);
+        panelBuyLand.add(buttonBuyLand);
+        panelBoard.add(panelBuyLand);
         
+
+                //Initialize Buy Land Button
+        JPanel panelBuyHouse = new JPanel();
+        panelBuyHouse.setBounds(700 , 375, 100,50);
+        buttonBuyHouse.setBounds(0 , 0, 100,50);
+        buttonBuyHouse.addActionListener(this);
+         // buttonBuyLand.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
+         buttonBuyHouse.setText("Buy Land");
+         buttonBuyHouse.setEnabled(false);
+        panelBuyHouse.setBackground(Color.WHITE);
+        panelBuyHouse.setBorder(border);
+        panelBuyHouse.setLayout(null);
+        panelBuyHouse.add(buttonBuyHouse);
+        panelBoard.add(panelBuyHouse);
+                
         //Initialize Sell Button
         JPanel panelSell = new JPanel();
         panelSell.setBounds(700 , 475, 100,50);
@@ -1081,6 +1117,7 @@ public class Board extends JFrame implements ActionListener {
         panelLoan.setLayout(null);
         panelLoan.add(buttonLoan);
         panelBoard.add(panelLoan);
+        
         
         initializeTile(panelBoard);
         initializePlayer();
@@ -1119,6 +1156,7 @@ public class Board extends JFrame implements ActionListener {
             playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
             playerCard.labelPlayerStatus.setBounds(5, 79, 375, 36);
             playerCard.labelPlayerStatus.setHorizontalAlignment(JLabel.LEFT);
+            revalidate();
 
         
         }
@@ -1156,15 +1194,25 @@ public class Board extends JFrame implements ActionListener {
                         playerCardUpdate();
                         playerLogHistory(currentPlayer);
                         System.out.println(currentPlayer.toString);
+
                         buttonRoll.setEnabled(true);
-                        // this.setVisible(false);
-                        // this.setVisible(true);
+
+                        revalidate();
+
                         } catch(InterruptedException e) {
                         System.out.println("Threading Error: " + e);
                         }
                     }
             });
         rollThread.start();
+        }
+
+        if (e.getSource() == buttonBankrupt){
+
+        }
+
+        if (e.getSource() == buttonBuyHouse){
+            
         }
     
         if(e.getSource()==buttonGameRules){
@@ -1183,8 +1231,8 @@ public class Board extends JFrame implements ActionListener {
             playerCardUpdate();
         }
 
-        if (e.getSource() == buttonBuy) {
-            buttonBuy.setEnabled(false);
+        if (e.getSource() == buttonBuyLand) {
+            buttonBuyLand.setEnabled(false);
             if (playerCurrentTile instanceof MiniTile) {
                 propertyTile = (MiniTile) playerCurrentTile;
                 if (propertyTile.cost >= currentPlayer.money) {
@@ -1337,6 +1385,7 @@ class MiniTile extends BoardTile {
     int houseCost;      // tile's housecost
     int numOfHouse;     // tile's number of houses built
     int rentAmount;     // tile's total rent amount
+    
     MiniTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
@@ -1452,6 +1501,7 @@ class PlayerCard extends JPanel {
             labelPlayerStatus.setBounds(5, 79, 375, 36); 
             labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 30));
             panelPlayerDescription.add(labelPlayerStatus);
+            revalidate();
 
         });
     }
@@ -1501,6 +1551,7 @@ class PlayerCard extends JPanel {
             labelPlayerStatus.setBounds(5, 79, 375, 36); 
             labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 30));
             panelPlayerDescription.add(labelPlayerStatus);
+            revalidate();
             
         });
     }
@@ -1573,7 +1624,7 @@ class PlayerLogHistory extends JPanel {
             labelPlayerMove.setHorizontalAlignment(JLabel.LEFT);
             panelPlayerLogMove.add(labelPlayerMove);
             this.add(panelPlayerLogMove);
-
+            revalidate();
 
             JPanel panelPlayerLogDescription = new JPanel();
             panelPlayerLogDescription.setBounds(0, 50, 420, 99); // Set bounds for the panel
@@ -1581,13 +1632,16 @@ class PlayerLogHistory extends JPanel {
             panelPlayerLogDescription.setOpaque(false);
             panelPlayerLogDescription.setBackground(Color.LIGHT_GRAY);
             this.add(panelPlayerLogDescription);
+            revalidate();
+
             JTextArea labelPlayerLogDescription = new JTextArea();
-            
             labelPlayerLogDescription.setText(player.toString);
             labelPlayerLogDescription.setBounds(10, 5, 410, 36); 
             labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 20));
+            labelPlayerLogDescription.setOpaque(false);
             labelPlayerLogDescription.setEditable(false);
             panelPlayerLogDescription.add(labelPlayerLogDescription);
+            revalidate();
 
         });
     }
