@@ -16,6 +16,8 @@ import javax.swing.BorderFactory;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.Insets;
+
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -44,6 +46,7 @@ public class Board extends JFrame implements ActionListener {
 
     JFrame frame;
 
+    JLabel labelImageDefault;
     JButton buttonRoll = new JButton();
     JButton buttonGameRules = new JButton();
     JButton buttonBuyLand = new JButton();
@@ -97,10 +100,10 @@ public class Board extends JFrame implements ActionListener {
             // Corner Tile (bottom right)
             tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, "src\\duitria.tiles\\GO.png", "Go", 2000000));
             // Bottom Tile
-            tiles.add(new MiniTile(766, 842, 76, 158, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green"));
+            tiles.add(new MiniTile(766, 842, 76, 158, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green","src\\duitria.current.tiles\\1 PETALING STREET.png"));
             tiles.add(new MiniFateCard(690,842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate"));
-            tiles.add(new MiniTile(614, 842, 76, 158, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", "Jonker Street",600000 ,60000 ,"Green"));
-            tiles.add(new MiniTax(538, 842, 76, 158, panelBoard,"src\\duitria.tiles\\TAX.png", "Tax",2000000 ));
+            tiles.add(new MiniTile(614, 842, 76, 158, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", "Jonker Street",600000 ,60000 ,"Green", "src\\duitria.current.tiles\\2 JONKER STREET.png"));
+            tiles.add(new MiniTax(538, 842, 76, 158, panelBoard,"src\\duitria.tiles\\TAX.png", "Tax",2000000));
             tiles.add(new MiniSpecialTile(462, 842, 76, 158, panelBoard,"src\\duitria.tiles\\3 KLIA.png", "KLIA",2000000 ,200000));
             tiles.add(new MiniTile(386, 842, 76, 158, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png", "Masjid Jamek",1000000 ,100000 ,"Blue"));
             tiles.add(new MiniFateCard(310, 842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate Card"));
@@ -180,16 +183,29 @@ public class Board extends JFrame implements ActionListener {
 
     public void playerLogHistory(Player player) {
         SwingUtilities.invokeLater(() -> {
-            // int limit = 10;
             System.out.println("Bruh Moment");
-        playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
-            // if (playerLogs.size() > limit) {
-            //     playerLogs.subList(limit, playerLogs.size()).clear();
-            // }
-            yCordsPlayerLog += 160;
+            playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
+    
+            // Update yCordsPlayerLog for each existing log
+            int yOffset = 160;
+            for (int i = 1; i < playerLogs.size(); i++) {
+                playerLogs.get(i).setBounds(1500, yCordsPlayerLog + i * yOffset, 420, 150);
+            }
+    
+    
+            // Remove the last element if the size exceeds a limit
+            int limit = 10;
+            if (playerLogs.size() > limit) {
+                playerLogs.remove(limit);
+            }
+    
+            // Repaint or revalidate your container
             revalidate();
         });
     }
+    
+    
+    
 
     public void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
         SwingUtilities.invokeLater(() -> {
@@ -490,7 +506,7 @@ public class Board extends JFrame implements ActionListener {
             toString += player.name + " landed on " + specialTile.name + ".\n";
             if (player.buyProperty) {
                 if (specialTile.owner == null && !player.hasLoan) {
-                    buttonBuy.setEnabled(true);
+                    buttonBuyLand.setEnabled(true);
                     System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
                 } else if (specialTile.owner != player) {
                     System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
@@ -938,12 +954,13 @@ public class Board extends JFrame implements ActionListener {
         this.add(panelBoard);
         panelBoard.setLayout(null);
         panelBoard.setBorder(border);
+
         
         //For Default Tile
         JPanel panelDefault = new JPanel();
         panelDefault.setBounds(386, 263, 228, 474);
         panelDefault.setBackground(Color.WHITE);
-        JLabel labelImageDefault = new JLabel();
+        labelImageDefault = new JLabel();
         labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\1 PETALING STREET.png",228,474));
         labelImageDefault.setBounds(0, 0, 228, 474);
         panelDefault.add(labelImageDefault);
@@ -964,12 +981,6 @@ public class Board extends JFrame implements ActionListener {
         panelGameRule.add(buttonGameRules);
         this.add(panelGameRule);
         
-        //Initialize Player Log History Panel
-        // PlayerLogHistory playerLog1 = new PlayerLogHistory(1500,140,this,playerName1);
-        // PlayerLogHistory playerLog2 = new PlayerLogHistory(1500,300,this,playerName2);
-        // PlayerLogHistory playerLog3 = new PlayerLogHistory(1500,460,this,playerName3);
-        // PlayerLogHistory playerLog4 = new PlayerLogHistory(1500,620,this,playerName1);
-        // PlayerLogHistory playerLog5 = new PlayerLogHistory(1500,780,this,playerName1);
         
         //Initialize Roll panel Button
         JPanel panelRoll = new JPanel();
@@ -1070,7 +1081,8 @@ public class Board extends JFrame implements ActionListener {
         initializeTile(panelBoard);
         initializePlayer();
         initializePlayerCard();
-        });
+
+    });
     }
     public void playerCardUpdate() {
          SwingUtilities.invokeLater(() -> {
@@ -1093,17 +1105,12 @@ public class Board extends JFrame implements ActionListener {
             String moneyFormat = String.format("Money : RM%,d", player.money);
 
             playerCard.labelPlayerMoney.setText(moneyFormat);
-            playerCard.labelPlayerMoney.setBounds(5, 5, 375, 36);
-            playerCard.labelPlayerMoney.setHorizontalAlignment(JLabel.LEFT);
 
             playerCard.labelPlayerLand.setText("Land : " + ownedTile);
-            playerCard.labelPlayerLand.setBounds(5, 42, 375, 36);
-            playerCard.labelPlayerLand.setHorizontalAlignment(JLabel.LEFT);
+
 
 
             playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
-            playerCard.labelPlayerStatus.setBounds(5, 79, 375, 36);
-            playerCard.labelPlayerStatus.setHorizontalAlignment(JLabel.LEFT);
             revalidate();
 
         
@@ -1221,6 +1228,7 @@ public class Board extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonSell) {
             buttonSell.setEnabled(false);
+            FrameSell framesell = new FrameSell("Petaling Jaya - 4 Houses");
             if (playerCurrentTile instanceof MiniTile) {
                 propertyTile = (MiniTile) playerCurrentTile;
                 if (propertyTile.owner == null) {
@@ -1396,6 +1404,7 @@ class MiniGoToJail extends CornerBoardTile {
     }
 }
 class BoardTile extends JPanel {
+    JButton buttonTile = new JButton();
     BoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -1403,6 +1412,8 @@ class BoardTile extends JPanel {
             this.setBackground(Color.WHITE);
             this.setBorder(border);
             this.setLayout(null);
+
+            
 
             ImageIcon icon = imageicon.getResizedImage(path, width, height);
             JLabel labelImage = new JLabel();
@@ -1432,7 +1443,32 @@ class MiniTile extends BoardTile {
         houseCost = 200000;
         owner = null;
         numOfHouse = 0;
+
+
+        
     }
+
+    MiniTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.tileColour = tileColour;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+        
+    }
+
     public int calculateRent(Boolean doubleRent) {
         int calculatedRent = 0;
         if (doubleRent)
@@ -1458,6 +1494,25 @@ class MiniSpecialTile extends BoardTile {
         this.cost = cost;
         this.baseRent = baseRent;
         owner = null;
+
+    }
+
+    MiniSpecialTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        owner = null;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
     }
 }
 class MiniTax extends BoardTile {
@@ -1485,9 +1540,9 @@ class PlayerCard extends JPanel {
     double playerLand;
     double playerMoney;
     String playerStatus;
-    JLabel labelPlayerMoney = new JLabel();
-    JLabel labelPlayerLand = new JLabel();
-    JLabel labelPlayerStatus = new JLabel();
+    JTextArea labelPlayerMoney = new JTextArea();
+    JTextArea labelPlayerLand = new JTextArea();
+    JTextArea labelPlayerStatus = new JTextArea();
 
     PlayerCard(int a, int b, JFrame frame, String playerName, double playerLand, double playerMoney, String playerStatus) {
         
@@ -1499,8 +1554,8 @@ class PlayerCard extends JPanel {
             this.playerStatus = playerStatus;
 
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+            this.setBounds(0, b, 375, 175);
             this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(a, b, 375, 175);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
@@ -1509,11 +1564,14 @@ class PlayerCard extends JPanel {
             panelPlayerName.setBounds(0, 0, 375, 50); // Set bounds for the panel
             // panelPlayerName.setBorder(border); // Set a background color for visibility
             panelPlayerName.setBackground(Color.LIGHT_GRAY);
-            JLabel labelPlayerName = new JLabel();
+            JTextArea labelPlayerName = new JTextArea();
             labelPlayerName.setText(this.playerName);
             panelPlayerName.setOpaque(false);
             labelPlayerName.setBounds(10, 10, 370, 38); 
             labelPlayerName.setFont(new Font("Inter", Font.BOLD, 40));
+            labelPlayerName.setRows(10);
+            labelPlayerName.setColumns(30);
+            labelPlayerName.setMargin(new Insets(0, 570, 0, 0));
             panelPlayerName.add(labelPlayerName);
             this.add(panelPlayerName);
 
@@ -1528,6 +1586,10 @@ class PlayerCard extends JPanel {
             labelPlayerMoney.setText("Money : RM " + this.playerMoney);
             labelPlayerMoney.setBounds(5, 5, 375, 36); 
             labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerMoney.setRows(1);
+            labelPlayerMoney.setColumns(30);
+            labelPlayerMoney.setOpaque(false);
+            labelPlayerMoney.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerMoney);
 
             labelPlayerLand.setText("Land : " + this.playerLand);
@@ -1538,6 +1600,10 @@ class PlayerCard extends JPanel {
             labelPlayerStatus.setText("Status : " + this.playerStatus);
             labelPlayerStatus.setBounds(5, 79, 375, 36); 
             labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerStatus.setRows(1);
+            labelPlayerStatus.setColumns(30);
+            labelPlayerStatus.setOpaque(false);
+            labelPlayerStatus.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerStatus);
             revalidate();
 
@@ -1549,9 +1615,8 @@ class PlayerCard extends JPanel {
         SwingUtilities.invokeLater(() -> {
             
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-            this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(x, y, 375, 175);
-            this.setBorder(border);
+            this.setOpaque(false);
+            this.setBounds(0, y, 375, 175);
             this.setLayout(null);
             frame.add(this);
 
@@ -1559,11 +1624,14 @@ class PlayerCard extends JPanel {
             panelPlayerName.setBounds(0, 0, 375, 50); // Set bounds for the panel
             // panelPlayerName.setBorder(border); // Set a background color for visibility
             panelPlayerName.setBackground(Color.LIGHT_GRAY);
-            JLabel labelPlayerName = new JLabel();
+            JTextArea labelPlayerName = new JTextArea();
             labelPlayerName.setText(player.name);
             panelPlayerName.setOpaque(false);
             labelPlayerName.setBounds(10, 10, 370, 38); 
             labelPlayerName.setFont(new Font("Inter", Font.BOLD, 35));
+            labelPlayerName.setRows(10);
+            labelPlayerName.setColumns(30);
+            labelPlayerName.setMargin(new Insets(0, 570, 0, 0));
             panelPlayerName.add(labelPlayerName);
             this.add(panelPlayerName);
 
@@ -1577,17 +1645,29 @@ class PlayerCard extends JPanel {
             String moneyFormat = String.format("Money : RM%,d", player.money);
             labelPlayerMoney.setText(moneyFormat);
             labelPlayerMoney.setBounds(5, 5, 375, 36); 
-            labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 25));
+            labelPlayerMoney.setRows(1);
+            labelPlayerMoney.setColumns(30);
+            labelPlayerMoney.setBackground(Color.LIGHT_GRAY);
+            labelPlayerMoney.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerMoney);
 
             labelPlayerLand.setText("Land : 0");
             labelPlayerLand.setBounds(5, 42, 375, 36); 
-            labelPlayerLand.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerLand.setFont(new Font("Arial", Font.ITALIC, 25));
+            labelPlayerLand.setRows(1);
+            labelPlayerLand.setColumns(30);
+            labelPlayerLand.setBackground(Color.LIGHT_GRAY);
+            labelPlayerLand.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerLand);
 
             labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
             labelPlayerStatus.setBounds(5, 79, 375, 36); 
-            labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 25));
+            labelPlayerStatus.setRows(1);
+            labelPlayerStatus.setColumns(30);
+            labelPlayerStatus.setBackground(Color.LIGHT_GRAY);
+            labelPlayerStatus.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerStatus);
             revalidate();
             
@@ -1644,9 +1724,8 @@ class PlayerLogHistory extends JPanel {
         SwingUtilities.invokeLater(() -> {
 
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-            this.setBackground(Color.LIGHT_GRAY);
+            this.setOpaque(false);
             this.setBounds(x, y, 420, 150);
-            this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
 
@@ -1654,12 +1733,14 @@ class PlayerLogHistory extends JPanel {
             panelPlayerLogMove.setBounds(0, 0, 420, 50); // Set bounds for the panel
             // panelPlayerLogMove.setBorder(border); // Set a background color for visibility
             panelPlayerLogMove.setBackground(Color.LIGHT_GRAY);
-            JLabel labelPlayerMove = new JLabel();
+            JTextArea labelPlayerMove = new JTextArea();
             labelPlayerMove.setText(player.name + " moves To Tile " + player.position);
             panelPlayerLogMove.setOpaque(false);
             labelPlayerMove.setBounds(10, 5, 420, 40); 
             labelPlayerMove.setFont(new Font("Inter", Font.BOLD, 25));
-            labelPlayerMove.setHorizontalAlignment(JLabel.LEFT);
+            labelPlayerMove.setRows(10);
+            labelPlayerMove.setColumns(30);
+            labelPlayerMove.setMargin(new Insets(0, 230, 0, 0));
             panelPlayerLogMove.add(labelPlayerMove);
             this.add(panelPlayerLogMove);
             revalidate();
@@ -1667,17 +1748,19 @@ class PlayerLogHistory extends JPanel {
             JPanel panelPlayerLogDescription = new JPanel();
             panelPlayerLogDescription.setBounds(0, 50, 420, 99); // Set bounds for the panel
             // panelPlayerLogDescription.setBorder(border); // Set a background color for visibility
-            panelPlayerLogDescription.setOpaque(false);
             panelPlayerLogDescription.setBackground(Color.LIGHT_GRAY);
             this.add(panelPlayerLogDescription);
             revalidate();
 
             JTextArea labelPlayerLogDescription = new JTextArea();
             labelPlayerLogDescription.setText(player.toString);
-            labelPlayerLogDescription.setBounds(10, 5, 410, 36); 
-            labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 20));
+            labelPlayerLogDescription.setBounds(0, 0, 410, 36); 
+            labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 15));
             labelPlayerLogDescription.setOpaque(false);
             labelPlayerLogDescription.setEditable(false);
+            labelPlayerLogDescription.setRows(10);
+            labelPlayerLogDescription.setMargin(new Insets(10, 0, 0, 0));
+            labelPlayerLogDescription.setColumns(30);
             panelPlayerLogDescription.add(labelPlayerLogDescription);
             revalidate();
 

@@ -17,16 +17,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 
-public class HomeScreenGUI extends JFrame implements ActionListener {
+public class SaveFileGUI extends JFrame implements ActionListener {
 
   
     
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-    JButton buttonStartGame = new JButton();
-    JButton buttonGameRules = new JButton();
-    JButton buttonContinueGame = new JButton();
+    JButton buttonSaveFile1 = new JButton();
+    JButton buttonSaveFile2 = new JButton();
+    JButton buttonSaveFile3 = new JButton();
+    JButton buttonSaveFile4 = new JButton();
     
-    HomeScreenGUI (){
+    SaveFileGUI (){
 
     SwingUtilities.invokeLater(() -> {
         
@@ -56,44 +57,53 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      panelButtons.setLayout(null);
      this.add(panelButtons);
      
-     buttonStartGame.addActionListener(this);
-     buttonStartGame.setSize(500, 100);
-     buttonStartGame.setBounds(70, 180, 500, 80);
-     buttonStartGame.setText("START GAME");
-     buttonStartGame.setFocusable(false);
-     panelButtons.add(buttonStartGame);
+     buttonSaveFile1.addActionListener(this);
+     buttonSaveFile1.setSize(500, 100);
+     buttonSaveFile1.setBounds(70, 110, 500, 80);
+     buttonSaveFile1.setText("SAVE FILE 1");
+     buttonSaveFile1.setFocusable(false);
+     panelButtons.add(buttonSaveFile1);
      
-     buttonGameRules.addActionListener(this);
-     buttonGameRules.setSize(500, 100);
-     buttonGameRules.setBounds(70, 310, 500, 80);
-     buttonGameRules.setText("GAME RULES");
-     buttonGameRules.setFocusable(false);
-     panelButtons.add(buttonGameRules);
+     buttonSaveFile2.addActionListener(this);
+     buttonSaveFile2.setSize(500, 100);
+     buttonSaveFile2.setBounds(70, 240, 500, 80);
+     buttonSaveFile2.setText("SAVE FILE 2");
+     buttonSaveFile2.setFocusable(false);
+     panelButtons.add(buttonSaveFile2);
 
-     buttonContinueGame.addActionListener(this);
-     buttonContinueGame.setSize(500, 100);
-     buttonContinueGame.setBounds(70, 440, 500, 80);
-     buttonContinueGame.setText("CONTINUE GAME");
-     buttonContinueGame.setFocusable(false);
-     panelButtons.add(buttonContinueGame);
+     buttonSaveFile3.addActionListener(this);
+     buttonSaveFile3.setSize(500, 100);
+     buttonSaveFile3.setBounds(70, 370, 500, 80);
+     buttonSaveFile3.setText("SAVE FILE 3");
+     buttonSaveFile3.setFocusable(false);
+     panelButtons.add(buttonSaveFile3);
+
+     buttonSaveFile4.addActionListener(this);
+     buttonSaveFile4.setSize(500, 100);
+     buttonSaveFile4.setBounds(70, 500, 500, 80);
+     buttonSaveFile4.setText("SAVE FILE 3");
+     buttonSaveFile4.setFocusable(false);
+     panelButtons.add(buttonSaveFile4);
 
         
     
     });
 }
     public void actionPerformed(ActionEvent e){
-        if(e.getSource()==buttonStartGame){
-            PlayerNumber playernumber = new PlayerNumber();
-            this.dispose();
+        if(e.getSource()==buttonSaveFile1){
+
         }
         
-        if(e.getSource()==buttonGameRules){
-            GameRules gamerule = new GameRules();
+        if(e.getSource()==buttonSaveFile2){
+ 
         }
 
-        if (e.getSource() == buttonContinueGame){
-            SaveFileGUI savefilegui = new SaveFileGUI();
-            this.dispose();
+        if(e.getSource()==buttonSaveFile3){
+ 
+        }
+
+        if(e.getSource()==buttonSaveFile4){
+ 
         }
     }
 
