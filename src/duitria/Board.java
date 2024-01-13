@@ -157,9 +157,11 @@ public class Board extends JFrame implements ActionListener {
     }
 
     public void playerLogHistory(Player player) {
+         SwingUtilities.invokeLater(() -> {
         System.out.println("Bruh Moment");
         playerLogs.add(new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
         yCordsPlayerLog += 160;
+         });
     }
 
     public void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
