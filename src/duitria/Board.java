@@ -42,6 +42,8 @@ public class Board extends JFrame implements ActionListener {
     JLabel diceOneImg;
     JLabel diceTwoImg;
 
+    JFrame frame;
+
     JButton buttonRoll = new JButton();
     JButton buttonGameRules = new JButton();
     JButton buttonBuy = new JButton();
@@ -167,7 +169,8 @@ public class Board extends JFrame implements ActionListener {
     public void playerLogHistory(Player player) {
         SwingUtilities.invokeLater(() -> {
             // int limit = 10;
-            playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
+            System.out.println("Bruh Moment");
+        playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
             // if (playerLogs.size() > limit) {
             //     playerLogs.subList(limit, playerLogs.size()).clear();
             // }
@@ -963,6 +966,7 @@ public class Board extends JFrame implements ActionListener {
         rand = new Random();
         playerNum = PlayerNumber.playerNum;
 
+        frame = new JFrame();
         //Frame Settings
         Border border = BorderFactory.createLineBorder(Color.BLACK,1);
         this.setVisible(true); 
@@ -1105,12 +1109,17 @@ public class Board extends JFrame implements ActionListener {
 
             playerCard.labelPlayerMoney.setText(moneyFormat);
             playerCard.labelPlayerMoney.setBounds(5, 5, 375, 36);
+            playerCard.labelPlayerMoney.setHorizontalAlignment(JLabel.LEFT);
 
             playerCard.labelPlayerLand.setText("Land : " + ownedTile);
             playerCard.labelPlayerLand.setBounds(5, 42, 375, 36);
+            playerCard.labelPlayerLand.setHorizontalAlignment(JLabel.LEFT);
+
 
             playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
             playerCard.labelPlayerStatus.setBounds(5, 79, 375, 36);
+            playerCard.labelPlayerStatus.setHorizontalAlignment(JLabel.LEFT);
+
         
         }
         });
@@ -1148,6 +1157,8 @@ public class Board extends JFrame implements ActionListener {
                         playerLogHistory(currentPlayer);
                         System.out.println(currentPlayer.toString);
                         buttonRoll.setEnabled(true);
+                        // this.setVisible(false);
+                        // this.setVisible(true);
                         } catch(InterruptedException e) {
                         System.out.println("Threading Error: " + e);
                         }
