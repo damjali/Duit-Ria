@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 import duitria.Board.MiniTile;
+import duitria.SaveFile;
 
 import javax.swing.BorderFactory;
 import java.awt.Font;
@@ -87,6 +88,7 @@ public class Board extends JFrame implements ActionListener {
     MiniGo go;
     MiniGoToJail goToJail;
     MiniJail jail;
+    SaveFile saveFile;
 
     public void setName(String name1, String name2, String name3, String name4){
         playerName1 = name1;
@@ -189,9 +191,8 @@ public class Board extends JFrame implements ActionListener {
             // Update yCordsPlayerLog for each existing log
             int yOffset = 160;
             for (int i = 1; i < playerLogs.size(); i++) {
-                playerLogs.get(i).setBounds(1500, yCordsPlayerLog + i * yOffset, 420, 150);
+                playerLogs.get(i).setBounds(1500, yCordsPlayerLog + (i * yOffset), 420, 150);
             }
-    
     
             // Remove the last element if the size exceeds a limit
             int limit = 10;
@@ -256,8 +257,8 @@ public class Board extends JFrame implements ActionListener {
                     if (propertyTile.rentAmount >= player.money) {
                         buttonSell.setEnabled(true);
                         System.out.println("You don't have enough money to pay the rent.");
-                        sellingProperties(player, propertyTile.rentAmount, false, true, propertyTile.owner);
                     } else {
+                        buttonRoll.setEnabled(true);
                         player.money -= propertyTile.rentAmount;
                         propertyTile.owner.money += propertyTile.rentAmount;
                         toString += String.format(player.name + " paid RM%,d to " + propertyTile.owner.name + ".\n", propertyTile.rentAmount);
@@ -554,12 +555,14 @@ public class Board extends JFrame implements ActionListener {
     public void sellingProperties(Player player, int cost, boolean creatorDebt, boolean playerDebt, Player tileOwner) {
         List<MiniTile> propertySelector = new ArrayList<>();
         List<MiniSpecialTile> specialTileSelector = new ArrayList<>();
+        FrameSellHouse frameSellHouse;
+        FrameSellLand frameSellLand;
         player.propertySellCheck = true;
         hasPaid = false;
         this.creatorDebt = creatorDebt;
         this.playerDebt = playerDebt;
         this.cost = cost;
-        int tileCount, houseCount, specialTileCount, tileCost, houseCost, specialTileCost;
+        int tileCount, houseCount, specialTileCount, tileCost, specialTileCost;
         if (creatorDebt) {
             for (Object currentTile : tiles) {
                 if (currentTile instanceof MiniTile) {
@@ -582,11 +585,10 @@ public class Board extends JFrame implements ActionListener {
             toString += player.name + " has given up all their assets to the Creator.\n";
             buttonLoan.setEnabled(true);
         }
-        while (player.propertySellCheck) { // INTEGRATE SELL HOUSE PANEL
+        if (player.propertySellCheck) { // INTEGRATE SELL HOUSE PANEL
             tileCount = 0;
             houseCount = 0;
             tileCost = 0;
-            houseCost = 0;
             specialTileCount = 0;
             specialTileCost = 0;
             for (Object currentTile : tiles) {
@@ -596,7 +598,6 @@ public class Board extends JFrame implements ActionListener {
                         tileCount++;
                         tileCost += currentPropertyTile.cost;
                         houseCount += currentPropertyTile.numOfHouse;
-                        houseCost += (currentPropertyTile.numOfHouse * 200000);
                         propertySelector.add(currentPropertyTile);
                     }
                 }
@@ -609,189 +610,80 @@ public class Board extends JFrame implements ActionListener {
                     }
                 }
             }
-            if (houseCount > 0 && cost >= player.money && playerDebt) {
-                int count = 0, choice;
-                System.out.println("\nYou have a total asset of " + houseCount + " house(s).");
-                System.out.println("Each and every property sold back to the creator, the owner will only get one-half(1/2) of it back.");
-                System.out.printf(Locale.US, "You have a total of RM%,.0f in house(s) (after Creator's cut).\n", (houseCost * 0.5));
-                System.out.printf(Locale.US, "You have to sell atleast RM%,d.\n", (cost - player.money));
-                System.out.println("You may choose from which property you want to sell the houses from.");
-                for (MiniTile currentPropertyTile : propertySelector) {
-                    count++;
-                    System.out.println(count + ". " + currentPropertyTile.name + ": " + currentPropertyTile.numOfHouse + " house(s).");
+            while (houseCount > 0 && cost >= player.money && playerDebt) { // HOUSE SELL TO PAY RENT
+                frameSellHouse = new FrameSellHouse(propertySelector, player, true, false);
+                while (frameSellHouse.landNumber < 0 || frameSellHouse.landNumber > propertySelector.size() || frameSellHouse.houseNumber < 0 || frameSellHouse.houseNumber > propertySelector.get(frameSellHouse.landNumber).numOfHouse) {
+                    frameSellHouse = new FrameSellHouse(propertySelector, player, true, false);
                 }
-                while (true) {
-                    System.out.print("Property choice. (1 - " + count + "): ");
-                    choice = keyboard.nextInt();
-                    keyboard.nextLine();
-                    MiniTile currentPropertyTile = propertySelector.get(choice - 1);
-                    while ((choice < 0 || choice > count) || currentPropertyTile.numOfHouse < 1) {
-                        System.out.print("Please pick again. : ");
-                        choice = keyboard.nextInt();
-                        keyboard.nextLine();
-                    }
-                    currentPropertyTile = propertySelector.get(choice - 1);
-                    System.out.print("How much do you want to sell? (" + currentPropertyTile.numOfHouse + " max) : ");
-                    int houseSell = keyboard.nextInt();
-                    keyboard.nextLine();
-                    while (houseSell < 0 || houseSell > currentPropertyTile.numOfHouse) {
-                        System.out.print("Please pick again. : ");
-                        houseSell = keyboard.nextInt();
-                        keyboard.nextLine();
-                    }
-                    int sellAmount = houseSell * 100000;
-                    System.out.println(player.name + " successfully sold " + houseSell + " houses.");
-                    player.money += sellAmount;
-                    currentPropertyTile.numOfHouse -= houseSell;
-                    houseCount -= houseSell;
-                    if (cost >= player.money && houseCount > 0)
-                        System.out.printf("\nPlease choose another property to sell houses (RM%,d more).\n", (cost - player.money));
-                    else if (cost >= player.money && houseCount == 0) {
-                        System.out.println("You have no more houses to sell.");
-                        playerLoan(player, cost, playerDebt);
-                        if (player.bankruptcy) {
-                            player.propertySellCheck = false;
-                            System.out.println("You have to turn over all your asset to the owner of the tile.");
-                            toString += player.name + " has turned over all their assets to the owner of the tile.\n";
-                            for (Object currentTile : tiles) {
-                                if (currentTile instanceof MiniTile) {
-                                    MiniTile changeOwnerPropertyTile = (MiniTile) currentTile;
-                                    if (changeOwnerPropertyTile.owner == player)
-                                        changeOwnerPropertyTile.owner = tileOwner;
-                                }
-                                if (currentTile instanceof MiniSpecialTile) {
-                                    MiniSpecialTile changeOwnerSpecialTile = (MiniSpecialTile) currentTile;
-                                    if (changeOwnerSpecialTile.owner == player)
-                                        changeOwnerSpecialTile.owner = tileOwner;
-                                }
-                            }
-                            break;
-                        } else {
-                            System.out.printf(player.name + " has successfully paid the owner for RM%,d\n", cost);
-                            toString += player.name + " has paid RM%,d to " + tileOwner.name + ".\n";
-                            player.propertySellCheck = false;
-                            hasPaid = true;
-                            break;
-                        }
-                    } else {
-                        System.out.printf(player.name + " has successfully paid the owner for RM%,d\n", cost);
-                        toString += player.name + " has paid RM%,d to " + tileOwner.name + ".\n";
-                        player.propertySellCheck = false;
-                        hasPaid = true;
-                        break;
-                    }
+                int totalHouseSold = 0;
+                player.money += 100000 * frameSellHouse.houseNumber;
+                propertySelector.get(frameSellHouse.landNumber).numOfHouse -= frameSellHouse.houseNumber;
+                frameSellHouse.totalHouseCount -= frameSellHouse.houseNumber;
+                totalHouseSold += frameSellHouse.houseNumber;
+                if (cost < player.money) {
+                    player.money -= cost;
+                    cost = 0;
+                    player.propertySellCheck = false;
+                    hasPaid = true;
+                    toString += player.name + " has sold " + totalHouseSold + " house(s).\n";
+                    break;
                 }
-            } else if (houseCount > 0 && cost >= player.money && !playerDebt) {
-                int count = 0, choice, totalHouseSold = 0;
-                System.out.println("\nYou have a total asset of " + houseCount + " house(s).");
-                System.out.println("Each and every property sold back to the creator, the owner will only get one-half(1/2) of it back.");
-                System.out.printf(Locale.US, "You have a total of RM%,.0f in house(s) (after Creator's cut).\n", (houseCost * 0.5));
-                System.out.printf(Locale.US, "You have to sell atleast RM%,d.\n", (cost - player.money));
-                System.out.println("You may choose from which property you want to sell the houses from.");
-                for (MiniTile currentPropertyTile : propertySelector) {
-                    count++;
-                    System.out.println(count + ". " + currentPropertyTile.name + ": " + currentPropertyTile.numOfHouse + " house(s).");
-                }
-                while (true) {
-                    System.out.print("Property choice. (1 - " + count + "): ");
-                    choice = keyboard.nextInt();
-                    keyboard.nextLine();
-                    MiniTile currentPropertyTile = propertySelector.get(choice - 1);
-                    while (choice < 0 || choice > count && propertyTile.numOfHouse == 0) {
-                        System.out.print("Please pick again. : ");
-                        choice = keyboard.nextInt();
-                        keyboard.nextLine();
+                if (frameSellHouse.totalHouseCount <= 0) { // GIVE UP ASSETS TO OWNER
+                    for (MiniTile propertyTile : propertySelector) {
+                        propertyTile.owner = tileOwner;
                     }
-                    currentPropertyTile = propertySelector.get(choice - 1);
-                    System.out.print("How much do you want to sell? (" + currentPropertyTile.numOfHouse + " max) : ");
-                    int houseSell = keyboard.nextInt();
-                    keyboard.nextLine();
-                    while (houseSell < 0 || houseSell > currentPropertyTile.numOfHouse) {
-                        System.out.print("Please pick again. : ");
-                        houseSell = keyboard.nextInt();
-                        keyboard.nextLine();
+                    for (MiniSpecialTile specialTile : specialTileSelector) {
+                        specialTile.owner = tileOwner;
                     }
-                    int sellAmount = houseSell * 100000;
-                    System.out.println(player.name + " successfully sold " + houseSell + " houses.");
-                    player.money += sellAmount;
-                    currentPropertyTile.numOfHouse -= houseSell;
-                    houseCount -= houseSell;
-                    totalHouseSold += houseSell;
-                    if (cost >= player.money && houseCount > 0)
-                        System.out.printf("\nPlease choose another property to sell houses (RM%,d more).\n", (cost - player.money));
-                    else if (cost >= player.money && houseCount == 0) {
-                        System.out.println("You have no more houses to sell.");
-                        toString += player.name + " has sold " + totalHouseSold + " house(s).\n";
-                        break;
-                    } else {
-                        player.propertySellCheck = false;
-                        hasPaid = true;
-                        toString += player.name + " has sold " + totalHouseSold + " house(s).\n";
-                        break;
-                    }
+                    toString += player.name + " has given all his assets to " + tileOwner.name + ".\n";
+                    break;
                 }
             }
-            if (tileCount > 0 && cost >= player.money && !playerDebt) {
-                int count = 0, choice, totalTileSold = 0;
-                System.out.println("You have a total asset of " + tileCount + " in land(s) and " + specialTileCount + " in railroad(s).");
-                System.out.println("Each and every property sold back to the creator, the owner will only get one-half(1/2) of it back.");
-                System.out.printf(Locale.US, "You have a total of RM%,.0f in land(s) and RM%,.0f in railroad(s).\n", (tileCost * 0.5), (specialTileCost * 0.5));
-                System.out.printf(Locale.US, "You have to sell atleast RM%,d.\n", (cost - player.money));
-                System.out.println("You may choose from which property you want to sell the house from.");
-                System.out.println("Property Tile(s).");
-                for (MiniTile currentPropertyTile : propertySelector) {
-                    count++;
-                    System.out.printf(count + ". " + currentPropertyTile.name + ": RM%,.0f\n", (currentPropertyTile.cost * 0.5));
+            while (houseCount > 0 && cost >= player.money && !playerDebt) { // HOUSE SELL TO BUY PROPERTIES
+                frameSellHouse = new FrameSellHouse(propertySelector, player, false, false);
+                while (frameSellHouse.landNumber < 0 || frameSellHouse.landNumber > propertySelector.size() || frameSellHouse.houseNumber < 0 || frameSellHouse.houseNumber > propertySelector.get(frameSellHouse.landNumber).numOfHouse) {
+                    frameSellHouse = new FrameSellHouse(propertySelector, player, false, false);
                 }
-                if (specialTileCount > 0) {
-                    System.out.println("Special Tile(s).");
-                    for (MiniSpecialTile currentSpecialTile : specialTileSelector) {
-                        count++;
-                        System.out.printf(count + ". " + currentSpecialTile.name + ": RM%,.0f\n", (currentSpecialTile.cost * 0.5));
-                    }
+                int totalHouseSold = 0;
+                player.money += 100000 * frameSellHouse.houseNumber;
+                propertySelector.get(frameSellHouse.landNumber).numOfHouse -= frameSellHouse.houseNumber;
+                frameSellHouse.totalHouseCount -= frameSellHouse.houseNumber;
+                totalHouseSold += frameSellHouse.houseNumber;
+                if (cost < player.money) {
+                    player.money -= cost;
+                    cost = 0;
+                    player.propertySellCheck = false;
+                    hasPaid = true;
+                    toString += player.name + " has sold " + totalHouseSold + " house(s).\n";
+                    break;
                 }
-                while (true) {
-                    System.out.print("Property choice. (1 - " + count + "): ");
-                    choice = keyboard.nextInt();
-                    keyboard.nextLine();
-                    while (choice < 0 || choice > count) {
-                        System.out.print("Please pick again. : ");
-                        choice = keyboard.nextInt();
-                        keyboard.nextLine();
-                    }
-                    if (choice <= propertySelector.size()) {
-                        MiniTile currentPropertyTile = propertySelector.get(choice - 1);
-                        System.out.println(currentPropertyTile.name + " has been sold.");
-                        currentPropertyTile.owner = null;
-                        tileCount--;
-                        player.money += (int) (currentPropertyTile.cost * 0.5);
-                        totalTileSold++;
-                    } else {
-                        MiniSpecialTile currentSpecialTile = specialTileSelector.get(choice - 1 - propertySelector.size());
-                        System.out.println(currentSpecialTile.name + " has been sold.");
-                        currentSpecialTile.owner = null;
-                        specialTileCount--;
-                        player.money += (int) (currentSpecialTile.cost * 0.5);
-                        totalTileSold++;
-                    }
-                    if (cost >= player.money && (tileCount > 0 || specialTileCount > 0))
-                        System.out.printf("\nPlease choose another property to sell (RM%,d more).\n", cost - player.money);
-                    else if (cost >= player.money && tileCount == 0 && specialTileCount == 0) {
-                        System.out.println("You no longer have properties to sell.");
-                        player.propertySellCheck = false;
-                        toString += player.name + " has sold " + totalTileSold + ".\n";
-                        break;
-                    } else {
-                        player.propertySellCheck = false;
-                        hasPaid = true;
-                        toString += player.name + " has sold " + totalTileSold + ".\n";
-                        break;
-                    }
+            }
+            while (tileCount > 0 && cost >= player.money && !playerDebt) { // TILE SELL TO BUY PROPERTIES
+                frameSellLand = new FrameSellLand(propertySelector, specialTileSelector, player, false, false);
+                while (frameSellLand.landNumber < 0 || frameSellLand.landNumber > propertySelector.size()) {
+                    frameSellLand = new FrameSellLand(propertySelector, specialTileSelector, player, false, false);
+                }
+                int totalLandSold = 0;
+                if (frameSellLand.landNumber <= propertySelector.size()) {
+                    player.money += (propertySelector.get(frameSellLand.landNumber - 1).cost * 0.5);
+                    propertySelector.get(frameSellLand.landNumber - 1).owner = null;
+                } else {
+                    player.money += (specialTileSelector.get(frameSellLand.landNumber - propertySelector.size() - 1).cost * 0.5);
+                    specialTileSelector.get(propertySelector.size() - frameSellLand.landNumber).owner = null;
+                }
+                frameSellLand.totalLandCount--;
+                totalLandSold++;
+                if (cost < player.money) {
+                    player.money -= cost;
+                    cost = 0;
+                    player.propertySellCheck = false;
+                    hasPaid = true;
+                    toString += player.name + " has sold " + totalLandSold + " land(s).\n";
+                    break;
                 }
             }
             if (!hasPaid) {
-                System.out.println("You can't afford to pay that much!");
-                playerLoan(player, cost, false);
+                buttonLoan.setEnabled(true);
                 player.propertySellCheck = false;
             }
         }
@@ -1039,14 +931,14 @@ public class Board extends JFrame implements ActionListener {
         panelBoard.add(panelBuyLand);
         
 
-                //Initialize Buy Land Button
+        //Initialize Buy Land Button
         JPanel panelBuyHouse = new JPanel();
         panelBuyHouse.setBounds(700 , 375, 100,50);
         buttonBuyHouse.setBounds(0 , 0, 100,50);
         buttonBuyHouse.addActionListener(this);
-         // buttonBuyLand.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
-         buttonBuyHouse.setText("Buy Land");
-         buttonBuyHouse.setEnabled(false);
+        // buttonBuyLand.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
+        buttonBuyHouse.setText("Buy Land");
+        buttonBuyHouse.setEnabled(false);
         panelBuyHouse.setBackground(Color.WHITE);
         panelBuyHouse.setBorder(border);
         panelBuyHouse.setLayout(null);
@@ -1077,48 +969,53 @@ public class Board extends JFrame implements ActionListener {
         panelLoan.add(buttonLoan);
         panelBoard.add(panelLoan);
         
-        
-        initializeTile(panelBoard);
-        initializePlayer();
-        initializePlayerCard();
-
+        if (saveFile.newGame) {
+            initializeTile(panelBoard);
+            initializePlayerCard();
+            initializePlayer();
+        } else {
+            initializeTile(panelBoard);
+            tiles = saveFile.tiles;
+            players = saveFile.players;
+            initializePlayerCard();
+        }
     });
     }
     public void playerCardUpdate() {
-         SwingUtilities.invokeLater(() -> {
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            PlayerCard playerCard = playerCards.get(i);
-            int ownedTile = 0;
-            for (Object ownedTileCheck : tiles) {
-                if (ownedTileCheck instanceof MiniTile) {
-                    propertyTile = (MiniTile) ownedTileCheck;
-                    if (propertyTile.owner == player)
-                        ownedTile++;
+        SwingUtilities.invokeLater(() -> {
+            for (int i = 0; i < players.size(); i++) {
+                Player player = players.get(i);
+                PlayerCard playerCard = playerCards.get(i);
+                int ownedTile = 0;
+                for (Object ownedTileCheck : tiles) {
+                    if (ownedTileCheck instanceof MiniTile) {
+                        propertyTile = (MiniTile) ownedTileCheck;
+                        if (propertyTile.owner == player)
+                            ownedTile++;
+                    }
+                    if (ownedTileCheck instanceof MiniSpecialTile) {
+                        specialTile = (MiniSpecialTile) ownedTileCheck;
+                        if (specialTile.owner == player)
+                            ownedTile++;
+                    }
                 }
-                if (ownedTileCheck instanceof MiniSpecialTile) {
-                    specialTile = (MiniSpecialTile) ownedTileCheck;
-                    if (specialTile.owner == player)
-                        ownedTile++;
-                }
+                String moneyFormat = String.format("Money : RM%,d", player.money);
+
+                playerCard.labelPlayerMoney.setText(moneyFormat);
+
+                playerCard.labelPlayerLand.setText("Land : " + ownedTile);
+
+
+
+                playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
+                revalidate();
+
+            
             }
-            String moneyFormat = String.format("Money : RM%,d", player.money);
-
-            playerCard.labelPlayerMoney.setText(moneyFormat);
-
-            playerCard.labelPlayerLand.setText("Land : " + ownedTile);
-
-
-
-            playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
-            revalidate();
-
-        
-        }
         });
     }
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource()==buttonRoll){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==buttonRoll) {
             buttonRoll.setEnabled(false);
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             currentPlayer = players.get(currentPlayerIndex);
@@ -1163,36 +1060,12 @@ public class Board extends JFrame implements ActionListener {
         rollThread.start();
         }
 
+        if(e.getSource()==buttonGameRules){
+            GameRules gameRules = new GameRules();
+        }
+
         if (e.getSource() == buttonBankrupt){
             bankrupt(currentPlayer);
-        }
-
-        if (e.getSource() == buttonBuyHouse){
-            
-        }
-    
-        if(e.getSource()==buttonGameRules){
-            GameRules gamerules = new GameRules();
-        }
-
-        if (e.getSource() == buttonLoan){
-            buttonLoan.setEnabled(false);
-            if (creatorDebt) {
-                playerLoan(currentPlayer, cost, creatorDebt);
-                if (!currentPlayer.bankruptcy) {
-                    currentPlayer.propertySellCheck = false;
-                    hasPaid = true;
-                }
-            }
-            if (playerCurrentTile instanceof MiniTile) {
-                propertyTile = (MiniTile) playerCurrentTile;
-                playerLoan(currentPlayer, propertyTile.cost, false);
-            } else if (playerCurrentTile instanceof MiniSpecialTile) {
-                specialTile = (MiniSpecialTile) playerCurrentTile;
-                playerLoan(currentPlayer, specialTile.cost, false);
-            }
-            currentPlayer.toString = toString;
-            playerCardUpdate();
         }
 
         if (e.getSource() == buttonBuyLand) {
@@ -1224,9 +1097,36 @@ public class Board extends JFrame implements ActionListener {
             playerCardUpdate();
         }
 
+        if (e.getSource() == buttonBuyHouse){
+            buttonBuyHouse.setEnabled(false);
+            if (playerCurrentTile instanceof MiniTile) {
+                propertyTile = (MiniTile) playerCurrentTile; // PANEL BUY HOUSE
+                
+            }
+        }
+    
+        if (e.getSource() == buttonLoan){
+            buttonLoan.setEnabled(false);
+            if (creatorDebt) {
+                playerLoan(currentPlayer, cost, creatorDebt);
+                if (!currentPlayer.bankruptcy) {
+                    currentPlayer.propertySellCheck = false;
+                    hasPaid = true;
+                }
+            }
+            if (playerCurrentTile instanceof MiniTile) {
+                propertyTile = (MiniTile) playerCurrentTile;
+                playerLoan(currentPlayer, propertyTile.cost, false);
+            } else if (playerCurrentTile instanceof MiniSpecialTile) {
+                specialTile = (MiniSpecialTile) playerCurrentTile;
+                playerLoan(currentPlayer, specialTile.cost, false);
+            }
+            currentPlayer.toString = toString;
+            playerCardUpdate();
+        }
+
         if (e.getSource() == buttonSell) {
             buttonSell.setEnabled(false);
-            FrameSell framesell = new FrameSell("Petaling Jaya - 4 Houses");
             if (playerCurrentTile instanceof MiniTile) {
                 propertyTile = (MiniTile) playerCurrentTile;
                 if (propertyTile.owner == null) {

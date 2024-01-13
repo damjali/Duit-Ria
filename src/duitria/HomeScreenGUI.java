@@ -47,8 +47,6 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      panelImage.add(labelIcon);
      this.add(panelImage);
      
-     
-     
      JPanel panelButtons = new JPanel();
      panelButtons.setBackground(new Color(24, 23, 23));
      panelButtons.setBounds(640, 0, 640, 720);
@@ -81,18 +79,18 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
     
     });
 }
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource()==buttonStartGame){
-            PlayerNumber playernumber = new PlayerNumber();
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==buttonStartGame) {
+            PlayerNumber playerNumber = new PlayerNumber();
             this.dispose();
         }
         
-        if(e.getSource()==buttonGameRules){
-            GameRules gamerule = new GameRules();
+        if (e.getSource()==buttonGameRules) {
+            GameRules gameRule = new GameRules();
         }
 
-        if (e.getSource() == buttonContinueGame){
-            SaveFileGUI savefilegui = new SaveFileGUI();
+        if (e.getSource() == buttonContinueGame) {
+            SaveFileGUI saveFileGUI = new SaveFileGUI();
             this.dispose();
         }
     }
