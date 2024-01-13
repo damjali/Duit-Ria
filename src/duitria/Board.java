@@ -55,6 +55,7 @@ public class Board extends JFrame implements ActionListener {
     JButton buttonLoan = new JButton();
     JButton buttonBankrupt = new JButton();
     JButton buttonBuyHouse = new JButton();
+    JButton buttonPayRent = new JButton();
 
     String playerName1, playerName2, playerName3, playerName4;
     int playerNum;
@@ -968,6 +969,18 @@ public class Board extends JFrame implements ActionListener {
         panelLoan.setLayout(null);
         panelLoan.add(buttonLoan);
         panelBoard.add(panelLoan);
+
+        //Initialize Loan Button
+        JPanel panelPayRent = new JPanel();
+        panelPayRent.setBounds(700 , 375, 100,50);
+        buttonPayRent.setBounds(0 , 0, 100,50);
+        buttonPayRent.addActionListener(this);
+        buttonPayRent.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\LOAN.png", 100, 50));
+        panelPayRent.setBackground(Color.WHITE);
+        panelPayRent.setBorder(border);
+        panelPayRent.setLayout(null);
+        panelPayRent.add(buttonLoan);
+        panelBoard.add(panelPayRent);
         
         if (saveFile.newGame) {
             initializeTile(panelBoard);
