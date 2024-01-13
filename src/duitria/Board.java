@@ -16,6 +16,8 @@ import javax.swing.BorderFactory;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.Insets;
+
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -44,6 +46,7 @@ public class Board extends JFrame implements ActionListener {
 
     JFrame frame;
 
+    JLabel labelImageDefault;
     JButton buttonRoll = new JButton();
     JButton buttonGameRules = new JButton();
     JButton buttonBuyLand = new JButton();
@@ -95,53 +98,53 @@ public class Board extends JFrame implements ActionListener {
     public void initializeTile(JPanel panelBoard) {
 
             // Corner Tile (bottom right)
-            tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, "src\\duitria.tiles\\GO.png", "Go", 2000000));
+            tiles.add(new MiniGo(842, 842, 158, 158, panelBoard, "src\\duitria.tiles\\GO.png", "Go", 2000000,"src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\GO EARN 2M.png"));
             // Bottom Tile
-            tiles.add(new MiniTile(766, 842, 76, 158, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green"));
-            tiles.add(new MiniFateCard(690,842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate"));
-            tiles.add(new MiniTile(614, 842, 76, 158, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", "Jonker Street",600000 ,60000 ,"Green"));
-            tiles.add(new MiniTax(538, 842, 76, 158, panelBoard,"src\\duitria.tiles\\TAX.png", "Tax",2000000 ));
-            tiles.add(new MiniSpecialTile(462, 842, 76, 158, panelBoard,"src\\duitria.tiles\\3 KLIA.png", "KLIA",2000000 ,200000));
-            tiles.add(new MiniTile(386, 842, 76, 158, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png", "Masjid Jamek",1000000 ,100000 ,"Blue"));
-            tiles.add(new MiniFateCard(310, 842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate Card"));
-            tiles.add(new MiniTile(234, 842, 76, 158, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", "Batu Caves",1000000 ,100000 ,"Blue"));
-            tiles.add(new MiniTile(158, 842, 76, 158, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue"));
+            tiles.add(new MiniTile(766, 842, 76, 158, panelBoard,"src\\duitria.tiles\\1 PETALING STREET.png", "Petaling Street",600000 ,60000 ,"Green","src\\duitria.current.tiles\\1 PETALING STREET.png"));
+            tiles.add(new MiniFateCard(690,842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate","src\\duitria.tiles\\FATE NORMAL.png"));
+            tiles.add(new MiniTile(614, 842, 76, 158, panelBoard,"src\\duitria.tiles\\2 JONKER STREET.png", "Jonker Street",600000 ,60000 ,"Green", "src\\duitria.current.tiles\\2 JONKER STREET.png"));
+            tiles.add(new MiniTax(538, 842, 76, 158, panelBoard,"src\\duitria.tiles\\TAX.png", "Tax",2000000,"src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\PAY TAX.png"));
+            tiles.add(new MiniSpecialTile(462, 842, 76, 158, panelBoard,"src\\duitria.tiles\\3 KLIA.png", "KLIA",2000000 ,200000, "src\\duitria.current.tiles\\3 KLIA.png"));
+            tiles.add(new MiniTile(386, 842, 76, 158, panelBoard,"src\\duitria.tiles\\4 MASJID JAMEK.png", "Masjid Jamek",1000000 ,100000 ,"Blue", "src\\duitria.current.tiles\\4 MASJID JAMEK.png"));
+            tiles.add(new MiniFateCard(310, 842, 76, 158, panelBoard,"src\\duitria.tiles\\FATE NORMAL.png", "Fate Card","src\\duitria.tiles\\FATE NORMAL.png"));
+            tiles.add(new MiniTile(234, 842, 76, 158, panelBoard,"src\\duitria.tiles\\5 BATU CAVES.png", "Batu Caves",1000000 ,100000 ,"Blue", "src\\duitria.current.tiles\\5 BATU CAVES.png"));
+            tiles.add(new MiniTile(158, 842, 76, 158, panelBoard,"src\\duitria.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png", "Siri Maha Mariamman Temple",1200000 ,120000 ,"Blue", "src\\duitria.current.tiles\\6 SRI MAHA MARIAMMAN TEMPLE.png"));
             // Corner Tile (bottom left)
-            tiles.add(new MiniJail(0, 842, 158, 158, panelBoard, "src\\duitria.tiles\\JAIL.png", "Jail"));
+            tiles.add(new MiniJail(0, 842, 158, 158, panelBoard, "src\\duitria.tiles\\JAIL.png", "Jail","src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\VISITING JAIL.png"));
             // Left Tile
-            tiles.add(new MiniTile(0, 766, 158, 76, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", "National Museum",1400000 ,140000 ,"Maroon"));
-            tiles.add(new MiniTile(0, 690, 158, 76, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", "Tenaga Nasional Berhad",1500000 ,150000, "No Colour"));
-            tiles.add(new MiniTile(0, 614, 158, 76, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png", "Royal Palace",1400000 ,140000 ,"Maroon"));
-            tiles.add(new MiniTile(0, 538, 158, 76, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png", "Merdeka Square",1400000 ,140000 ,"Maroon"));
-            tiles.add(new MiniSpecialTile(0, 462, 158, 76, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png", "KLIA 2",2000000 ,200000));
-            tiles.add(new MiniTile(0, 386, 158, 76, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png", "A'Famosa Resort",1700000 ,170000, "Light Blue"));
-            tiles.add(new MiniFateCard(0, 310, 158, 76, panelBoard,"src\\duitria.tiles\\FATE LEFT.png", "Fate Card"));
-            tiles.add(new MiniTile(0, 234, 158, 76, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", "Kellie Castle",1800000 ,180000, "Light Blue"));
-            tiles.add(new MiniTile(0, 158, 158, 76, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", "Stadthuys",2000000 ,200000, "Light Blue"));
+            tiles.add(new MiniTile(0, 766, 158, 76, panelBoard,"src\\duitria.tiles\\7 NATIONAL MUSEUM.png", "National Museum",1400000 ,140000 ,"Maroon", "src\\duitria.current.tiles\\7 NATIONAL MUSEUM.png"));
+            tiles.add(new MiniTile(0, 690, 158, 76, panelBoard,"src\\duitria.tiles\\8 TENAGA NASIONAL BERHAD.png", "Tenaga Nasional Berhad",1500000 ,150000, "No Colour", "src\\duitria.current.tiles\\8 TENAGA NASIONAL BERHAD.png"));
+            tiles.add(new MiniTile(0, 614, 158, 76, panelBoard,"src\\duitria.tiles\\9 ROYAL PALACE.png", "Royal Palace",1400000 ,140000 ,"Maroon", "src\\duitria.current.tiles\\9 ROYAL PALACE.png"));
+            tiles.add(new MiniTile(0, 538, 158, 76, panelBoard,"src\\duitria.tiles\\10 MERDEKA SQUARE.png", "Merdeka Square",1400000 ,140000 ,"Maroon", "src\\duitria.current.tiles\\10 MERDEKA SQUARE.png"));
+            tiles.add(new MiniSpecialTile(0, 462, 158, 76, panelBoard,"src\\duitria.tiles\\11 KLIA 2.png", "KLIA 2",2000000 ,200000, "src\\duitria.current.tiles\\11 KLIA 2.png"));
+            tiles.add(new MiniTile(0, 386, 158, 76, panelBoard,"src\\duitria.tiles\\12 A FAMOSA FORT.png", "A'Famosa Resort",1700000 ,170000, "Light Blue", "src\\duitria.current.tiles\\12 A FAMOSA FORT.png"));
+            tiles.add(new MiniFateCard(0, 310, 158, 76, panelBoard,"src\\duitria.tiles\\FATE LEFT.png", "Fate Card","src\\duitria.tiles\\FATE NORMAL.png"));
+            tiles.add(new MiniTile(0, 234, 158, 76, panelBoard,"src\\duitria.tiles\\13 KELLIE CASTLE.png", "Kellie Castle",1800000 ,180000, "Light Blue", "src\\duitria.current.tiles\\13 KELLIE CASTLE.png"));
+            tiles.add(new MiniTile(0, 158, 158, 76, panelBoard,"src\\duitria.tiles\\14 STADTHUYS.png", "Stadthuys",2000000 ,200000, "Light Blue", "src\\duitria.current.tiles\\14 STADTHUYS.png"));
             // Corner Tile (top left)
-            tiles.add(new MiniFreeParking(0, 0, 158, 158, panelBoard, "src\\duitria.tiles\\FREE PARKING.png", "Free Parking"));
+            tiles.add(new MiniFreeParking(0, 0, 158, 158, panelBoard, "src\\duitria.tiles\\FREE PARKING.png", "Free Parking","src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\FREE PARKING.png"));
             // Top Tile
-            tiles.add(new MiniTile(158, 0, 76, 158, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", "Fraser's Hill",2200000 ,220000, "Purple"));
-            tiles.add(new MiniFateCard(234, 0, 76, 158, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", "Fate Card"));
-            tiles.add(new MiniTile(310, 0, 76, 158, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png", "Cameron Highlands",2200000 ,220000, "Purple"));
-            tiles.add(new MiniTile(386, 0, 76, 158, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png", "Genting Highland",2400000 ,240000, "Purple"));
-            tiles.add(new MiniSpecialTile(462, 0, 76, 158, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png", "KL Sentral Station",2000000 ,200000));
-            tiles.add(new MiniTile(538, 0, 76, 158, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png", "Pahang National Park",2600000 ,260000 ,"Orange"));
-            tiles.add(new MiniTile(614, 0, 76, 158, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png", "Jabatan Bekalan Air",2600000 ,150000, "No Colour"));
-            tiles.add(new MiniTile(690, 0, 76, 158, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", "Gunung Mulu National Park",2700000 ,260000 ,"Orange"));
-            tiles.add(new MiniTile(766, 0, 76, 158, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 2700000 ,270000 ,"Orange"));
+            tiles.add(new MiniTile(158, 0, 76, 158, panelBoard,"src\\duitria.tiles\\15 FRASER'S HILL.png", "Fraser's Hill",2200000 ,220000, "Purple", "src\\duitria.current.tiles\\15 FRASER'S HILL.png"));
+            tiles.add(new MiniFateCard(234, 0, 76, 158, panelBoard,"src\\duitria.tiles\\FATE INVERTED.png", "Fate Card","src\\duitria.tiles\\FATE NORMAL.png"));
+            tiles.add(new MiniTile(310, 0, 76, 158, panelBoard,"src\\duitria.tiles\\16 CAMERON HIGHLANDS.png", "Cameron Highlands",2200000 ,220000, "Purple", "src\\duitria.current.tiles\\16 CAMERON HIGHLANDS.png"));
+            tiles.add(new MiniTile(386, 0, 76, 158, panelBoard,"src\\duitria.tiles\\17 GENTING HIGHLAND.png", "Genting Highland",2400000 ,240000, "Purple", "src\\duitria.current.tiles\\17 GENTING HIGHLAND.png"));
+            tiles.add(new MiniSpecialTile(462, 0, 76, 158, panelBoard,"src\\duitria.tiles\\18 KL SENTRAL STATION.png", "KL Sentral Station",2000000 ,200000, "src\\duitria.current.tiles\\18 KL SENTRAL STATION.png"));
+            tiles.add(new MiniTile(538, 0, 76, 158, panelBoard,"src\\duitria.tiles\\19 PAHANG NATIONAL PARK.png", "Pahang National Park",2600000 ,260000 ,"Orange", "src\\duitria.current.tiles\\19 PAHANG NATIONAL PARK.png"));
+            tiles.add(new MiniTile(614, 0, 76, 158, panelBoard,"src\\duitria.tiles\\20 JABATAN BEKALAN AIR.png", "Jabatan Bekalan Air",2600000 ,150000, "No Colour", "src\\duitria.current.tiles\\20 JABATAN BEKALAN AIR.png"));
+            tiles.add(new MiniTile(690, 0, 76, 158, panelBoard,"src\\duitria.tiles\\21 GUNUNG MULU NATIONAL PARK.png", "Gunung Mulu National Park",2700000 ,260000 ,"Orange", "src\\duitria.current.tiles\\21 GUNUNG MULU NATIONAL PARK.png"));
+            tiles.add(new MiniTile(766, 0, 76, 158, panelBoard,"src\\duitria.tiles\\22 KINABALU NATIONAL PARK.png", "Kinabalu National Park", 2700000 ,270000 ,"Orange", "src\\duitria.current.tiles\\22 KINABALU NATIONAL PARK.png"));
             // Corner Tile (top right)
-            tiles.add(new MiniGoToJail(842, 0, 158, 158, panelBoard, "src\\duitria.tiles\\GO TO JAIL.png", "Go To Jail"));
+            tiles.add(new MiniGoToJail(842, 0, 158, 158, panelBoard, "src\\duitria.tiles\\GO TO JAIL.png", "Go To Jail","src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\GO TO JAIL.png"));
             // Right Tile
-            tiles.add(new MiniTile(842, 158, 158, 76, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", "Tioman Islands",3000000 ,300000 ,"Red"));
-            tiles.add(new MiniTile(842, 234, 158, 76, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", "Perhentian Islands",3000000 ,300000 ,"Red"));
-            tiles.add(new MiniFateCard(842, 310, 158, 76, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", "Fate Card"));
-            tiles.add(new MiniTile(842, 386, 158, 76, panelBoard,"src\\duitria.tiles\\25 SEPADAN ISLANDS.png", "Sepadan Islands",3200000 ,320000 ,"Red"));
-            tiles.add(new MiniSpecialTile(842, 462, 158, 76, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png", "Pudu Sentral Station",2000000 ,200000));
-            tiles.add(new MiniFateCard(842, 538, 158, 76, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", "Fate Card"));
-            tiles.add(new MiniTile(842, 614, 158, 76, panelBoard,"src\\duitria.tiles\\27 KLCC.png", "KLCC",3500000 ,350000, "Yellow"));
-            tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000));
-            tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow"));
+            tiles.add(new MiniTile(842, 158, 158, 76, panelBoard,"src\\duitria.tiles\\23 TIOMAN ISLANDS.png", "Tioman Islands",3000000 ,300000 ,"Red", "src\\duitria.current.tiles\\23 TIOMAN ISLANDS.png"));
+            tiles.add(new MiniTile(842, 234, 158, 76, panelBoard,"src\\duitria.tiles\\24 PERHENTIAN ISLANDS.png", "Perhentian Islands",3000000 ,300000 ,"Red", "src\\duitria.current.tiles\\24 PERHENTIAN ISLANDS.png"));
+            tiles.add(new MiniFateCard(842, 310, 158, 76, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", "Fate Card","src\\duitria.tiles\\FATE NORMAL.png"));
+            tiles.add(new MiniTile(842, 386, 158, 76, panelBoard,"src\\duitria.tiles\\25 SEPADAN ISLANDS.png", "Sepadan Islands",3200000 ,320000 ,"Red", "src\\duitria.current.tiles\\25 SEPADAN ISLANDS.png"));
+            tiles.add(new MiniSpecialTile(842, 462, 158, 76, panelBoard,"src\\duitria.tiles\\26 PUDU SENTRAL STATION.png", "Pudu Sentral Station",2000000 ,200000, "src\\duitria.current.tiles\\26 PUDU SENTRAL STATION.png"));
+            tiles.add(new MiniFateCard(842, 538, 158, 76, panelBoard,"src\\duitria.tiles\\FATE RIGHT.png", "Fate Card","src\\duitria.tiles\\FATE NORMAL.png"));
+            tiles.add(new MiniTile(842, 614, 158, 76, panelBoard,"src\\duitria.tiles\\27 KLCC.png", "KLCC",3500000 ,350000, "Yellow", "src\\duitria.current.tiles\\27 KLCC.png"));
+            tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000,"src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\PAY TAX.png"));
+            tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow", "src\\duitria.current.tiles\\28 SEPANG II CIRCUIT.png"));
             revalidate();
 
     }
@@ -180,16 +183,29 @@ public class Board extends JFrame implements ActionListener {
 
     public void playerLogHistory(Player player) {
         SwingUtilities.invokeLater(() -> {
-            // int limit = 10;
             System.out.println("Bruh Moment");
-        playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
-            // if (playerLogs.size() > limit) {
-            //     playerLogs.subList(limit, playerLogs.size()).clear();
-            // }
-            yCordsPlayerLog += 160;
+            playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
+    
+            // Update yCordsPlayerLog for each existing log
+            int yOffset = 160;
+            for (int i = 1; i < playerLogs.size(); i++) {
+                playerLogs.get(i).setBounds(1500, yCordsPlayerLog + i * yOffset, 420, 150);
+            }
+    
+    
+            // Remove the last element if the size exceeds a limit
+            int limit = 10;
+            if (playerLogs.size() > limit) {
+                playerLogs.remove(limit);
+            }
+    
+            // Repaint or revalidate your container
             revalidate();
         });
     }
+    
+    
+    
 
     public void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
         SwingUtilities.invokeLater(() -> {
@@ -938,12 +954,13 @@ public class Board extends JFrame implements ActionListener {
         this.add(panelBoard);
         panelBoard.setLayout(null);
         panelBoard.setBorder(border);
+
         
         //For Default Tile
         JPanel panelDefault = new JPanel();
         panelDefault.setBounds(386, 263, 228, 474);
         panelDefault.setBackground(Color.WHITE);
-        JLabel labelImageDefault = new JLabel();
+        labelImageDefault = new JLabel();
         labelImageDefault.setIcon(imageicon.getResizedImage("src\\duitria.current.tiles\\1 PETALING STREET.png",228,474));
         labelImageDefault.setBounds(0, 0, 228, 474);
         panelDefault.add(labelImageDefault);
@@ -964,12 +981,6 @@ public class Board extends JFrame implements ActionListener {
         panelGameRule.add(buttonGameRules);
         this.add(panelGameRule);
         
-        //Initialize Player Log History Panel
-        // PlayerLogHistory playerLog1 = new PlayerLogHistory(1500,140,this,playerName1);
-        // PlayerLogHistory playerLog2 = new PlayerLogHistory(1500,300,this,playerName2);
-        // PlayerLogHistory playerLog3 = new PlayerLogHistory(1500,460,this,playerName3);
-        // PlayerLogHistory playerLog4 = new PlayerLogHistory(1500,620,this,playerName1);
-        // PlayerLogHistory playerLog5 = new PlayerLogHistory(1500,780,this,playerName1);
         
         //Initialize Roll panel Button
         JPanel panelRoll = new JPanel();
@@ -1070,7 +1081,8 @@ public class Board extends JFrame implements ActionListener {
         initializeTile(panelBoard);
         initializePlayer();
         initializePlayerCard();
-        });
+
+    });
     }
     public void playerCardUpdate() {
          SwingUtilities.invokeLater(() -> {
@@ -1093,17 +1105,12 @@ public class Board extends JFrame implements ActionListener {
             String moneyFormat = String.format("Money : RM%,d", player.money);
 
             playerCard.labelPlayerMoney.setText(moneyFormat);
-            playerCard.labelPlayerMoney.setBounds(5, 5, 375, 36);
-            playerCard.labelPlayerMoney.setHorizontalAlignment(JLabel.LEFT);
 
             playerCard.labelPlayerLand.setText("Land : " + ownedTile);
-            playerCard.labelPlayerLand.setBounds(5, 42, 375, 36);
-            playerCard.labelPlayerLand.setHorizontalAlignment(JLabel.LEFT);
+
 
 
             playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
-            playerCard.labelPlayerStatus.setBounds(5, 79, 375, 36);
-            playerCard.labelPlayerStatus.setHorizontalAlignment(JLabel.LEFT);
             revalidate();
 
         
@@ -1219,6 +1226,7 @@ public class Board extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonSell) {
             buttonSell.setEnabled(false);
+            FrameSell framesell = new FrameSell("Petaling Jaya - 4 Houses");
             if (playerCurrentTile instanceof MiniTile) {
                 propertyTile = (MiniTile) playerCurrentTile;
                 if (propertyTile.owner == null) {
@@ -1373,29 +1381,92 @@ class MiniGo extends CornerBoardTile {
         this.name = name;
         this.payment = payment;
     }
+    
+    MiniGo(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int payment, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+        this.payment = payment; 
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
 }
+
 class MiniJail extends CornerBoardTile {
     String name;    // jail tile's name
     MiniJail(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
+    MiniJail(int x, int y, int width, int height, JPanel panelBoard, String path, String name, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name; 
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
 }
+
 class MiniFreeParking extends CornerBoardTile {
     String name;    //free parking tile's name
     MiniFreeParking(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
+    MiniFreeParking(int x, int y, int width, int height, JPanel panelBoard, String path, String name, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name; 
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
 }
+
 class MiniGoToJail extends CornerBoardTile {
     String name;    //free parking tile's name
     MiniGoToJail(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
     }
+    MiniGoToJail(int x, int y, int width, int height, JPanel panelBoard, String path, String name, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name; 
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
 }
+
 class BoardTile extends JPanel {
+    JButton buttonTile = new JButton();
     BoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
         SwingUtilities.invokeLater(() -> {
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -1403,6 +1474,8 @@ class BoardTile extends JPanel {
             this.setBackground(Color.WHITE);
             this.setBorder(border);
             this.setLayout(null);
+
+            
 
             ImageIcon icon = imageicon.getResizedImage(path, width, height);
             JLabel labelImage = new JLabel();
@@ -1432,7 +1505,32 @@ class MiniTile extends BoardTile {
         houseCost = 200000;
         owner = null;
         numOfHouse = 0;
+
+
+        
     }
+
+    MiniTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.tileColour = tileColour;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+        
+    }
+
     public int calculateRent(Boolean doubleRent) {
         int calculatedRent = 0;
         if (doubleRent)
@@ -1458,6 +1556,25 @@ class MiniSpecialTile extends BoardTile {
         this.cost = cost;
         this.baseRent = baseRent;
         owner = null;
+
+    }
+
+    MiniSpecialTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        owner = null;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
     }
 }
 class MiniTax extends BoardTile {
@@ -1468,12 +1585,42 @@ class MiniTax extends BoardTile {
         this.name = name;
         this.cost = cost;
     }
+    
+        MiniTax(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost; 
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
 }
 class MiniFateCard extends BoardTile {
     String name;    // fate card's name
     MiniFateCard(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
         super(x, y, width, height, panelBoard, path);
         this.name = name;
+    }
+    MiniFateCard(int x, int y, int width, int height, JPanel panelBoard, String path, String name, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
     }
 }
 
@@ -1485,9 +1632,9 @@ class PlayerCard extends JPanel {
     double playerLand;
     double playerMoney;
     String playerStatus;
-    JLabel labelPlayerMoney = new JLabel();
-    JLabel labelPlayerLand = new JLabel();
-    JLabel labelPlayerStatus = new JLabel();
+    JTextArea labelPlayerMoney = new JTextArea();
+    JTextArea labelPlayerLand = new JTextArea();
+    JTextArea labelPlayerStatus = new JTextArea();
 
     PlayerCard(int a, int b, JFrame frame, String playerName, double playerLand, double playerMoney, String playerStatus) {
         
@@ -1499,8 +1646,8 @@ class PlayerCard extends JPanel {
             this.playerStatus = playerStatus;
 
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+            this.setBounds(0, b, 375, 175);
             this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(a, b, 375, 175);
             this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
@@ -1509,11 +1656,14 @@ class PlayerCard extends JPanel {
             panelPlayerName.setBounds(0, 0, 375, 50); // Set bounds for the panel
             // panelPlayerName.setBorder(border); // Set a background color for visibility
             panelPlayerName.setBackground(Color.LIGHT_GRAY);
-            JLabel labelPlayerName = new JLabel();
+            JTextArea labelPlayerName = new JTextArea();
             labelPlayerName.setText(this.playerName);
             panelPlayerName.setOpaque(false);
             labelPlayerName.setBounds(10, 10, 370, 38); 
             labelPlayerName.setFont(new Font("Inter", Font.BOLD, 40));
+            labelPlayerName.setRows(10);
+            labelPlayerName.setColumns(30);
+            labelPlayerName.setMargin(new Insets(0, 570, 0, 0));
             panelPlayerName.add(labelPlayerName);
             this.add(panelPlayerName);
 
@@ -1528,6 +1678,10 @@ class PlayerCard extends JPanel {
             labelPlayerMoney.setText("Money : RM " + this.playerMoney);
             labelPlayerMoney.setBounds(5, 5, 375, 36); 
             labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerMoney.setRows(1);
+            labelPlayerMoney.setColumns(30);
+            labelPlayerMoney.setOpaque(false);
+            labelPlayerMoney.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerMoney);
 
             labelPlayerLand.setText("Land : " + this.playerLand);
@@ -1538,6 +1692,10 @@ class PlayerCard extends JPanel {
             labelPlayerStatus.setText("Status : " + this.playerStatus);
             labelPlayerStatus.setBounds(5, 79, 375, 36); 
             labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerStatus.setRows(1);
+            labelPlayerStatus.setColumns(30);
+            labelPlayerStatus.setOpaque(false);
+            labelPlayerStatus.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerStatus);
             revalidate();
 
@@ -1549,9 +1707,8 @@ class PlayerCard extends JPanel {
         SwingUtilities.invokeLater(() -> {
             
             Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-            this.setBackground(Color.LIGHT_GRAY);
-            this.setBounds(x, y, 375, 175);
-            this.setBorder(border);
+            this.setOpaque(false);
+            this.setBounds(0, y, 375, 175);
             this.setLayout(null);
             frame.add(this);
 
@@ -1559,11 +1716,14 @@ class PlayerCard extends JPanel {
             panelPlayerName.setBounds(0, 0, 375, 50); // Set bounds for the panel
             // panelPlayerName.setBorder(border); // Set a background color for visibility
             panelPlayerName.setBackground(Color.LIGHT_GRAY);
-            JLabel labelPlayerName = new JLabel();
+            JTextArea labelPlayerName = new JTextArea();
             labelPlayerName.setText(player.name);
             panelPlayerName.setOpaque(false);
             labelPlayerName.setBounds(10, 10, 370, 38); 
             labelPlayerName.setFont(new Font("Inter", Font.BOLD, 35));
+            labelPlayerName.setRows(10);
+            labelPlayerName.setColumns(30);
+            labelPlayerName.setMargin(new Insets(0, 570, 0, 0));
             panelPlayerName.add(labelPlayerName);
             this.add(panelPlayerName);
 
@@ -1577,17 +1737,29 @@ class PlayerCard extends JPanel {
             String moneyFormat = String.format("Money : RM%,d", player.money);
             labelPlayerMoney.setText(moneyFormat);
             labelPlayerMoney.setBounds(5, 5, 375, 36); 
-            labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerMoney.setFont(new Font("Arial", Font.ITALIC, 25));
+            labelPlayerMoney.setRows(1);
+            labelPlayerMoney.setColumns(30);
+            labelPlayerMoney.setBackground(Color.LIGHT_GRAY);
+            labelPlayerMoney.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerMoney);
 
             labelPlayerLand.setText("Land : 0");
             labelPlayerLand.setBounds(5, 42, 375, 36); 
-            labelPlayerLand.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerLand.setFont(new Font("Arial", Font.ITALIC, 25));
+            labelPlayerLand.setRows(1);
+            labelPlayerLand.setColumns(30);
+            labelPlayerLand.setBackground(Color.LIGHT_GRAY);
+            labelPlayerLand.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerLand);
 
             labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
             labelPlayerStatus.setBounds(5, 79, 375, 36); 
-            labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 30));
+            labelPlayerStatus.setFont(new Font("Arial", Font.ITALIC, 25));
+            labelPlayerStatus.setRows(1);
+            labelPlayerStatus.setColumns(30);
+            labelPlayerStatus.setBackground(Color.LIGHT_GRAY);
+            labelPlayerStatus.setMargin(new Insets(0, 300, 0, 0));
             panelPlayerDescription.add(labelPlayerStatus);
             revalidate();
             
@@ -1644,9 +1816,8 @@ class PlayerLogHistory extends JPanel {
         SwingUtilities.invokeLater(() -> {
 
             Border border = BorderFactory.createLineBorder(Color.BLACK,1);
-            this.setBackground(Color.LIGHT_GRAY);
+            this.setOpaque(false);
             this.setBounds(x, y, 420, 150);
-            this.setBorder(border);
             this.setLayout(null);
             frame.add(this);
 
@@ -1654,12 +1825,14 @@ class PlayerLogHistory extends JPanel {
             panelPlayerLogMove.setBounds(0, 0, 420, 50); // Set bounds for the panel
             // panelPlayerLogMove.setBorder(border); // Set a background color for visibility
             panelPlayerLogMove.setBackground(Color.LIGHT_GRAY);
-            JLabel labelPlayerMove = new JLabel();
+            JTextArea labelPlayerMove = new JTextArea();
             labelPlayerMove.setText(player.name + " moves To Tile " + player.position);
             panelPlayerLogMove.setOpaque(false);
             labelPlayerMove.setBounds(10, 5, 420, 40); 
             labelPlayerMove.setFont(new Font("Inter", Font.BOLD, 25));
-            labelPlayerMove.setHorizontalAlignment(JLabel.LEFT);
+            labelPlayerMove.setRows(10);
+            labelPlayerMove.setColumns(30);
+            labelPlayerMove.setMargin(new Insets(0, 230, 0, 0));
             panelPlayerLogMove.add(labelPlayerMove);
             this.add(panelPlayerLogMove);
             revalidate();
@@ -1667,17 +1840,19 @@ class PlayerLogHistory extends JPanel {
             JPanel panelPlayerLogDescription = new JPanel();
             panelPlayerLogDescription.setBounds(0, 50, 420, 99); // Set bounds for the panel
             // panelPlayerLogDescription.setBorder(border); // Set a background color for visibility
-            panelPlayerLogDescription.setOpaque(false);
             panelPlayerLogDescription.setBackground(Color.LIGHT_GRAY);
             this.add(panelPlayerLogDescription);
             revalidate();
 
             JTextArea labelPlayerLogDescription = new JTextArea();
             labelPlayerLogDescription.setText(player.toString);
-            labelPlayerLogDescription.setBounds(10, 5, 410, 36); 
-            labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 20));
+            labelPlayerLogDescription.setBounds(0, 0, 410, 36); 
+            labelPlayerLogDescription.setFont(new Font("Arial", Font.ITALIC, 15));
             labelPlayerLogDescription.setOpaque(false);
             labelPlayerLogDescription.setEditable(false);
+            labelPlayerLogDescription.setRows(10);
+            labelPlayerLogDescription.setMargin(new Insets(10, 0, 0, 0));
+            labelPlayerLogDescription.setColumns(30);
             panelPlayerLogDescription.add(labelPlayerLogDescription);
             revalidate();
 
