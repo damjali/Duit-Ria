@@ -251,7 +251,7 @@ public class Board extends JFrame implements ActionListener {
                     toString += player.name + " landed on " + propertyTile.name + ".\n";
                     System.out.println(player.name + " is visiting his land.");
                     if (player.buyHouse && !player.hasLoan) {
-                        buttonBuyLand.setEnabled(true);
+                        buttonBuyHouse.setEnabled(true);
                         buttonRoll.setEnabled(true);
                         if (propertyTile.numOfHouse >= 0 && propertyTile.numOfHouse < 4 && player.money > 200000) { // PUT BUTTON BUY HOUSE
                             System.out.print("Do you want to buy houses for " + propertyTile.name + "? (Y/N):");
@@ -490,7 +490,7 @@ public class Board extends JFrame implements ActionListener {
             toString += player.name + " landed on " + specialTile.name + ".\n";
             if (player.buyProperty) {
                 if (specialTile.owner == null && !player.hasLoan) {
-                    buttonBuy.setEnabled(true);
+                    buttonBuyLand.setEnabled(true);
                     System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
                 } else if (specialTile.owner != player) {
                     System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
@@ -1157,7 +1157,7 @@ public class Board extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == buttonBankrupt){
-
+            bankrupt(currentPlayer);
         }
 
         if (e.getSource() == buttonBuyHouse){
@@ -1200,7 +1200,6 @@ public class Board extends JFrame implements ActionListener {
                     propertyTile.owner = currentPlayer;
                     System.out.println(currentPlayer.name + " bought " + propertyTile.name + ".");
                     toString += currentPlayer.name + " has bought " + propertyTile.name + ".\n";
-                    currentPlayer.toString = toString;
                 }
             } else if (playerCurrentTile instanceof MiniSpecialTile) {
                 specialTile = (MiniSpecialTile) playerCurrentTile;
@@ -1212,7 +1211,6 @@ public class Board extends JFrame implements ActionListener {
                     specialTile.owner = currentPlayer;
                     System.out.println(currentPlayer.name + " bought " + specialTile.name + ".");
                     toString += currentPlayer.name + " has bought " + specialTile.name + ".\n";
-                    currentPlayer.toString = toString;
                 }
             }
             currentPlayer.toString = toString;
@@ -1228,6 +1226,7 @@ public class Board extends JFrame implements ActionListener {
                     if (canSell(currentPlayer)) {
                         sellingProperties(currentPlayer, propertyTile.cost, false, false, null);
                         if (!currentPlayer.bankruptcy && propertyTile.cost < currentPlayer.money) {
+                            buttonBuyLand.setEnabled(true);
                             currentPlayer.money -= propertyTile.cost;
                             propertyTile.owner = currentPlayer;
                             System.out.println(currentPlayer.name + " bought " + propertyTile.name + ".");
@@ -1253,6 +1252,7 @@ public class Board extends JFrame implements ActionListener {
                     if (canSell(currentPlayer)) {
                         sellingProperties(currentPlayer, specialTile.cost, false, false, null);
                         if (!currentPlayer.bankruptcy && specialTile.cost < currentPlayer.money) {
+                            buttonBuyLand.setEnabled(true);
                             currentPlayer.money -= specialTile.cost;
                             specialTile.owner = currentPlayer;
                             System.out.println(currentPlayer.name + " bought " + specialTile.name + ".");
