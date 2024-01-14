@@ -826,6 +826,7 @@ public class Board extends JFrame implements ActionListener {
         playerCards = new ArrayList<>();
         tiles = new ArrayList<>();
         rand = new Random();
+        saveFile = new SaveFile();
         playerNum = PlayerNumber.playerNum;
 
         //Frame Settings
@@ -892,13 +893,13 @@ public class Board extends JFrame implements ActionListener {
         buttonBankrupt.addActionListener(this);
         this.add(buttonBankrupt);
 
-         //Initialize Button Buy House
-         buttonBankrupt = new JButton();
-         buttonBankrupt.setBounds(314, 860, 125, 50);
-         buttonBankrupt.setText("Backrupt");
-         buttonBankrupt.setEnabled(true);
-         buttonBankrupt.addActionListener(this);
-         this.add(buttonBankrupt);
+        //Initialize Button Buy House
+        buttonBankrupt = new JButton();
+        buttonBankrupt.setBounds(314, 860, 125, 50);
+        buttonBankrupt.setText("Backrupt");
+        buttonBankrupt.setEnabled(true);
+        buttonBankrupt.addActionListener(this);
+        this.add(buttonBankrupt);
     
         //for dice animation
         diceOneImg = new JLabel();
@@ -984,8 +985,8 @@ public class Board extends JFrame implements ActionListener {
         
         if (saveFile.newGame) {
             initializeTile(panelBoard);
-            initializePlayerCard();
             initializePlayer();
+            initializePlayerCard();
         } else {
             initializeTile(panelBoard);
             tiles = saveFile.tiles;

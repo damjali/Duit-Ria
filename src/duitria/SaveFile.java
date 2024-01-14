@@ -3,9 +3,12 @@ import java.io.*;
 import java.util.*;
 
 class SaveFile {
-    boolean newGame = true;
+    boolean newGame;
     List<Player> players;
     List<Object> tiles;
+    SaveFile() {
+        newGame = true;
+    }
     void saveGame(List<Player> players, List<Object> tiles, String fileName) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(players);
