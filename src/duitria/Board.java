@@ -1332,16 +1332,17 @@ public class Board extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonBuyHouse){
             buttonBuyHouse.setEnabled(false);
+            int numOfHouseCanBuy = Math.min((currentPlayer.money / 200000) - propertyTile.numOfHouse, 4);
             String houseNum;
             JOptionPane buyHousePopUp = new JOptionPane();
             do {
-                houseNum = buyHousePopUp.showInputDialog("Input how many houses you want to buy : ");
-            } while (Integer.parseInt(houseNum) <= 4 && Integer.parseInt(houseNum) >=0);
+                houseNum = buyHousePopUp.showInputDialog("You can buy " + numOfHouseCanBuy + " house(s)\nInput how many houses you want to buy : ");
+            } while (Integer.parseInt(houseNum) <= numOfHouseCanBuy && Integer.parseInt(houseNum) >= 0);
 
             int houseNumber = Integer.parseInt(houseNum);
             if (playerCurrentTile instanceof MiniTile) {
                 propertyTile = (MiniTile) playerCurrentTile; // PANEL BUY HOUSE
-                
+                propertyTile.numOfHouse += houseNumber;
             }
         }
     
