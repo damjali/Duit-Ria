@@ -22,6 +22,7 @@ import java.awt.Insets;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1262,7 +1263,7 @@ public class Board extends JFrame implements ActionListener {
         }
     }
     
-class CornerBoardTile extends JPanel {
+class CornerBoardTile extends JPanel implements Serializable {
 
         JButton buttonTile = new JButton();
 
@@ -1379,7 +1380,7 @@ class MiniGoToJail extends CornerBoardTile {
     }
 }
 
-class BoardTile extends JPanel {
+class BoardTile extends JPanel implements Serializable {
     JButton buttonTile = new JButton();
     BoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
         SwingUtilities.invokeLater(() -> {

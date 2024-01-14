@@ -99,33 +99,37 @@ public class SaveFileGUI extends JFrame implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==buttonSaveFile1) {
-            if (isFileAvailable(saveFile1))
+            if (isFileAvailable(saveFile1)) {
                 saveFile.loadGame(saveFile1);
-            else {
+                Board board = new Board();
+            } else {
                 PlayerNumber playerNumber = new PlayerNumber();
             }
         }
         
         if (e.getSource()==buttonSaveFile2) {
-            if (isFileAvailable(saveFile2))
+            if (isFileAvailable(saveFile2)) {
                 saveFile.loadGame(saveFile2);
-            else {
+                Board board = new Board();
+            } else {
                 PlayerNumber playerNumber = new PlayerNumber();
             }
         }
 
         if (e.getSource()==buttonSaveFile3) {
-            if (isFileAvailable(saveFile3))
+            if (isFileAvailable(saveFile3)) {
                 saveFile.loadGame(saveFile3);
-            else {
+                Board board = new Board();
+            } else {
                 PlayerNumber playerNumber = new PlayerNumber();
             }
         }
 
         if (e.getSource()==buttonSaveFile4) {
-            if (isFileAvailable(saveFile4))
+            if (isFileAvailable(saveFile4)) {
                 saveFile.loadGame(saveFile4);
-            else {
+                Board board = new Board();
+            } else {
                 PlayerNumber playerNumber = new PlayerNumber();
             }
         }
