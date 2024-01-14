@@ -28,7 +28,10 @@ public static void main(String[] args) {
 
     int count = 0;
     int diceValuePlayer1,diceValuePlayer2,diceValuePlayer3,diceValuePlayer4;
-    String player1, player2, player3, player4;
+    PlayerSelection player1 = new PlayerSelection();
+    PlayerSelection player2 = new PlayerSelection();
+    PlayerSelection player3 = new PlayerSelection();
+    PlayerSelection player4 = new PlayerSelection();
     String saveFileNameChoice;
     boolean differentValues = false;
     Border border = BorderFactory.createLineBorder(Color.WHITE,1);
@@ -65,22 +68,22 @@ public static void main(String[] args) {
     }
 
     public void getName(String a, String b, String c, String d){
-        this.player1 = a;
-        this.player2 = b;
-        this.player3 = c;
-        this.player4 = d;
+        this.player1.name = a;
+        this.player2.name = b;
+        this.player3.name = c;
+        this.player4.name = d;
     }
 
     public void getName(String a, String b, String c){
-        this.player1 = a;
-        this.player2 = b;
-        this.player3 = c;
+        this.player1.name = a;
+        this.player2.name = b;
+        this.player3.name = c;
 
     }
 
     public void getName(String a, String b){
-        this.player1 = a;
-        this.player2 = b;
+        this.player1.name = a;
+        this.player2.name = b;
 
     }
 
@@ -90,21 +93,21 @@ public static void main(String[] args) {
         JPanel jPanel = new JPanel();
 
         if (playerNumber == 4){
-        playerdicemove1 = new playerDiceMove(45, this, player1);
-        playerdicemove2 = new playerDiceMove(200, this, player2);
-        playerdicemove3 = new playerDiceMove(355, this, player3);
-        playerdicemove4 = new playerDiceMove(510, this, player4);
+        playerdicemove1 = new playerDiceMove(45, this, player1.name, player1.path);
+        playerdicemove2 = new playerDiceMove(200, this, player2.name, player2.path);
+        playerdicemove3 = new playerDiceMove(355, this, player3.name, player3.path);
+        playerdicemove4 = new playerDiceMove(510, this, player4.name, player4.path);
         }
 
         else if (playerNumber == 3){
-        playerdicemove1 = new playerDiceMove(45, this, player1);
-        playerdicemove2 = new playerDiceMove(200, this, player2);
-        playerdicemove3 = new playerDiceMove(355, this, player3);
+        playerdicemove1 = new playerDiceMove(45, this, player1.name, player1.path);
+        playerdicemove2 = new playerDiceMove(200, this, player2.name, player2.path);
+        playerdicemove3 = new playerDiceMove(355, this, player3.name, player3.path);
 
         }
         else if (playerNumber == 2){
-        playerdicemove1 = new playerDiceMove(45, this, player1);
-        playerdicemove2 = new playerDiceMove(200, this, player2);
+        playerdicemove1 = new playerDiceMove(45, this, player1.name, player1.path);
+        playerdicemove2 = new playerDiceMove(200, this, player2.name, player2.path);
         }
 
 
@@ -209,15 +212,17 @@ class playerDiceMove extends JPanel{
     JLabel labelDiceValue1 = new JLabel();
     JLabel labelDiceValue = new JLabel();
     String playerName;
+    String path;
     int diceValue;
     int diceValue2;
 
-    playerDiceMove(int x, JFrame frame, String playerName){
+    playerDiceMove(int x, JFrame frame, String playerName, String path){
         this.setBounds(x, 300, 135, 200);
         this.setBackground(new Color(143,143,143));
         this.setBorder(border);
         this.setLayout(null);
         this.playerName = playerName;
+        this.path = path;
         System.out.println("this is inside the playerdicemove" + this.playerName);
 
         panelPlayerName.setBounds(0, 0, 135, 30);

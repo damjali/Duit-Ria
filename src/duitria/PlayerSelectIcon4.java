@@ -28,10 +28,11 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
 
-    String player1;
-    String player2;
-    String player3;
-    String player4;
+    PlayerSelection player1 = new PlayerSelection();
+    PlayerSelection player2 = new PlayerSelection();
+    PlayerSelection player3 = new PlayerSelection();
+    PlayerSelection player4 = new PlayerSelection();
+
     String saveFileNameChoice;
 
     playerIcons playerIcon1;
@@ -84,13 +85,17 @@ public void actionPerformed(ActionEvent e){
 
         // Board board = new Board();
         this.dispose();
-        player1 = playerIcon1.playerNameTextField.getText();
-        player2 = playerIcon2.playerNameTextField.getText();
-        player3 = playerIcon3.playerNameTextField.getText();
-        player4 = playerIcon4.playerNameTextField.getText();
+        player1.name = playerIcon1.playerNameTextField.getText();
+        player1.path = "src\\PLAYER TOKENS\\DORAEMON.png";
+        player2.name = playerIcon2.playerNameTextField.getText();
+        player2.path = "src\\PLAYER TOKENS\\LUFFY.png";
+        player3.name = playerIcon3.playerNameTextField.getText();
+        player3.path = "src\\PLAYER TOKENS\\MARIO.png";
+        player4.name = playerIcon4.playerNameTextField.getText();
+        player4.path = "src\\PLAYER TOKENS\\POKEBALL.png";
         // board.setName(player1, player2, player3, player4);
         diceRoll diceroll = new diceRoll(4, saveFileNameChoice);
-        diceroll.getName(player1, player2, player3, player4);
+        diceroll.getName(player1.name, player2.name, player3.name, player4.name);
         diceroll.addGuiComponents(4);
 
     }
