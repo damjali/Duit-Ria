@@ -22,6 +22,7 @@ import java.awt.Insets;
 
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
+import java.io.Serializable;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,6 +109,10 @@ public class Board extends JFrame implements ActionListener {
         System.setProperty("sun.java2d.uiScale", "1.0");
         Board board = new Board();
         board.BoardDeclaration(4);
+    }
+
+    public void setSaveFileNameChoice(String saveFileNameChoice) {
+        this.saveFileNameChoice = saveFileNameChoice;
     }
 
     Board(){
@@ -308,6 +313,7 @@ public class Board extends JFrame implements ActionListener {
                         propertyTile.owner.money += propertyTile.rentAmount;
                         toString += String.format(player.name + " paid RM%,d to " + propertyTile.owner.name + ".\n", propertyTile.rentAmount);
                         System.out.println(player.name + " successfully paid the rent.");
+                        buttonRoll.setEnabled(true);
                     }
                 } else { // VISIT PLAYER'S LAND (BUY HOUSE)
                     System.out.println(player.name + " is visiting his land.");
@@ -346,6 +352,7 @@ public class Board extends JFrame implements ActionListener {
                             System.out.println("You have already bought the maximum amount of houses (4).");
                         }
                     }
+                    buttonRoll.setEnabled(true);
                 }
             } else if (currentTile instanceof MiniSpecialTile) {
                 playerCurrentTile = currentTile;
@@ -367,10 +374,12 @@ public class Board extends JFrame implements ActionListener {
                         specialTile.owner.money += specialTile.baseRent;
                         toString += String.format(player.name + " paid RM%,d to " + specialTile.owner.name + ".\n", specialTile.baseRent);
                         System.out.println(player.name + " successfully paid the rent.");
+                        buttonRoll.setEnabled(true);
                     }
                 } else {
                     toString += player.name + " landed on " + specialTile.name + ".\n";
                     System.out.println(player.name + " is vitising his tile.");
+                    buttonRoll.setEnabled(true);
                 }
             } else if (currentTile instanceof MiniFateCard) {
                 fateCard = (MiniFateCard) currentTile;
@@ -383,6 +392,7 @@ public class Board extends JFrame implements ActionListener {
                 System.out.println(player.name + " landed on the " + jail.name + ".");
                 System.out.println(player.name + " is visitng the jail.");
                 toString += player.name + " landed on " + jail.name + ".\n";
+                buttonRoll.setEnabled(true);
             } else if (currentTile instanceof MiniTax) {
                 tax = (MiniTax) currentTile;
                 System.out.println(player.name + " landed on the " + tax.name + ".");
@@ -395,12 +405,14 @@ public class Board extends JFrame implements ActionListener {
                     player.money -= tax.cost;
                     System.out.println(player.name + " successfully paid the taxes.");
                     toString += String.format(player.name + " has paid RM%,d to the Creator.\n", tax.cost);
+                    buttonRoll.setEnabled(true);
                 }
             } else if (currentTile instanceof MiniFreeParking) {
                 freeParking = (MiniFreeParking) currentTile;
                 System.out.println(player.name + " landed on the " + freeParking.name);
                 System.out.println(player.name + " is resting.");
                 toString += player.name + " landed on " + freeParking.name + ".\n";
+                buttonRoll.setEnabled(true);
             } else if (currentTile instanceof MiniGoToJail) {
                 goToJail = (MiniGoToJail) currentTile;
                 System.out.println(player.name + " landed on the " + goToJail.name + ".");
@@ -409,6 +421,7 @@ public class Board extends JFrame implements ActionListener {
                 toString += player.name + " has entered the jail.\n";
                 player.jailCheck = true;
                 player.position = 10;
+                buttonRoll.setEnabled(true);
             }
             player.toString = toString;
         });
@@ -419,16 +432,17 @@ public class Board extends JFrame implements ActionListener {
         switch(fateCardRNG) {
             case 0:
             System.out.println("Advance to Go and collect RM2,000,000.");
-            toString += player.name + " \"Advance to Go\" card.\n";
+            toString += "\"Advance to Go\" card.\n";
             player.position = 0;
             player.money += 2000000;
             if (player.buyProperty)
                 player.buyHouse = true;
             player.buyProperty = true;
+            buttonRoll.setEnabled(true);
             break;
             case 1:
             System.out.println("Advance to the nearest railroad."); //add buy option for the railroads
-            toString += player.name + " \"Advance to the nearest railroad\" card.\n";
+            toString += "\"Advance to the nearest railroad\" card.\n";
             int nearestRailroad1 = player.position - 25;
             int nearestRailroad2 = player.position - 35;
             if (Math.abs(nearestRailroad1) < Math.abs(nearestRailroad2)) {
@@ -443,7 +457,7 @@ public class Board extends JFrame implements ActionListener {
             break;
             case 2:
             System.out.println("It is your birthday! Collect RM100,000 from everyone.");
-            toString += player.name + " \"It's Your Birthday\" card.\n";
+            toString += "\"It's Your Birthday\" card.\n";
             birthdayMoney = 0;
             for (Player otherPlayer : players) {
                 if (!otherPlayer.equals(player)) {
@@ -460,26 +474,30 @@ public class Board extends JFrame implements ActionListener {
             player.money += birthdayMoney;
             System.out.printf(player.name + " collected RM%,d from everyone.\n", birthdayMoney);
             toString += String.format(player.name + " collected RM%,d from everyone.\n", birthdayMoney);
+            buttonRoll.setEnabled(true);
             break;
             case 3:
             System.out.println("Bank error in your favor, Collect RM2,000,000.");
-            toString += player.name + " \"Bank Error\" card.\n";
+            toString += "\"Bank Error\" card.\n";
             player.money += 2000000;
+            buttonRoll.setEnabled(true);
             break;
             case 4:
             System.out.println("Go back 3 spaces.");
-            toString += player.name + " \"Go Back 3 Spaces\" card.\n";
+            toString += "\"Go Back 3 Spaces\" card.\n";
             player.position -= 3;
+            buttonRoll.setEnabled(true);
             break;
             case 5:
             System.out.println("Go to Jail.");
-            toString += player.name + " \"Go To Jail\" card.\n";
+            toString += "\"Go To Jail\" card.\n";
             player.position = 10;
             player.jailCheck = true;
+            buttonRoll.setEnabled(true);
             break;
             case 6:
             System.out.println("Make general repair on all your property, RM200,000 for each house.");
-            toString = player.name + " \"Make General Repair\" card.\n";
+            toString = "\"Make General Repair\" card.\n";
             generalRepairTotal = 0;
             for (Object currentTile : tiles) {
                 if (currentTile instanceof MiniTile) {
@@ -490,8 +508,10 @@ public class Board extends JFrame implements ActionListener {
                     }
                 }
             }
-            if (generalRepairTotal == 0)
+            if (generalRepairTotal == 0) {
+                buttonRoll.setEnabled(true);
                 break;
+            }
             System.out.printf(Locale.US, player.name + " the total for the repair is RM%,d.\n", generalRepairTotal);
             if (generalRepairTotal >= player.money) {
                 buttonSell.setEnabled(true);
@@ -501,10 +521,11 @@ public class Board extends JFrame implements ActionListener {
                 System.out.printf(Locale.US, player.name + " successfully paid RM%,d.\n", generalRepairTotal);
                 toString += String.format(player.name + " has paid RM%,d to the Creator.\n", generalRepairTotal);
             }
+            buttonRoll.setEnabled(true);
             break;
             case 7:
             System.out.println("Pay hospital fees of RM250,000.");
-            toString += player.name + " \"Pay Hospital Fees\" card.\n";
+            toString += "\"Pay Hospital Fees\" card.\n";
             if (250000 >= player.money) {
                 buttonSell.setEnabled(true);
                 System.out.println("You don't have enough money to pay the hospital fees.");
@@ -512,11 +533,12 @@ public class Board extends JFrame implements ActionListener {
                 player.money -= 250000;
                 System.out.println(player.name + " successfully paid the hospital fees.");
                 toString += player.name + " has paid RM250,000 to the Creator.\n";
+                buttonRoll.setEnabled(true);
             }
             break;
             case 8:
             System.out.println("Pay school fees of RM100,000.");
-            toString += player.name + " \"Pay School Fees\" card.\n";
+            toString += "\"Pay School Fees\" card.\n";
             if (100000 >= player.money) {
                 buttonSell.setEnabled(true);
                 System.out.println("You don't have enough money to pay the school fees.");
@@ -524,11 +546,12 @@ public class Board extends JFrame implements ActionListener {
                 player.money -= 100000;
                 System.out.println(player.name + " successfully paid the school fees.");
                 toString += player.name + " has paid RM100,000 to the Creator.\n";
+                buttonRoll.setEnabled(true);
             }
             break;
             case 9:
             System.out.println("Pay speeding fine of RM100,000.");
-            toString += player.name + " \"Pay Speeding Fine\" card.\n";
+            toString += "\"Pay Speeding Fine\" card.\n";
             if (100000 >= player.money) {
                 buttonSell.setEnabled(true);
                 System.out.println("You don't have enough money to pay the speeding fine.");
@@ -536,6 +559,7 @@ public class Board extends JFrame implements ActionListener {
                 player.money -= 100000;
                 System.out.println(player.name + " successfully paid the speeding fine.");
                 toString += player.name + " has paid RM100,000 to the Creator.\n";
+                buttonRoll.setEnabled(true);
             }
             break;
             default:
@@ -552,22 +576,25 @@ public class Board extends JFrame implements ActionListener {
             if (player.buyProperty) {
                 if (specialTile.owner == null && !player.hasLoan) {
                     buttonBuyLand.setEnabled(true);
+                    buttonRoll.setEnabled(true);
                     System.out.printf(Locale.US, "Do you want to buy " + specialTile.name + " for RM%,d? (Y/N):", specialTile.cost);
                 } else if (specialTile.owner != player) {
                     System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
                     System.out.printf(player.name + " has to pay double of rent for RM%,d.\n", (specialTile.baseRent * 2));
-                    specialTile.doubleRent = specialTile.baseRent * 2;
+                    specialTile.rentAmount = specialTile.baseRent * 2;
                     if ((specialTile.baseRent * 2) >= player.money) {
                         buttonSell.setEnabled(true);
                         System.out.println("You don't have enough money to pay the rent.");
                     } else {
-                        player.money -= specialTile.doubleRent;
-                        specialTile.owner.money += specialTile.doubleRent;
+                        player.money -= specialTile.rentAmount;
+                        specialTile.owner.money += specialTile.rentAmount;
                         System.out.println(player.name + " successfully paid the rent.");
                         toString += player.name + " has paid RM%,d to " + specialTile.owner.name + ".\n";
+                        buttonRoll.setEnabled(true);
                     }
                 } else if (specialTile.owner == player) {
                     System.out.println(player.name + " is vitising his tile.");
+                    buttonRoll.setEnabled(true);
                 }
             }
             player.toString = toString;
@@ -670,6 +697,14 @@ public class Board extends JFrame implements ActionListener {
                     player.propertySellCheck = false;
                     hasPaid = true;
                     toString += player.name + " has sold " + totalHouseSold + " house(s).\n";
+                    if (playerCurrentTile instanceof MiniTile) {
+                        propertyTile = (MiniTile) playerCurrentTile;
+                        toString += String.format(player.name + " has paid RM%,d rent to " + tileOwner.name + ".\n", propertyTile.rentAmount);
+                    } else if (playerCurrentTile instanceof MiniSpecialTile) {
+                        specialTile = (MiniSpecialTile) playerCurrentTile;
+                        toString += String.format(player.name + " has paid RM%,d rent to " + tileOwner.name + ".\n", specialTile.rentAmount);
+                    }
+                    buttonRoll.setEnabled(true);
                     break;
                 }
                 if (frameSellHouse.totalHouseCount <= 0) { // GIVE UP ASSETS TO OWNER
@@ -680,6 +715,7 @@ public class Board extends JFrame implements ActionListener {
                         specialTile.owner = tileOwner;
                     }
                     toString += player.name + " has given all his assets to " + tileOwner.name + ".\n";
+                    buttonLoan.setEnabled(true);
                     break;
                 }
             }
@@ -699,6 +735,8 @@ public class Board extends JFrame implements ActionListener {
                     player.propertySellCheck = false;
                     hasPaid = true;
                     toString += player.name + " has sold " + totalHouseSold + " house(s).\n";
+                    buttonBuyLand.setEnabled(true);
+                    buttonRoll.setEnabled(true);
                     break;
                 }
             }
@@ -723,6 +761,8 @@ public class Board extends JFrame implements ActionListener {
                     player.propertySellCheck = false;
                     hasPaid = true;
                     toString += player.name + " has sold " + totalLandSold + " land(s).\n";
+                    buttonBuyLand.setEnabled(true);
+                    buttonRoll.setEnabled(true);
                     break;
                 }
             }
@@ -757,6 +797,7 @@ public class Board extends JFrame implements ActionListener {
                     player.hasLoan = true;
                     player.loanPeriod = 0;
                     toString += String.format(player.name + " has taken a loan for RM%,d.\n", player.loanAmount);
+                    buttonRoll.setEnabled(true);
                 } else if (debtCheck) {
                     bankrupt(player);
                 }
@@ -778,6 +819,7 @@ public class Board extends JFrame implements ActionListener {
                         player.loanPeriod = 0;
                         System.out.printf(player.name + " now have RM%,d.\n", player.money);
                         toString += player.name + " has paid the loan in full.\n";
+                        buttonRoll.setEnabled(true);
                     }
                 } else {
                     System.out.print("Do you want to pay the loan now? (Y/N): ");
@@ -807,12 +849,14 @@ public class Board extends JFrame implements ActionListener {
                                 player.loanAmount -= payment;
                                 System.out.printf(player.name + " has successfully paid his loan for RM%,d.\n", payment);
                                 toString += String.format(player.name + " has paid the loan for RM%,d.\n", payment);
+                                buttonRoll.setEnabled(true);
                             }
                             if (player.loanAmount == 0) {
                                 System.out.println(player.name + " has successfully paid the loan back in full.");
                                 player.hasLoan = false;
                                 player.loanPeriod = 0;
                                 toString += player.name + " has paid the loan in full.\n";
+                                buttonRoll.setEnabled(true);
                             }
                         }
                     }
@@ -821,6 +865,7 @@ public class Board extends JFrame implements ActionListener {
                     System.out.println("Your loan will continue on for another " + (3 - player.loanPeriod) + " moves.");
                     player.loanPeriodCheck = false;
                     toString += player.name + " loan's will continue for another " + (3 - player.loanPeriod) + " moves.\n";
+                    buttonRoll.setEnabled(true);
                 }
             }
             player.toString = toString;
@@ -853,8 +898,18 @@ public class Board extends JFrame implements ActionListener {
                     }
                 }
             }
+            buttonRoll.setEnabled(true);
             player.toString = toString;
         });
+    }
+
+    public int isOnePlayerLeft() {
+        int activePlayerAmount = 0;
+        for (Player player : players) {
+            if (!player.bankruptcy)
+                activePlayerAmount++;
+            }
+        return activePlayerAmount;
     }
 
     public void BoardDeclaration(int playerNumber) {
@@ -938,7 +993,7 @@ public class Board extends JFrame implements ActionListener {
         //Initialize Button Bankcrupt
         buttonBankrupt = new JButton();
         buttonBankrupt.setBounds(314, 860, 125, 50);
-        buttonBankrupt.setText("Backrupt");
+        buttonBankrupt.setText("Bankrupt");
         buttonBankrupt.setEnabled(true);
         buttonBankrupt.addActionListener(this);
         this.add(buttonBankrupt);
@@ -1086,9 +1141,19 @@ public class Board extends JFrame implements ActionListener {
         if (e.getSource()==buttonRoll) {
             buttonRoll.setEnabled(false);
             buttonBankrupt.setEnabled(true);
+            if (isOnePlayerLeft() == 1) {
+                for (Player player : players) {
+                if (!player.bankruptcy) { // GAMEWINNER
+                    
+                    }
+                }
+            }
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
+            if (currentPlayer.jailCheck) {
+                // SAY YOU HAVE TO PULL 2 SAME DICE ROLL OR PAY 250K
+            }
             // roll for 3 seconds
             long startTime = System.currentTimeMillis();
             Thread rollThread = new Thread(new Runnable() {
@@ -1096,10 +1161,11 @@ public class Board extends JFrame implements ActionListener {
                 public void run() {
                     long endTime = System.currentTimeMillis();
                     try {
+                        int diceOne = 0, diceTwo = 0;
                         while ((endTime - startTime) / 1000F < 0.5) {
                             // roll dice
-                            int diceOne = rand.nextInt(1, 7);
-                            int diceTwo = rand.nextInt(1, 7);
+                            diceOne = rand.nextInt(1, 7);
+                            diceTwo = rand.nextInt(1, 7);
                             sum = diceOne + diceTwo;
                             // update dice images
                             diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE" + diceOne + ".png",100,100));
@@ -1111,12 +1177,42 @@ public class Board extends JFrame implements ActionListener {
                         int previousPlayerPosition = currentPlayer.position;
                         currentPlayer.position = (currentPlayer.position + sum) % tiles.size();
                         Object currentTile = tiles.get(currentPlayer.position);
+                        if (currentPlayer.jailCheck) {
+                            if (diceOne == diceTwo) {
+                                String textPrompt = "";
+                                textPrompt += currentPlayer.name + " has managed to roll a double!.\n";
+                                currentPlayer.jailCheck = false;
+                                duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                            } else {
+                                    String textPrompt = "";
+                                    textPrompt += currentPlayer.name + " has to pay RM250,000 to get out of jail.\n";
+                                    if (250000 >= currentPlayer.money) {
+                                        buttonSell.setEnabled(true);
+                                        System.out.println("You don't have enough money to pay the jail fines.");
+                                } else {
+                                    currentPlayer.money -= 250000;
+                                    currentPlayer.jailCheck = false;
+                                    toString += currentPlayer.name + " successfully paid the jail fines.";
+                                    System.out.println(currentPlayer.name + " successfully paid the jail fines.");
+                                }
+                                    duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                            }
+                        } else if (currentPlayer.bankruptcy) {
+                            toString += currentPlayer.name + " has already declared bankruptcy.\n";
+                        } else {
+                            duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                        }
+                            if (currentPlayer.hasLoan) {
+                            currentPlayer.loanPeriodCheck = true;
+                            playerLoan(currentPlayer, 0, false);
+                        }
                         duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                         playerCardUpdate();
                         currentPlayer.toString = toString;
                         playerLogHistory(currentPlayer);
                         System.out.println(currentPlayer.toString);
-                        buttonRoll.setEnabled(true);
+                        saveFile.saveGame(players, tiles, saveFileNameChoice);
+                        // buttonRoll.setEnabled(true);
 
                         revalidate();
 
@@ -1163,6 +1259,7 @@ public class Board extends JFrame implements ActionListener {
                     propertyTile.owner = currentPlayer;
                     System.out.println(currentPlayer.name + " bought " + propertyTile.name + ".");
                     toString += currentPlayer.name + " has bought " + propertyTile.name + ".\n";
+                    buttonRoll.setEnabled(true);
                 }
             } else if (playerCurrentTile instanceof MiniSpecialTile) {
                 specialTile = (MiniSpecialTile) playerCurrentTile;
@@ -1174,6 +1271,7 @@ public class Board extends JFrame implements ActionListener {
                     specialTile.owner = currentPlayer;
                     System.out.println(currentPlayer.name + " bought " + specialTile.name + ".");
                     toString += currentPlayer.name + " has bought " + specialTile.name + ".\n";
+                    buttonRoll.setEnabled(true);
                 }
             }
             currentPlayer.toString = toString;
@@ -1181,7 +1279,7 @@ public class Board extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == buttonBuyHouse){
-            buttonBuyHouse.setEnabled(true);
+            buttonBuyHouse.setEnabled(false);
             String houseNum;
             JOptionPane buyHousePopUp = new JOptionPane();
             do {
@@ -1229,6 +1327,7 @@ public class Board extends JFrame implements ActionListener {
                             propertyTile.owner = currentPlayer;
                             System.out.println(currentPlayer.name + " bought " + propertyTile.name + ".");
                             toString += currentPlayer.name + " has bought " + propertyTile.name + ".\n";
+                            buttonRoll.setEnabled(true);
                         }
                     } else {
                         buttonLoan.setEnabled(true);
@@ -1241,6 +1340,7 @@ public class Board extends JFrame implements ActionListener {
                         propertyTile.owner.money += propertyTile.rentAmount;
                         toString += String.format(currentPlayer.name + " paid RM%,d to " + propertyTile.owner.name + ".\n", propertyTile.rentAmount);
                         System.out.println(currentPlayer.name + " successfully paid the rent.");
+                        buttonRoll.setEnabled(true);
                     }
                 }
             } else if (playerCurrentTile instanceof MiniSpecialTile) {
@@ -1255,18 +1355,20 @@ public class Board extends JFrame implements ActionListener {
                             specialTile.owner = currentPlayer;
                             System.out.println(currentPlayer.name + " bought " + specialTile.name + ".");
                             toString += currentPlayer.name + " has bought " + specialTile.name + ".\n";
+                            buttonRoll.setEnabled(true);
                         }
                     } else {
                         buttonLoan.setEnabled(true);
                     }
                 } else if (specialTile.owner != currentPlayer) {
                     if (fateCardRNG == 1) {
-                        sellingProperties(currentPlayer, specialTile.doubleRent, false, true, specialTile.owner);
-                        if (!currentPlayer.bankruptcy && specialTile.doubleRent < currentPlayer.money) {
-                            currentPlayer.money -= specialTile.doubleRent;
-                            specialTile.owner.money += specialTile.doubleRent;
+                        sellingProperties(currentPlayer, specialTile.rentAmount, false, true, specialTile.owner);
+                        if (!currentPlayer.bankruptcy && specialTile.rentAmount < currentPlayer.money) {
+                            currentPlayer.money -= specialTile.rentAmount;
+                            specialTile.owner.money += specialTile.rentAmount;
                             System.out.println(currentPlayer.name + " successfully paid the rent.");
                             toString += currentPlayer.name + " has paid RM%,d (double rent) to " + specialTile.owner.name + ".\n";
+                            buttonRoll.setEnabled(true);
                         }
                     }
                     // SELL HOUSE SYSTEM TO PAY RENT, IF CAN'T PAY, GIVE ASSETS TO OWNER
@@ -1276,6 +1378,7 @@ public class Board extends JFrame implements ActionListener {
                         specialTile.owner.money += specialTile.baseRent;
                         toString += String.format(currentPlayer.name + " paid RM%,d to " + specialTile.owner.name + ".\n", specialTile.baseRent);
                         System.out.println(currentPlayer.name + " successfully paid the rent.");
+                        buttonRoll.setEnabled(true);
                     } else {
                         buttonLoan.setEnabled(true);
                     }
@@ -1287,6 +1390,7 @@ public class Board extends JFrame implements ActionListener {
                     currentPlayer.money -= tax.cost;
                     System.out.println(currentPlayer.name + " successfully paid the taxes.");
                     toString += String.format(currentPlayer.name + " has paid RM%,d to the Creator.\n", tax.cost);
+                    buttonRoll.setEnabled(true);
                 }
             } else if (playerCurrentTile instanceof MiniFateCard) {
                 MiniFateCard fate = (MiniFateCard) playerCurrentTile;
@@ -1297,6 +1401,7 @@ public class Board extends JFrame implements ActionListener {
                     System.out.println(otherPlayer.name + " successfully given the birthday money.");
                     otherPlayer.money -= 100000;
                     birthdayMoney += 100000;
+                    buttonRoll.setEnabled(true);
                 }
                 break;
                 case 6:
@@ -1305,6 +1410,7 @@ public class Board extends JFrame implements ActionListener {
                     currentPlayer.money -= generalRepairTotal;
                     System.out.printf(Locale.US, currentPlayer.name + " successfully paid RM%,d.\n", generalRepairTotal);
                     toString += String.format(currentPlayer.name + " has paid RM%,d to the Creator.\n", generalRepairTotal);
+                    buttonRoll.setEnabled(true);
                 }
                 break;
                 case 7:
@@ -1313,6 +1419,7 @@ public class Board extends JFrame implements ActionListener {
                     currentPlayer.money -= 250000;
                     System.out.println(currentPlayer.name + " successfully paid the hospital fees.");
                     toString += currentPlayer.name + " has paid RM250,000 to the Creator.\n";
+                    buttonRoll.setEnabled(true);
                 }
                 break;
                 case 8:
@@ -1321,6 +1428,7 @@ public class Board extends JFrame implements ActionListener {
                     currentPlayer.money -= 100000;
                     System.out.println(currentPlayer.name + " successfully paid the school fees.");
                     toString += currentPlayer.name + " has paid RM100,000 to the Creator.\n";
+                    buttonRoll.setEnabled(true);
                 }
                 break;
                 case 9:
@@ -1329,6 +1437,7 @@ public class Board extends JFrame implements ActionListener {
                     currentPlayer.money -= 100000;
                     System.out.println(currentPlayer.name + " successfully paid the speeding fine.");
                     toString += currentPlayer.name + " has paid RM100,000 to the Creator.\n";
+                    buttonRoll.setEnabled(true);
                 }
                 break;
                 }
@@ -1338,7 +1447,7 @@ public class Board extends JFrame implements ActionListener {
         }
     }
     
-class CornerBoardTile extends JPanel {
+class CornerBoardTile extends JPanel implements Serializable{
 
         JButton buttonTile = new JButton();
 
@@ -1457,7 +1566,7 @@ class MiniGoToJail extends CornerBoardTile {
     }
 }
 
-class BoardTile extends JPanel {
+class BoardTile extends JPanel implements Serializable{
     JButton buttonTile = new JButton();
     BoardTile(int x, int y, int width, int height, JPanel panelBoard, String path) {
         SwingUtilities.invokeLater(() -> {
@@ -1541,7 +1650,7 @@ class MiniSpecialTile extends BoardTile {
     int cost;       // special tile's cost
     int baseRent;   // special tile's base rent
     Player owner;   // special tile's ownership (based on player's reference)
-    int doubleRent; // special tile's double rent from Fate Card Selection
+    int rentAmount; // special tile's rent amount
     MiniSpecialTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent) {
         super(x, y , width, height, panelBoard, path);
         this.name = name;
