@@ -154,7 +154,6 @@ public class Board extends JFrame implements ActionListener {
             tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000,"src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\PAY TAX.png"));
             tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow", "src\\duitria.current.tiles\\28 SEPANG II CIRCUIT.png"));
             revalidate();
-
     }
     
     public void initializePlayer() {
@@ -1506,7 +1505,150 @@ class BoardTile extends JPanel implements Serializable {
     }
 }
 
-class playerCard extends JPanel {
+class MiniTile extends BoardTile {
+    String name;        // tile's name
+    int cost;           // tile's cost
+    int baseRent;       // tile's base rent
+    String tileColour;  // tile's colour group
+    Player owner;       // tile's ownership (based on player's reference)
+    int houseCost;      // tile's housecost
+    int numOfHouse;     // tile's number of houses built
+    int rentAmount;     // tile's total rent amount
+    
+    MiniTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.tileColour = tileColour;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
+
+
+        
+    }
+
+    MiniTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String tileColour, String pathBig) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        this.tileColour = tileColour;
+        houseCost = 200000;
+        owner = null;
+        numOfHouse = 0;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+        
+    }
+
+    public int calculateRent(Boolean doubleRent) {
+        int calculatedRent = 0;
+        if (doubleRent)
+            calculatedRent += baseRent;
+        if (numOfHouse == 0)
+            calculatedRent += baseRent;
+        else if (numOfHouse == 1)
+            calculatedRent += (baseRent * 2);
+        else if (numOfHouse >= 2 && numOfHouse <= 4)
+            calculatedRent += ((baseRent * 2) + (baseRent + (200000 * (numOfHouse - 1))));
+        return calculatedRent;
+    }
+}
+
+class MiniSpecialTile extends BoardTile {
+    String name;    // special tile's name
+    int cost;       // special tile's cost
+    int baseRent;   // special tile's base rent
+    Player owner;   // special tile's ownership (based on player's reference)
+    int rentAmount; // special tile's rent amount
+    MiniSpecialTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        owner = null;
+
+    }
+
+    MiniSpecialTile(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, int baseRent, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+        this.baseRent = baseRent;
+        owner = null;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
+}
+
+class MiniTax extends BoardTile {
+    String name;    // tax's tile name
+    int cost;       // tax's cost
+    MiniTax(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost;
+    }
+    
+        MiniTax(int x, int y, int width, int height, JPanel panelBoard, String path, String name, int cost, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+        this.cost = cost; 
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
+}
+
+class MiniFateCard extends BoardTile {
+    String name;    // fate card's name
+    MiniFateCard(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
+        super(x, y, width, height, panelBoard, path);
+        this.name = name;
+    }
+    MiniFateCard(int x, int y, int width, int height, JPanel panelBoard, String path, String name, String pathBig) {
+        super(x, y , width, height, panelBoard, path);
+        this.name = name;
+
+        buttonTile.setBounds(0, 0, width, height);
+        buttonTile.setIcon(imageicon.getResizedImage(path, width, height));
+        buttonTile.addActionListener(
+            e -> {
+                labelImageDefault.setIcon(imageicon.getResizedImage(pathBig, 228, 474));
+            }
+        );
+        this.add(buttonTile);
+
+    }
+}
+
+}
+
+class PlayerCard extends JPanel {
 
     String playerName;
     double playerLand;
