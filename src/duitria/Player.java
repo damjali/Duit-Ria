@@ -12,6 +12,7 @@ class Player implements Serializable {
     int position;           // player's position on the board
     int turn;               // which turn
     int diceRoll;           // diceRoll for the round
+    int bankruptTurnCount;  // highest is the first on to bankrupt
     boolean jailCheck;      // check if player in jail or not
     boolean playerLoan;     // check if player is under a loan
     boolean loanPeriodCheck;// check if the player's loan period been checked or not

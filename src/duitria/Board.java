@@ -80,6 +80,7 @@ public class Board extends JFrame implements ActionListener {
     int birthdayMoney;
     int generalRepairTotal;
     int cost;
+    int bankruptTurnCount;
     boolean creatorDebt;
     boolean playerDebt;
     boolean hasPaid;
@@ -947,10 +948,12 @@ public class Board extends JFrame implements ActionListener {
                 System.out.println(player.name + " has already declared bankruptcy.");
                 toString += player.name + " has already declared bankruptcy.\n";
             } else {
+                bankruptTurnCount--;
                 System.out.println(player.name + " has declared bankruptcy.");
                 toString += player.name + " has declared bankruptcy.\n";
                 player.bankruptcy = true;
                 player.propertySellCheck = false;
+                player.bankruptTurnCount = bankruptTurnCount;
                 for (Object currentTile : tiles) {
                     if (currentTile instanceof MiniTile) {
                         MiniTile currentPropertyTile = (MiniTile) currentTile;
@@ -996,6 +999,7 @@ public class Board extends JFrame implements ActionListener {
         rand = new Random();
         saveFile = new SaveFile();
         playerNum = playerNumber;
+        bankruptTurnCount = 3;
 
         //Frame Settings
         Border border = BorderFactory.createLineBorder(Color.BLACK,1);
@@ -1162,6 +1166,7 @@ public class Board extends JFrame implements ActionListener {
 
         
         // test comment
+        initializeTokenPosition();
         if (saveFile.newGame) {
             initializeTile(panelBoard);
             initializePlayer();
@@ -1214,7 +1219,8 @@ public class Board extends JFrame implements ActionListener {
             if (isOnePlayerLeft() == 1) {
                 for (Player player : players) {
                 if (!player.bankruptcy) { // GAMEWINNER
-                    
+                    PlayerWinner playerWinner = new PlayerWinner(players, playerNum);
+                    this.dispose();
                     }
                 }
             }
@@ -1222,6 +1228,8 @@ public class Board extends JFrame implements ActionListener {
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
             if (currentPlayer.jailCheck) {
+                String textPromptPlayer = "You are in jail.\nYou have to pull 2 same dice roll or pay RM250,000.";
+                textPrompt.setText(textPromptPlayer);
                 // SAY YOU HAVE TO PULL 2 SAME DICE ROLL OR PAY 250K
             }
             // roll for 3 seconds
@@ -1249,13 +1257,13 @@ public class Board extends JFrame implements ActionListener {
                         Object currentTile = tiles.get(currentPlayer.position);
                         if (currentPlayer.jailCheck) {
                             if (diceOne == diceTwo) {
-                                String textPrompt = "";
-                                textPrompt += currentPlayer.name + " has managed to roll a double!.\n";
+                                String textPromptPlayer = "You has managed to roll a double!.\n";
+                                textPrompt.setText(textPromptPlayer);
                                 currentPlayer.jailCheck = false;
                                 duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                             } else {
-                                    String textPrompt = "";
-                                    textPrompt += currentPlayer.name + " has to pay RM250,000 to get out of jail.\n";
+                                    String textPromptPlayer = "You has to pay RM250,000 to get out of jail.\n";
+                                    textPrompt.setText(textPromptPlayer);
                                     if (250000 >= currentPlayer.money) {
                                         buttonSell.setEnabled(true);
                                         System.out.println("You don't have enough money to pay the jail fines.");

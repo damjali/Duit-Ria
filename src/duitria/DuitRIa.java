@@ -134,7 +134,7 @@ public class DuitRIa {
         for (int i = 1; i <= playerNum; i++) {
             System.out.print("Player " + i + " name: ");
             String name = keyboard.nextLine();
-            players.add(new Player(name));
+            players.add(new Player(name, null));
         }
     }
     private void initializeTile() {
