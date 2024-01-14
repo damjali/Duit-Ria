@@ -189,6 +189,7 @@ public class Board extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(() -> {
             tokenPosition.add(new Tokens(880,930,920,930,880,965,920,965));
             tokenPosition.add(new Tokens(880,930,920,930,880,965,920,965));
+            tokenPosition.add(new Tokens(880,930,920,930,880,965,920,965));
         });
     }
 
@@ -1035,7 +1036,7 @@ public class Board extends JFrame implements ActionListener {
 
 
         
-        
+        // test comment
         if (saveFile.newGame) {
             initializeTile(panelBoard);
             initializePlayer();
@@ -1073,8 +1074,6 @@ public class Board extends JFrame implements ActionListener {
                 playerCard.labelPlayerMoney.setText(moneyFormat);
 
                 playerCard.labelPlayerLand.setText("Land : " + ownedTile);
-
-
 
                 playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
                 revalidate();
@@ -1167,8 +1166,12 @@ public class Board extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonBuyHouse){
             buttonBuyHouse.setEnabled(true);
+            String houseNum;
             JOptionPane buyHousePopUp = new JOptionPane();
-            String houseNum = buyHousePopUp.showInputDialog("Input how many houses you want to buy : ");
+            do {
+                houseNum = buyHousePopUp.showInputDialog("Input how many houses you want to buy : ");
+            } while (Integer.parseInt(houseNum) <= 4 && Integer.parseInt(houseNum) >=0);
+
             if (playerCurrentTile instanceof MiniTile) {
 
                 propertyTile = (MiniTile) playerCurrentTile; // PANEL BUY HOUSE
