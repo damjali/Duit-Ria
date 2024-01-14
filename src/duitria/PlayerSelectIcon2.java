@@ -30,14 +30,16 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
     
     String player1;
     String player2;
+    String saveFileNameChoice;
 
     playerIcons playerIcon1;
     playerIcons playerIcon2;
 
-    PlayerSelectIcon2 (){
+    PlayerSelectIcon2 (String saveFileNameChoice){
 
     SwingUtilities.invokeLater(() -> {
-        
+
+     this.saveFileNameChoice = saveFileNameChoice;
      this.setSize(1280, 720);
      this.setVisible(true);
      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -46,7 +48,6 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
      this.setResizable(false);
      this.setLayout(null);
 
-     
      JPanel panelBackground =  new JPanel();
      panelBackground.setBackground(Color.BLACK);
      panelBackground.setBounds(0, 0, 1280, 720);
@@ -59,16 +60,9 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
      buttonStart.addActionListener(this);
      panelBackground.add(buttonStart);
 
-     
      playerIcon1 = new playerIcons(348, 120,panelBackground,"src\\PLAYER TOKENS\\DORAEMON.png");
      playerIcon2 = new playerIcons(655, 120,panelBackground,"src\\PLAYER TOKENS\\LUFFY.png");
 
-
-     
-
-      
-    
-     
 });
     }
 
@@ -77,7 +71,7 @@ public void actionPerformed(ActionEvent e){
         this.dispose();
         player1 = playerIcon1.playerNameTextField.getText();
         player2 = playerIcon2.playerNameTextField.getText();
-        diceRoll diceroll = new diceRoll(2);
+        diceRoll diceroll = new diceRoll(2, saveFileNameChoice);
         diceroll.getName(player1, player2);
         diceroll.addGuiComponents(2);
 

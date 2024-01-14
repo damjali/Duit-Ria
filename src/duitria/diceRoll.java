@@ -22,13 +22,14 @@ public class diceRoll extends JFrame {
 
 public static void main(String[] args) {
     System.setProperty("sun.java2d.uiScale", "1.0");
-    Board board = new Board("saveFile1.ser");
+    Board board = new Board();
 }
 
 
     int count = 0;
     int diceValuePlayer1,diceValuePlayer2,diceValuePlayer3,diceValuePlayer4;
     String player1, player2, player3, player4;
+    String saveFileNameChoice;
     boolean differentValues = false;
     Border border = BorderFactory.createLineBorder(Color.WHITE,1);
     ArrayList<playerDiceMove> arrayListPlayers = new ArrayList<playerDiceMove>();
@@ -44,7 +45,8 @@ public static void main(String[] args) {
     JButton startGameButton = new JButton("Start Game!");
     int playerNumbers;
 
-    public diceRoll(int playerNumber){
+    public diceRoll(int playerNumber, String saveFileNameChoice){
+        this.saveFileNameChoice = saveFileNameChoice;
         this.setTitle("Rolling Double Dice");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(700, 700));
@@ -56,6 +58,10 @@ public static void main(String[] args) {
         playerNumbers = playerNumber;
          
 
+    }
+
+    public void setSaveFileNameChoice(String saveFileNameChoice) {
+        this.saveFileNameChoice = saveFileNameChoice;
     }
 
     public void getName(String a, String b, String c, String d){
@@ -136,7 +142,8 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board("saveFile1.ser");
+                Board board = new Board();
+                board.setSaveFileNameChoice(saveFileNameChoice);
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
 
@@ -148,7 +155,8 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board("saveFile1.ser");
+                Board board = new Board();
+                board.setSaveFileNameChoice(saveFileNameChoice);
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
 
@@ -160,7 +168,8 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board("saveFile1.ser");
+                Board board = new Board();
+                board.setSaveFileNameChoice(saveFileNameChoice);
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
             }

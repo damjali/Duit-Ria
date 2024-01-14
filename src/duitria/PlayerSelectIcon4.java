@@ -32,16 +32,17 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
     String player2;
     String player3;
     String player4;
+    String saveFileNameChoice;
 
     playerIcons playerIcon1;
     playerIcons playerIcon2;
     playerIcons playerIcon3;
     playerIcons playerIcon4;
     
-    PlayerSelectIcon4 (){
+    PlayerSelectIcon4 (String saveFileNameChoice){
 
     SwingUtilities.invokeLater(() -> {
-        
+     this.saveFileNameChoice = saveFileNameChoice;   
      this.setSize(1280, 720);
      this.setVisible(true);
      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -88,7 +89,7 @@ public void actionPerformed(ActionEvent e){
         player3 = playerIcon3.playerNameTextField.getText();
         player4 = playerIcon4.playerNameTextField.getText();
         // board.setName(player1, player2, player3, player4);
-        diceRoll diceroll = new diceRoll(4);
+        diceRoll diceroll = new diceRoll(4, saveFileNameChoice);
         diceroll.getName(player1, player2, player3, player4);
         diceroll.addGuiComponents(4);
 

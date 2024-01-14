@@ -81,7 +81,7 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
 }
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==buttonStartGame) {
-            PlayerNumber playerNumber = new PlayerNumber();
+            PlayerNumber playerNumber = new PlayerNumber("saveFile1.ser");
             this.dispose();
         }
         

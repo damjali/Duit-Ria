@@ -39,7 +39,7 @@ public class Board extends JFrame implements ActionListener {
     public static void main(String[] args) {
 
         System.setProperty("sun.java2d.uiScale", "1.0");
-        Board board = new Board("saveFile1.ser");
+        Board board = new Board();
 
     }
 
@@ -97,6 +97,10 @@ public class Board extends JFrame implements ActionListener {
         playerName2 = name2;
         playerName3 = name3;
         playerName4 = name4;
+    }
+
+    public void setSaveFileNameChoice(String saveFileNameChoice) {
+        this.saveFileNameChoice = saveFileNameChoice;
     }
 
     public void initializeTile(JPanel panelBoard) {
@@ -206,9 +210,6 @@ public class Board extends JFrame implements ActionListener {
             revalidate();
         });
     }
-    
-    
-    
 
     public void duitriaBoard(Player player, Object currentTile, int previousPlayerPosition, int diceRoll) {
         SwingUtilities.invokeLater(() -> {
@@ -531,6 +532,7 @@ public class Board extends JFrame implements ActionListener {
             player.toString = toString;
         });
     }
+    
     public boolean canSell(Player player) {
         int tileCount = 0, houseCount = 0, specialTileCount = 0;
         for (Object currentTile : tiles) {
@@ -815,7 +817,50 @@ public class Board extends JFrame implements ActionListener {
         });
     }
 
-    Board(String saveFileNameChoice) {
+    public void playerCardUpdate() {
+        SwingUtilities.invokeLater(() -> {
+            for (int i = 0; i < players.size(); i++) {
+                Player player = players.get(i);
+                PlayerCard playerCard = playerCards.get(i);
+                int ownedTile = 0;
+                for (Object ownedTileCheck : tiles) {
+                    if (ownedTileCheck instanceof MiniTile) {
+                        propertyTile = (MiniTile) ownedTileCheck;
+                        if (propertyTile.owner == player)
+                            ownedTile++;
+                    }
+                    if (ownedTileCheck instanceof MiniSpecialTile) {
+                        specialTile = (MiniSpecialTile) ownedTileCheck;
+                        if (specialTile.owner == player)
+                            ownedTile++;
+                    }
+                }
+                String moneyFormat = String.format("Money : RM%,d", player.money);
+
+                playerCard.labelPlayerMoney.setText(moneyFormat);
+
+                playerCard.labelPlayerLand.setText("Land : " + ownedTile);
+
+
+
+                playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
+                revalidate();
+
+            
+            }
+        });
+    }
+    
+    public int isOnePlayerLeft() {
+        int activePlayerAmount = 0;
+        for (Player player : players) {
+            if  (!player.bankruptcy)
+                activePlayerAmount++;
+        }
+        return activePlayerAmount;
+    }
+
+    Board() {
     SwingUtilities.invokeLater(() -> {
 
         //Any declarations add here
@@ -996,45 +1041,23 @@ public class Board extends JFrame implements ActionListener {
         }
     });
     }
-    public void playerCardUpdate() {
-        SwingUtilities.invokeLater(() -> {
-            for (int i = 0; i < players.size(); i++) {
-                Player player = players.get(i);
-                PlayerCard playerCard = playerCards.get(i);
-                int ownedTile = 0;
-                for (Object ownedTileCheck : tiles) {
-                    if (ownedTileCheck instanceof MiniTile) {
-                        propertyTile = (MiniTile) ownedTileCheck;
-                        if (propertyTile.owner == player)
-                            ownedTile++;
-                    }
-                    if (ownedTileCheck instanceof MiniSpecialTile) {
-                        specialTile = (MiniSpecialTile) ownedTileCheck;
-                        if (specialTile.owner == player)
-                            ownedTile++;
-                    }
-                }
-                String moneyFormat = String.format("Money : RM%,d", player.money);
-
-                playerCard.labelPlayerMoney.setText(moneyFormat);
-
-                playerCard.labelPlayerLand.setText("Land : " + ownedTile);
-
-
-
-                playerCard.labelPlayerStatus.setText("Status : " + (player.bankruptcy ? "Bankrupt" : (player.hasLoan ? "Has Loan" : "Active Player")));
-                revalidate();
-
-            
-            }
-        });
-    }
+    
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==buttonRoll) {
             buttonRoll.setEnabled(false);
+            if (isOnePlayerLeft() == 1) {
+                for (Player player : players) {
+                    if (!player.bankruptcy) { // GAMEWINNER
+
+                    }
+                }
+            }
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
+            if (currentPlayer.jailCheck) {
+                // SAY YOU HAVE TO PULL 2 SAME DICE ROLL OR PAY 250K
+            }
             // roll for 3 seconds
             long startTime = System.currentTimeMillis();
             Thread rollThread = new Thread(new Runnable() {
@@ -1042,10 +1065,11 @@ public class Board extends JFrame implements ActionListener {
                 public void run() {
                     long endTime = System.currentTimeMillis();
                     try {
+                        int diceOne = 0, diceTwo = 0;
                         while ((endTime - startTime) / 1000F < 0.5) {
                             // roll dice
-                            int diceOne = rand.nextInt(1, 7);
-                            int diceTwo = rand.nextInt(1, 7);
+                            diceOne = rand.nextInt(1, 7);
+                            diceTwo = rand.nextInt(1, 7);
                             sum = diceOne + diceTwo;
                             // update dice images
                             diceOneImg.setIcon(imageicon.getResizedImage("src\\duitria\\DiceIcons\\DICE" + diceOne + ".png",100,100));
@@ -1057,7 +1081,35 @@ public class Board extends JFrame implements ActionListener {
                         int previousPlayerPosition = currentPlayer.position;
                         currentPlayer.position = (currentPlayer.position + sum) % tiles.size();
                         Object currentTile = tiles.get(currentPlayer.position);
-                        duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                        if (currentPlayer.jailCheck) {
+                            if (diceOne == diceTwo) {
+                                String textPrompt = "";
+                                textPrompt += currentPlayer.name + " has managed to roll a double!.\n";
+                                currentPlayer.jailCheck = false;
+                                duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                            } else {
+                                String textPrompt = "";
+                                textPrompt += currentPlayer.name + " has to pay RM250,000 to get out of jail.\n";
+                                if (250000 >= currentPlayer.money) {
+                                    buttonSell.setEnabled(true);
+                                    System.out.println("You don't have enough money to pay the jail fines.");
+                                } else {
+                                    currentPlayer.money -= 250000;
+                                    currentPlayer.jailCheck = false;
+                                    toString += currentPlayer.name + " successfully paid the jail fines.";
+                                    System.out.println(currentPlayer.name + " successfully paid the jail fines.");
+                                }
+                                duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                            }
+                        } else if (currentPlayer.bankruptcy) {
+                            toString += currentPlayer.name + " has already declared bankruptcy.\n";
+                        } else {
+                            duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
+                        }
+                        if (currentPlayer.hasLoan) {
+                            currentPlayer.loanPeriodCheck = true;
+                            playerLoan(currentPlayer, 0, false);
+                        }
                         playerCardUpdate();
                         currentPlayer.toString = toString;
                         playerLogHistory(currentPlayer);
@@ -1287,7 +1339,6 @@ class CornerBoardTile extends JPanel implements Serializable {
     }
 }
 
-
 class MiniGo extends CornerBoardTile {
     String name;    // go tile's name
     int payment;    // go tile's payment
@@ -1401,6 +1452,7 @@ class BoardTile extends JPanel implements Serializable {
         });
     }
 }
+
 class MiniTile extends BoardTile {
     String name;        // tile's name
     int cost;           // tile's cost
@@ -1459,6 +1511,7 @@ class MiniTile extends BoardTile {
         return calculatedRent;
     }
 }
+
 class MiniSpecialTile extends BoardTile {
     String name;    // special tile's name
     int cost;       // special tile's cost
@@ -1492,6 +1545,7 @@ class MiniSpecialTile extends BoardTile {
 
     }
 }
+
 class MiniTax extends BoardTile {
     String name;    // tax's tile name
     int cost;       // tax's cost
@@ -1517,6 +1571,7 @@ class MiniTax extends BoardTile {
 
     }
 }
+
 class MiniFateCard extends BoardTile {
     String name;    // fate card's name
     MiniFateCard(int x, int y, int width, int height, JPanel panelBoard, String path, String name) {
@@ -1682,49 +1737,6 @@ class PlayerCard extends JPanel {
     }
 }
 
-// class PlayerLogHistoryTest extends JPanel {
-//     JTextArea logTextArea;
-
-//     PlayerLogHistoryTest() {
-//         super();
-//         initComponents();
-//     }
-
-//     private void initComponents() {
-//         logTextArea = new JTextArea();
-//         logTextArea.setEditable(false);
-
-//         JScrollPane scrollPane = new JScrollPane(logTextArea);
-//         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-//         getRootPane().setLayout(new BorderLayout());
-//         getRootPane().add(scrollPane, BorderLayout.CENTER);
-
-//         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         setSize(400, 300);
-//         setLocation(null);
-//     }
-
-//     public void addLogEntry(String playerName, String action) {
-//         String timestamp = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//         String logEntry = "[" + timestamp + "] " + playerName + ": " + action + "\n";
-
-//         logTextArea.insert(logEntry, 0); // Insert at the beginning
-//     }
-
-//     public static void main(String[] args) {
-//         SwingUtilities.invokeLater(() -> {
-//             PlayerLogHistoryTest playerLogHistory = new PlayerLogHistoryTest();
-//             playerLogHistory.setVisible(true);
-
-//             // Example: Add log entries
-//             playerLogHistory.addLogEntry("Player1", "Bought a property");
-//             playerLogHistory.addLogEntry("Player2", "Paid rent");
-//             playerLogHistory.addLogEntry("Player1", "Passed Go");
-//         });
-//     }
-// }
-
 class PlayerLogHistory extends JPanel {
     
     PlayerLogHistory(int x, int y, JFrame frame, Player player){
@@ -1775,7 +1787,7 @@ class PlayerLogHistory extends JPanel {
     }
 }
 
-class imageicon{
+class imageicon {
 
     public static ImageIcon getResizedImage(String path, int width, int height){
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(path)

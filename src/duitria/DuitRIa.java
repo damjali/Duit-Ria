@@ -241,7 +241,7 @@ public class DuitRIa {
                         }
                     }
                 }
-            } else if (propertyTile.owner != player) {
+            } else if (propertyTile.owner != player && propertyTile.owner != null) {
                 int colourCount = 0;
                 Boolean doubleRent = false;
                 for (Object otherTile : tiles) {
@@ -338,7 +338,7 @@ public class DuitRIa {
                         }
                     }
                 }
-            } else if (specialTile.owner != player) {
+            } else if (specialTile.owner != player && specialTile.owner != null) {
                 System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
                 System.out.printf(player.name + " has to pay rent of RM%,d.\n", specialTile.baseRent);
                 if (specialTile.baseRent >= player.money) {
@@ -550,7 +550,7 @@ public class DuitRIa {
                         specialTile.owner = player;
                     }
                 }
-            } else if (specialTile.owner != player) {
+            } else if (specialTile.owner != player && specialTile.owner != null) {
                 System.out.println(specialTile.name + " is owned by " + specialTile.owner.name + ".");
                 System.out.printf(player.name + " has to pay double of rent for RM%,d.\n", (specialTile.baseRent * 2));
                 if ((specialTile.baseRent * 2) >= player.money) {
