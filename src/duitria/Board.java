@@ -55,6 +55,7 @@ public class Board extends JFrame implements ActionListener {
     JTextArea textPrompt = new JTextArea();
 
     String playerName1, playerName2, playerName3, playerName4;
+    String playerPath1, playerPath2, playerPath3, playerPath4;
     int playerNum;
 
     List<PlayerLogHistory> playerLogs;
@@ -98,11 +99,15 @@ public class Board extends JFrame implements ActionListener {
     MiniJail jail;
     SaveFile saveFile;
 
-    public void setName(String name1, String name2, String name3, String name4){
-        playerName1 = name1;
-        playerName2 = name2;
-        playerName3 = name3;
-        playerName4 = name4;
+    public void setName(PlayerSelection player1, PlayerSelection player2, PlayerSelection player3, PlayerSelection player4){
+        playerName1 = player1.name;
+        playerPath1 = player1.path;
+        playerName2 = player2.name;
+        playerPath2 = player2.path;
+        playerName3 = player3.name;
+        playerPath3 = player3.path;
+        playerName4 = player4.name;
+        playerPath4 = player4.path;
     }
 
 
