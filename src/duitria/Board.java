@@ -1037,7 +1037,7 @@ public class Board extends JFrame implements ActionListener {
         buttonBuyHouse.addActionListener(this);
         // buttonBuyLand.setIcon(imageicon.getResizedImage("src\\duitria\\Icons\\BUY.png", 100, 50));
         buttonBuyHouse.setText("Buy House");
-        buttonBuyHouse.setEnabled(true);
+        buttonBuyHouse.setEnabled(false);
         panelBuyHouse.setBackground(Color.WHITE);
         panelBuyHouse.setBorder(border);
         panelBuyHouse.setLayout(null);
@@ -1232,11 +1232,58 @@ public class Board extends JFrame implements ActionListener {
             JOptionPane optionPaneBankrupt = new JOptionPane();
             int choice = optionPaneBankrupt.showConfirmDialog(null, "Are you sure you want to declare bankrupcy?");
             switch (choice) {
+
                 case JOptionPane.YES_OPTION:
                     bankrupt(currentPlayer);
                     JOptionPane optionPaneDeclareBankruptcy = new JOptionPane();
                     optionPaneDeclareBankruptcy.showMessageDialog(null, currentPlayer + " Has declared bankruptcy", "Bankruptcy",0);
                     buttonBankrupt.setEnabled(false);
+                    break;
+
+                case JOptionPane.NO_OPTION:
+                    break;
+
+                case JOptionPane.CANCEL_OPTION:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if (e.getSource() == buttonBuyLand) {
+            JOptionPane optionPaneBuyLand = new JOptionPane();
+            int choice = optionPaneBuyLand.showConfirmDialog(null, "Are you sure you want to buy this land??");
+            switch (choice) {
+                case JOptionPane.YES_OPTION:
+                        buttonBuyLand.setEnabled(false);
+                        if (playerCurrentTile instanceof MiniTile) {
+                            propertyTile = (MiniTile) playerCurrentTile;
+                            if (propertyTile.cost >= currentPlayer.money) {
+                                System.out.println("Not enough money to buy " + propertyTile.name + ".");
+                                buttonSell.setEnabled(true);
+                            } else {
+                                currentPlayer.money -= propertyTile.cost;
+                                propertyTile.owner = currentPlayer;
+                                System.out.println(currentPlayer.name + " bought " + propertyTile.name + ".");
+                                toString += currentPlayer.name + " has bought " + propertyTile.name + ".\n";
+                                buttonRoll.setEnabled(true);
+                }
+                        } else if (playerCurrentTile instanceof MiniSpecialTile) {
+                            specialTile = (MiniSpecialTile) playerCurrentTile;
+                            if (specialTile.cost >= currentPlayer.money) {
+                                System.out.println("You do not enough money to buy " + specialTile.name + ".");
+                                buttonSell.setEnabled(true);
+                            } else {
+                                currentPlayer.money -= specialTile.cost;
+                                specialTile.owner = currentPlayer;
+                                System.out.println(currentPlayer.name + " bought " + specialTile.name + ".");
+                                toString += currentPlayer.name + " has bought " + specialTile.name + ".\n";
+                                buttonRoll.setEnabled(true);
+                }
+                        }
+                        currentPlayer.toString = toString;
+                        playerCardUpdate();
                     break;
                 case JOptionPane.NO_OPTION:
                     break;
@@ -1245,37 +1292,7 @@ public class Board extends JFrame implements ActionListener {
                 default:
                     break;
             }
-        }
 
-        if (e.getSource() == buttonBuyLand) {
-            buttonBuyLand.setEnabled(false);
-            if (playerCurrentTile instanceof MiniTile) {
-                propertyTile = (MiniTile) playerCurrentTile;
-                if (propertyTile.cost >= currentPlayer.money) {
-                    System.out.println("Not enough money to buy " + propertyTile.name + ".");
-                    buttonSell.setEnabled(true);
-                } else {
-                    currentPlayer.money -= propertyTile.cost;
-                    propertyTile.owner = currentPlayer;
-                    System.out.println(currentPlayer.name + " bought " + propertyTile.name + ".");
-                    toString += currentPlayer.name + " has bought " + propertyTile.name + ".\n";
-                    buttonRoll.setEnabled(true);
-                }
-            } else if (playerCurrentTile instanceof MiniSpecialTile) {
-                specialTile = (MiniSpecialTile) playerCurrentTile;
-                if (specialTile.cost >= currentPlayer.money) {
-                    System.out.println("You do not enough money to buy " + specialTile.name + ".");
-                    buttonSell.setEnabled(true);
-                } else {
-                    currentPlayer.money -= specialTile.cost;
-                    specialTile.owner = currentPlayer;
-                    System.out.println(currentPlayer.name + " bought " + specialTile.name + ".");
-                    toString += currentPlayer.name + " has bought " + specialTile.name + ".\n";
-                    buttonRoll.setEnabled(true);
-                }
-            }
-            currentPlayer.toString = toString;
-            playerCardUpdate();
         }
 
         if (e.getSource() == buttonBuyHouse){
@@ -1286,8 +1303,8 @@ public class Board extends JFrame implements ActionListener {
                 houseNum = buyHousePopUp.showInputDialog("Input how many houses you want to buy : ");
             } while (Integer.parseInt(houseNum) <= 4 && Integer.parseInt(houseNum) >=0);
 
+            int houseNumber = Integer.parseInt(houseNum);
             if (playerCurrentTile instanceof MiniTile) {
-
                 propertyTile = (MiniTile) playerCurrentTile; // PANEL BUY HOUSE
                 
             }
