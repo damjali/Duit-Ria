@@ -27,14 +27,19 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
 
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
+    
+    String player1;
+    String player2;
+    String saveFileNameChoice;
 
-    String player1, player2;
-    playerIcons playerIcon1, playerIcon2;
+    playerIcons playerIcon1;
+    playerIcons playerIcon2;
 
-    PlayerSelectIcon2 (){
+    PlayerSelectIcon2 (String saveFileNameChoice){
 
     SwingUtilities.invokeLater(() -> {
-        
+
+     this.saveFileNameChoice = saveFileNameChoice;
      this.setSize(1280, 720);
      this.setVisible(true);
      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -43,7 +48,6 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
      this.setResizable(false);
      this.setLayout(null);
 
-     
      JPanel panelBackground =  new JPanel();
      panelBackground.setBackground(Color.BLACK);
      panelBackground.setBounds(0, 0, 1280, 720);
@@ -56,29 +60,22 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
      buttonStart.addActionListener(this);
      panelBackground.add(buttonStart);
 
-     
-     playerIcons playerIcon1 = new playerIcons(348, 110,panelBackground,"src\\playertoken\\CAT.png");
-     playerIcons playerIcon2 = new playerIcons(655, 110,panelBackground,"src\\playertoken\\CAR.png");
+     playerIcon1 = new playerIcons(348, 120,panelBackground,"src\\PLAYER TOKENS\\DORAEMON.png");
+     playerIcon2 = new playerIcons(655, 120,panelBackground,"src\\PLAYER TOKENS\\LUFFY.png");
 
-
-     
-
-      
-    
-     
 });
     }
 
 public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
-        Board board = new Board();
         this.dispose();
         player1 = playerIcon1.playerNameTextField.getText();
         player2 = playerIcon2.playerNameTextField.getText();
-        board.setName(player1, player2, null, null);
+        diceRoll diceroll = new diceRoll(2, saveFileNameChoice);
+        diceroll.getName(player1, player2);
+        diceroll.addGuiComponents(2);
+
     }
-    
-    
 }
 
 
@@ -112,7 +109,7 @@ class playerIcons extends JPanel{
 playerIcons(int x, int y, JPanel panelBackground, String path){
     SwingUtilities.invokeLater(() -> {
     this.setBackground(new Color(217,217,217));
-    this.setBounds(x, y, 266, 350);
+    this.setBounds(x, y, 266, 375);
     this.setLayout(null);
     panelBackground.add(this);
     this.setBorder(border);
@@ -130,7 +127,7 @@ playerIcons(int x, int y, JPanel panelBackground, String path){
     this.add(panelImage);
     panelImage.setBorder(border);
 
-    panelPlayerName.setBounds(6, 288, 253, 48);
+    panelPlayerName.setBounds(6, 300, 253, 48);
     panelPlayerName.setBorder(border);
     panelPlayerName.setLayout(null);
     this.playerNameTextField.setBounds(0, 0, 253, 48);

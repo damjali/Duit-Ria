@@ -1,6 +1,10 @@
 package duitria;
-class Player {
+
+import java.io.Serializable;
+
+class Player implements Serializable {
     String name;            // player's name
+    String toString;        // what player did on the move
     int money;              // total money of the player
     int loanAmount;         // player's loan amount
     int loanPeriod;         // duration of the player's loan
@@ -17,6 +21,7 @@ class Player {
     boolean hasLoan;        // check if the player has a loan or not
     public Player(String name) {
         this.name = name;
+        toString = "";
         money = 15000000;
         loanAmount = 0;
         position = 0;

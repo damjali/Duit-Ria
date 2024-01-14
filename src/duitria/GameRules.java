@@ -3,6 +3,7 @@ package duitria;
 import java.awt.Color;
 import java.util.*;
 import javax.swing.*;
+import java.awt.Font;
 
 public class GameRules {
     GameRules(){
@@ -14,6 +15,7 @@ public class GameRules {
         JScrollPane scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         String string = gamerulestext();
         textArea.setText(string);
+        textArea.setFont(new Font("Arial", Font.BOLD, 15));
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         window.add(scroll);

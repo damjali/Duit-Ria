@@ -28,13 +28,22 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
 
-    String player1, player2, player3, player4;
-    playerIcons playerIcon1, playerIcon2, playerIcon3, playerIcon4;
+    PlayerSelection player1 = new PlayerSelection();
+    PlayerSelection player2 = new PlayerSelection();
+    PlayerSelection player3 = new PlayerSelection();
+    PlayerSelection player4 = new PlayerSelection();
 
-    PlayerSelectIcon4 (){
+    String saveFileNameChoice;
+
+    playerIcons playerIcon1;
+    playerIcons playerIcon2;
+    playerIcons playerIcon3;
+    playerIcons playerIcon4;
+    
+    PlayerSelectIcon4 (String saveFileNameChoice){
 
     SwingUtilities.invokeLater(() -> {
-        
+     this.saveFileNameChoice = saveFileNameChoice;   
      this.setSize(1280, 720);
      this.setVisible(true);
      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,10 +66,10 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
      panelBackground.add(buttonStart);
 
      
-     playerIcon1 = new playerIcons(40, 110,panelBackground,"src\\playertoken\\CAT.png");
-     playerIcon2 = new playerIcons(347, 110,panelBackground,"src\\playertoken\\CAR.png");
-     playerIcon3 = new playerIcons(654, 110,panelBackground,"src\\playertoken\\HAT.png");
-     playerIcon4 = new playerIcons(960, 110,panelBackground,"src\\playertoken\\DUCK.png");
+     playerIcon1 = new playerIcons(40, 120,panelBackground,"src\\PLAYER TOKENS\\DORAEMON.png");
+     playerIcon2 = new playerIcons(347, 120,panelBackground,"src\\PLAYER TOKENS\\LUFFY.png");
+     playerIcon3 = new playerIcons(654, 120,panelBackground,"src\\PLAYER TOKENS\\MARIO.png");
+     playerIcon4 = new playerIcons(960, 120,panelBackground,"src\\PLAYER TOKENS\\POKEBALL.png");
 
 
      
@@ -74,13 +83,21 @@ public class PlayerSelectIcon4 extends JFrame implements ActionListener {
 public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
 
-        Board board = new Board();
+        // Board board = new Board();
         this.dispose();
-        player1 = playerIcon1.playerNameTextField.getText();
-        player2 = playerIcon2.playerNameTextField.getText();
-        player3 = playerIcon3.playerNameTextField.getText();
-        player4 = playerIcon4.playerNameTextField.getText();
-        board.setName(player1, player2, player3, player4);
+        player1.name = playerIcon1.playerNameTextField.getText();
+        player1.path = "src\\PLAYER TOKENS\\DORAEMON.png";
+        player2.name = playerIcon2.playerNameTextField.getText();
+        player2.path = "src\\PLAYER TOKENS\\LUFFY.png";
+        player3.name = playerIcon3.playerNameTextField.getText();
+        player3.path = "src\\PLAYER TOKENS\\MARIO.png";
+        player4.name = playerIcon4.playerNameTextField.getText();
+        player4.path = "src\\PLAYER TOKENS\\POKEBALL.png";
+        // board.setName(player1, player2, player3, player4);
+        diceRoll diceroll = new diceRoll(4, saveFileNameChoice);
+        diceroll.getName(player1.name, player2.name, player3.name, player4.name);
+        diceroll.addGuiComponents(4);
+
     }
     
     
@@ -117,7 +134,7 @@ class playerIcons extends JPanel{
 playerIcons(int x, int y, JPanel panelBackground, String path){
         SwingUtilities.invokeLater(() -> {
         this.setBackground(new Color(217,217,217));
-        this.setBounds(x, y, 266, 350);
+        this.setBounds(x, y, 266, 375);
         this.setLayout(null);
         panelBackground.add(this);
         this.setBorder(border);
@@ -135,7 +152,7 @@ playerIcons(int x, int y, JPanel panelBackground, String path){
         this.add(panelImage);
         panelImage.setBorder(border);
 
-        panelPlayerName.setBounds(6, 288, 253, 48);
+        panelPlayerName.setBounds(6, 300, 253, 48);
         panelPlayerName.setBorder(border);
         panelPlayerName.setLayout(null);
         this.playerNameTextField.setBounds(0, 0, 253, 48);

@@ -24,6 +24,7 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStartGame = new JButton();
     JButton buttonGameRules = new JButton();
+    JButton buttonContinueGame = new JButton();
     
     HomeScreenGUI (){
 
@@ -46,8 +47,6 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      panelImage.add(labelIcon);
      this.add(panelImage);
      
-     
-     
      JPanel panelButtons = new JPanel();
      panelButtons.setBackground(new Color(24, 23, 23));
      panelButtons.setBounds(640, 0, 640, 720);
@@ -57,30 +56,42 @@ public class HomeScreenGUI extends JFrame implements ActionListener {
      
      buttonStartGame.addActionListener(this);
      buttonStartGame.setSize(500, 100);
-     buttonStartGame.setBounds(70, 240, 500, 80);
+     buttonStartGame.setBounds(70, 180, 500, 80);
      buttonStartGame.setText("START GAME");
      buttonStartGame.setFocusable(false);
      panelButtons.add(buttonStartGame);
      
      buttonGameRules.addActionListener(this);
      buttonGameRules.setSize(500, 100);
-     buttonGameRules.setBounds(70, 370, 500, 80);
+     buttonGameRules.setBounds(70, 310, 500, 80);
      buttonGameRules.setText("GAME RULES");
      buttonGameRules.setFocusable(false);
      panelButtons.add(buttonGameRules);
+
+     buttonContinueGame.addActionListener(this);
+     buttonContinueGame.setSize(500, 100);
+     buttonContinueGame.setBounds(70, 440, 500, 80);
+     buttonContinueGame.setText("CONTINUE GAME");
+     buttonContinueGame.setFocusable(false);
+     panelButtons.add(buttonContinueGame);
 
         
     
     });
 }
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource()==buttonStartGame){
-            PlayerNumber playernumber = new PlayerNumber();
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==buttonStartGame) {
+            PlayerNumber playerNumber = new PlayerNumber("saveFile1.ser");
             this.dispose();
         }
         
-        if(e.getSource()==buttonGameRules){
-            GameRules gamerule = new GameRules();
+        if (e.getSource()==buttonGameRules) {
+            GameRules gameRule = new GameRules();
+        }
+
+        if (e.getSource() == buttonContinueGame) {
+            SaveFileGUI saveFileGUI = new SaveFileGUI();
+            this.dispose();
         }
     }
 

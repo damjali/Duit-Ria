@@ -23,16 +23,18 @@ import javax.swing.border.EmptyBorder;
 public class PlayerNumber extends JFrame implements ActionListener {
 
     static int playerNum;
-    
+    String saveFileNameChoice;
+
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton button2Player = new JButton();
     JButton button3Player = new JButton();
     JButton button4Player = new JButton();
     
-    PlayerNumber (){
+    PlayerNumber (String saveFileNameChoice){
 
     SwingUtilities.invokeLater(() -> {
         
+     this.saveFileNameChoice = saveFileNameChoice;
      this.setSize(1280, 720);
      this.setVisible(true);
      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -94,21 +96,21 @@ public class PlayerNumber extends JFrame implements ActionListener {
 }
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==button2Player){
-            PlayerSelectIcon2 playerselecticon2 = new PlayerSelectIcon2();
+            PlayerSelectIcon2 playerselecticon2 = new PlayerSelectIcon2(saveFileNameChoice);
             playerNum = 2;
             this.dispose();
         }
         
         if(e.getSource()==button3Player){
-            PlayerSelectIcon3 playerselecticon3 = new PlayerSelectIcon3();
+            PlayerSelectIcon3 playerselecticon3 = new PlayerSelectIcon3(saveFileNameChoice);
             playerNum = 3;
             this.dispose();
             
         }
 
         if(e.getSource()==button4Player){
-            PlayerSelectIcon4 playerselecticon4 = new PlayerSelectIcon4();
-            playerNum=4;
+            PlayerSelectIcon4 playerselecticon4 = new PlayerSelectIcon4(saveFileNameChoice);
+            playerNum = 4;
             this.dispose();
             
         }
