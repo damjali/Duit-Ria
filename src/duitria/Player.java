@@ -5,6 +5,7 @@ import java.io.Serializable;
 class Player implements Serializable {
     String name;            // player's name
     String toString;        // what player did on the move
+    String tokenPath;       // token path of the player
     int money;              // total money of the player
     int loanAmount;         // player's loan amount
     int loanPeriod;         // duration of the player's loan
@@ -19,8 +20,9 @@ class Player implements Serializable {
     boolean propertySellCheck; // checking while selling property
     boolean buyHouse;       // second round pass check to buy houses
     boolean hasLoan;        // check if the player has a loan or not
-    public Player(String name) {
+    public Player(String name, String tokenPath) {
         this.name = name;
+        this.tokenPath = tokenPath;
         toString = "";
         money = 15000000;
         loanAmount = 0;

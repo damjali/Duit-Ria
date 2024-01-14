@@ -56,6 +56,7 @@ public class Board extends JFrame implements ActionListener {
 
     String playerName1, playerName2, playerName3, playerName4;
     String playerPath1, playerPath2, playerPath3, playerPath4;
+    String playerTokenSmall1 ,playerTokenSmall2 ,playerTokenSmall3 ,playerTokenSmall4 ;
     int playerNum;
 
     List<PlayerLogHistory> playerLogs;
@@ -108,6 +109,34 @@ public class Board extends JFrame implements ActionListener {
         playerPath3 = player3.path;
         playerName4 = player4.name;
         playerPath4 = player4.path;
+        switch (playerPath1) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+        }
+        switch (playerPath2) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+        }
+        switch (playerPath3) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+        }
+        switch (playerPath4) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+        }
     }
 
 
@@ -169,19 +198,19 @@ public class Board extends JFrame implements ActionListener {
             tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow", "src\\duitria.current.tiles\\28 SEPANG II CIRCUIT.png"));
 
             token1.setBounds(880, 930, 30, 30);
-            token1.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png", 30, 30));
+            token1.setIcon(imageicon.getResizedImage(playerTokenSmall1, 30, 30));
             panelBoard.add(token1);
 
             token2.setBounds(920, 930, 30, 30);
-            token2.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png", 30, 30));
+            token2.setIcon(imageicon.getResizedImage(playerTokenSmall2, 30, 30));
             panelBoard.add(token2);
 
             token3.setBounds(880, 965, 30, 30);
-            token3.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL MARIO NORMAL.png", 30, 30));
+            token3.setIcon(imageicon.getResizedImage(playerTokenSmall3, 30, 30));
             panelBoard.add(token3);
 
             token4.setBounds(920, 965, 30, 30);
-            token4.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png", 30, 30));
+            token4.setIcon(imageicon.getResizedImage(playerTokenSmall4, 30, 30));
             panelBoard.add(token4);
 
             revalidate();
@@ -243,19 +272,19 @@ public class Board extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(() -> {
             switch (playerNum) {
                 case 2:
-                players.add(new Player(playerName1));
-                players.add(new Player(playerName2));
+                players.add(new Player(playerName1, playerPath1));
+                players.add(new Player(playerName2, playerPath2));
                 break;
                 case 3:
-                players.add(new Player(playerName1));
-                players.add(new Player(playerName2));
-                players.add(new Player(playerName3));
+                players.add(new Player(playerName1, playerPath1));
+                players.add(new Player(playerName2, playerPath2));
+                players.add(new Player(playerName3, playerPath3));
                 break;
                 default:
-                players.add(new Player(playerName1));
-                players.add(new Player(playerName2));
-                players.add(new Player(playerName3));
-                players.add(new Player(playerName4));
+                players.add(new Player(playerName1, playerPath1));
+                players.add(new Player(playerName2, playerPath2));
+                players.add(new Player(playerName3, playerPath3));
+                players.add(new Player(playerName4, playerPath4));
             }
         });
     }
