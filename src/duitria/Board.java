@@ -105,19 +105,12 @@ public class Board extends JFrame implements ActionListener {
         playerName4 = name4;
     }
 
-    public static void main(String[] args) {
-        System.setProperty("sun.java2d.uiScale", "1.0");
-        Board board = new Board();
-        board.BoardDeclaration(4);
-    }
+
 
     public void setSaveFileNameChoice(String saveFileNameChoice) {
         this.saveFileNameChoice = saveFileNameChoice;
     }
 
-    Board(){
-        System.out.println("Entered Board");
-    }
 
     public void initializeTile(JPanel panelBoard) {
 
@@ -912,7 +905,7 @@ public class Board extends JFrame implements ActionListener {
         return activePlayerAmount;
     }
 
-    public void BoardDeclaration(int playerNumber) {
+    Board(int playerNumber) {
     SwingUtilities.invokeLater(() -> {
 
         //Any declarations add here
@@ -1212,7 +1205,7 @@ public class Board extends JFrame implements ActionListener {
                         playerLogHistory(currentPlayer);
                         System.out.println(currentPlayer.toString);
                         saveFile.saveGame(players, tiles, saveFileNameChoice);
-                        // buttonRoll.setEnabled(true);
+                        buttonRoll.setEnabled(true);
 
                         revalidate();
 

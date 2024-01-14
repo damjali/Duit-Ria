@@ -103,7 +103,7 @@ public class SaveFileGUI extends JFrame implements ActionListener {
         if (e.getSource()==buttonSaveFile1) {
             if (isFileAvailable(saveFile1)) {
                 saveFile.loadGame(saveFile1);
-                Board board = new Board();
+                Board board = new Board(saveFile.players.size());
                 board.setSaveFileNameChoice(saveFile1);
             } else {
                 PlayerNumber playerNumber = new PlayerNumber(saveFile1);
@@ -113,7 +113,7 @@ public class SaveFileGUI extends JFrame implements ActionListener {
         if (e.getSource()==buttonSaveFile2) {
             if (isFileAvailable(saveFile2)) {
                 saveFile.loadGame(saveFile2);
-                Board board = new Board();
+                Board board = new Board(saveFile.players.size());
                 board.setSaveFileNameChoice(saveFile2);
             } else {
                 PlayerNumber playerNumber = new PlayerNumber(saveFile2);
@@ -123,7 +123,7 @@ public class SaveFileGUI extends JFrame implements ActionListener {
         if (e.getSource()==buttonSaveFile3) {
             if (isFileAvailable(saveFile3)) {
                 saveFile.loadGame(saveFile3);
-                Board board = new Board();
+                Board board = new Board(saveFile.players.size());
                 board.setSaveFileNameChoice(saveFile3);
             } else {
                 PlayerNumber playerNumber = new PlayerNumber(saveFile3);
@@ -133,7 +133,7 @@ public class SaveFileGUI extends JFrame implements ActionListener {
         if (e.getSource()==buttonSaveFile4) {
             if (isFileAvailable(saveFile4)) {
                 saveFile.loadGame(saveFile4);
-                Board board = new Board();
+                Board board = new Board(saveFile.players.size());
                 board.setSaveFileNameChoice(saveFile4);
             } else {
                 PlayerNumber playerNumber = new PlayerNumber(saveFile4);

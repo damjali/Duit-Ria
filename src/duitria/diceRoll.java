@@ -20,10 +20,6 @@ import java.util.Comparator;
 
 public class diceRoll extends JFrame {
 
-public static void main(String[] args) {
-    System.setProperty("sun.java2d.uiScale", "1.0");
-    Board board = new Board();
-}
 
 
     int count = 0;
@@ -145,7 +141,7 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board(4);
                 board.setSaveFileNameChoice(saveFileNameChoice);
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
@@ -158,7 +154,7 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board(3);
                 board.setSaveFileNameChoice(saveFileNameChoice);
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
@@ -171,7 +167,7 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board(2);
                 board.setSaveFileNameChoice(saveFileNameChoice);
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
