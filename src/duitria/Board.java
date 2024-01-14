@@ -909,6 +909,7 @@ public class Board extends JFrame implements ActionListener {
     SwingUtilities.invokeLater(() -> {
 
         //Any declarations add here
+        toString = "Welcome to DuitRia";
         yCordsPlayerLog = 140;
         currentPlayerIndex = -1;
         keyboard = new Scanner(System.in);
@@ -1275,17 +1276,16 @@ public class Board extends JFrame implements ActionListener {
                                 buttonRoll.setEnabled(true);
                 }
                         }
-                        currentPlayer.toString = toString;
-                        playerCardUpdate();
-                    break;
+                break;
                 case JOptionPane.NO_OPTION:
-                    break;
+                break;
                 case JOptionPane.CANCEL_OPTION:
-                    break;
+                break;
                 default:
-                    break;
+                break;
             }
-
+            currentPlayer.toString = toString;
+            playerCardUpdate();
         }
 
         if (e.getSource() == buttonBuyHouse){
