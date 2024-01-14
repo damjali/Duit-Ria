@@ -24,76 +24,73 @@ public class DuitRIa {
                 saveFileCheck = true;
         }
         if (saveFileCheck) {
-            System.out.print("Do you want to start a new game or open the saved file? (Y/N): ");
-            String choice = keyboard.nextLine();
-            if (choice.equalsIgnoreCase("Y")) {
-                int count = 0;
-                System.out.println("Save File Selection (1-4) : ");
-                for (String saveFileName : saveFileNameList) {
-                    count++;
-                    System.out.println("Save File " + count + " : " + (isFileAvailable(saveFileName) ? "Available" : "Not Available"));
-                    if (isFileAvailable(saveFileName)) {
-                        loadGame(saveFileName);
-                        int playerCount = 1;
-                        for (Player player : players) {
-                            System.out.println("Player " + playerCount);
-                            System.out.println("Name: " + player.name);
-                            System.out.printf(Locale.US, "Balance: RM%,d\n", player.money);
-                            System.out.println("Position: " + player.position);
-                            String tileOwned = "";
-                            String specialTileOwned = "";
-                            for (Object currentTile : tiles) {
-                                if (currentTile instanceof Tile) {
-                                    Tile propertyTile = (Tile) currentTile;
-                                    if (propertyTile.owner == player) {
-                                        tileOwned += propertyTile.name + " with " + propertyTile.numOfHouse + " house(s).\n";
-                                    }
-                                }
-                                if (currentTile instanceof SpecialTile) {
-                                    SpecialTile specialTile = (SpecialTile) currentTile;
-                                    if (specialTile.owner == player) {
-                                        specialTileOwned += specialTile.name + ".\n";
-                                    }
+            System.out.print("You may choose to continue a saved game or create a new game.");
+            int count = 0;
+            System.out.println("Save File Selection (1-4) : ");
+            for (String saveFileName : saveFileNameList) {
+                count++;
+                System.out.println("Save File " + count + " : " + (isFileAvailable(saveFileName) ? "Available" : "Not Available"));
+                if (isFileAvailable(saveFileName)) {
+                    loadGame(saveFileName);
+                    int playerCount = 1;
+                    for (Player player : players) {
+                        System.out.println("Player " + playerCount);
+                        System.out.println("Name: " + player.name);
+                        System.out.printf(Locale.US, "Balance: RM%,d\n", player.money);
+                        System.out.println("Position: " + player.position);
+                        String tileOwned = "";
+                        String specialTileOwned = "";
+                        for (Object currentTile : tiles) {
+                            if (currentTile instanceof Tile) {
+                                Tile propertyTile = (Tile) currentTile;
+                                if (propertyTile.owner == player) {
+                                    tileOwned += propertyTile.name + " with " + propertyTile.numOfHouse + " house(s).\n";
                                 }
                             }
-                            System.out.print(tileOwned);
-                            System.out.print(specialTileOwned);
-                            playerCount++;
+                            if (currentTile instanceof SpecialTile) {
+                                SpecialTile specialTile = (SpecialTile) currentTile;
+                                if (specialTile.owner == player) {
+                                    specialTileOwned += specialTile.name + ".\n";
+                                }
+                            }
                         }
-                        players.clear();
-                        tiles.clear();
+                        System.out.print(tileOwned);
+                        System.out.print(specialTileOwned);
+                        playerCount++;
                     }
+                    players.clear();
+                    tiles.clear();
                 }
-                while (true) {
-                    System.out.print("Which save file do you want? : ");
-                    int saveFileChoice = keyboard.nextInt();
-                    keyboard.nextLine();
-                    if (saveFileChoice >= 1 && saveFileChoice <= 4) {
-                        if (!isFileAvailable(saveFileNameList[saveFileChoice - 1])) {
-                            System.out.print("Do you want to start a new game(1) or choose another file(2)? : ");
-                            int startGameChoice = keyboard.nextInt();
-                            keyboard.nextLine();
-                            if (startGameChoice == 1) {
-                                saveFileNameChoice = saveFileNameList[saveFileChoice - 1];
-                                break;
-                            } else
-                                continue;
-                        } else {
-                            System.out.print("Do you want to continue(1) or overwrite the save file(2)? : ");
-                            int startGameChoice = keyboard.nextInt();
-                            keyboard.nextLine();
-                            if (startGameChoice == 1) {
-                                loadGame(saveFileNameList[saveFileChoice - 1]);
-                                saveFileNameChoice = saveFileNameList[saveFileChoice - 1];
-                                gameStart = false;
-                                System.out.println("Game loaded successfully.");
-                                break;
-                            } else
-                                break;   
-                        }
-                    } else
-                    System.err.println("Error: Enter number 1-4");
-                }
+            }
+            while (true) {
+                System.out.print("Which save file do you want? : ");
+                int saveFileChoice = keyboard.nextInt();
+                keyboard.nextLine();
+                if (saveFileChoice >= 1 && saveFileChoice <= 4) {
+                    if (!isFileAvailable(saveFileNameList[saveFileChoice - 1])) {
+                        System.out.print("Do you want to start a new game(1) or choose another file(2)? : ");
+                        int startGameChoice = keyboard.nextInt();
+                        keyboard.nextLine();
+                        if (startGameChoice == 1) {
+                            saveFileNameChoice = saveFileNameList[saveFileChoice - 1];
+                            break;
+                        } else
+                            continue;
+                    } else {
+                        System.out.print("Do you want to continue(1) or overwrite the save file(2)? : ");
+                        int startGameChoice = keyboard.nextInt();
+                        keyboard.nextLine();
+                        if (startGameChoice == 1) {
+                            loadGame(saveFileNameList[saveFileChoice - 1]);
+                            saveFileNameChoice = saveFileNameList[saveFileChoice - 1];
+                            gameStart = false;
+                            System.out.println("Game loaded successfully.");
+                            break;
+                        } else
+                            break;   
+                    }
+                } else
+                System.err.println("Error: Enter number 1-4");
             }
         }
         if (gameStart) {
