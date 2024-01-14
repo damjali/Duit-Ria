@@ -22,7 +22,7 @@ public class diceRoll extends JFrame {
 
 public static void main(String[] args) {
     System.setProperty("sun.java2d.uiScale", "1.0");
-    Board board = new Board();
+    Board board = new Board("saveFile1.ser");
 }
 
 
@@ -136,7 +136,7 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board("saveFile1.ser");
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
 
@@ -148,7 +148,7 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board("saveFile1.ser");
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
 
@@ -160,7 +160,7 @@ public static void main(String[] args) {
                 System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board("saveFile1.ser");
                 board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
                 }
             }

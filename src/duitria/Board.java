@@ -39,7 +39,7 @@ public class Board extends JFrame implements ActionListener {
     public static void main(String[] args) {
 
         System.setProperty("sun.java2d.uiScale", "1.0");
-        Board board = new Board();
+        Board board = new Board("saveFile1.ser");
 
     }
 
@@ -815,7 +815,7 @@ public class Board extends JFrame implements ActionListener {
         });
     }
 
-    Board() {
+    Board(String saveFileNameChoice) {
     SwingUtilities.invokeLater(() -> {
 
         //Any declarations add here
@@ -1062,7 +1062,7 @@ public class Board extends JFrame implements ActionListener {
                         currentPlayer.toString = toString;
                         playerLogHistory(currentPlayer);
                         System.out.println(currentPlayer.toString);
-
+                        saveFile.saveGame(players, tiles, saveFileNameChoice);
                         buttonRoll.setEnabled(true);
 
                         revalidate();
