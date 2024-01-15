@@ -1221,10 +1221,18 @@ public class Board extends JFrame implements ActionListener {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
+            if (currentPlayer.bankruptcy) {
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+                currentPlayer = players.get(currentPlayerIndex);
+                currentPlayer.toString = "";
+            }
             if (currentPlayer.jailCheck) {
                 String textPromptPlayer = "You are in jail.\nYou have to pull 2 same dice roll or pay RM250,000.";
                 textPrompt.setText(textPromptPlayer);
-                // SAY YOU HAVE TO PULL 2 SAME DICE ROLL OR PAY 250K
+            }
+            if (currentPlayer.hasLoan) {
+                currentPlayer.loanPeriodCheck = true;
+                playerLoan(currentPlayer, 0, false);
             }
             // roll for 3 seconds
             long startTime = System.currentTimeMillis();
@@ -1251,12 +1259,11 @@ public class Board extends JFrame implements ActionListener {
                         Object currentTile = tiles.get(currentPlayer.position);
                         if (currentPlayer.jailCheck) {
                             if (diceOne == diceTwo) {
-                                String textPromptPlayer = "You has managed to roll a double!.\n";
+                                String textPromptPlayer = "You have managed to roll a double!.\n";
                                 textPrompt.setText(textPromptPlayer);
                                 currentPlayer.jailCheck = false;
-                                duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                             } else {
-                                    String textPromptPlayer = "You has to pay RM250,000 to get out of jail.\n";
+                                    String textPromptPlayer = "You have to pay RM250,000 to get out of jail.\n";
                                     textPrompt.setText(textPromptPlayer);
                                     if (250000 >= currentPlayer.money) {
                                         buttonSell.setEnabled(true);
@@ -1267,16 +1274,7 @@ public class Board extends JFrame implements ActionListener {
                                     toString += currentPlayer.name + " successfully paid the jail fines.";
                                     System.out.println(currentPlayer.name + " successfully paid the jail fines.");
                                 }
-                                    duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                             }
-                        } else if (currentPlayer.bankruptcy) {
-                            toString += currentPlayer.name + " has already declared bankruptcy.\n";
-                        } else {
-                            duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
-                        }
-                            if (currentPlayer.hasLoan) {
-                            currentPlayer.loanPeriodCheck = true;
-                            playerLoan(currentPlayer, 0, false);
                         }
 
                         
@@ -1295,6 +1293,7 @@ public class Board extends JFrame implements ActionListener {
                         } catch(InterruptedException e) {
                         System.out.println("Threading Error: " + e);
                         }
+                        
                     }
             });
         rollThread.start();
