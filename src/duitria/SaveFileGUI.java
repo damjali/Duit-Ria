@@ -29,10 +29,10 @@ public class SaveFileGUI extends JFrame implements ActionListener {
     JButton buttonSaveFile4 = new JButton();
     
     SaveFile saveFile;
-    String saveFile1 = "saveFile1.ser";
-    String saveFile2 = "saveFile2.ser";
-    String saveFile3 = "saveFile3.ser";
-    String saveFile4 = "saveFile4.ser";
+    String saveFile1 = "saveFileGUI1.ser";
+    String saveFile2 = "saveFileGUI2.ser";
+    String saveFile3 = "saveFileGUI3.ser";
+    String saveFile4 = "saveFileGUI4.ser";
 
     SaveFileGUI (){
 

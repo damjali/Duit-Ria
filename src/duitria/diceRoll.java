@@ -83,7 +83,25 @@ public class diceRoll extends JFrame {
 
     }
 
+    public void getPath(String a, String b, String c, String d){
+        this.player1.path = a;
+        this.player2.path = b;
+        this.player3.path = c;
+        this.player4.path = d;
+    }
 
+    public void getPath(String a, String b, String c){
+        this.player1.path = a;
+        this.player2.path = b;
+        this.player3.path = c;
+
+    }
+
+    public void getPath(String a, String b){
+        this.player1.path = a;
+        this.player2.path = b;
+
+    }
     public void addGuiComponents(int playerNumber){
         
         JPanel jPanel = new JPanel();
