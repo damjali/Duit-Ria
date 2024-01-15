@@ -185,9 +185,51 @@ public class Board extends JFrame implements ActionListener {
     
     public void initializeTokenPosition(){
         SwingUtilities.invokeLater(() -> {
-            tokenPosition.add(new Tokens(880,930,920,930,880,965,920,965));
-            tokenPosition.add(new Tokens(880,930,920,930,880,965,920,965));
-            tokenPosition.add(new Tokens(880,930,920,930,880,965,920,965));
+            //first10
+            tokenPosition.add(new Tokens(891,891,921,891,891,921,921,921));
+            tokenPosition.add(new Tokens(774,891,804,891,774,921,804,921));
+            tokenPosition.add(new Tokens(698,891,728,891,698,921,728,921));
+            tokenPosition.add(new Tokens(622,891,652,891,622,921,652,921));
+            tokenPosition.add(new Tokens(546,891,576,891,546,921,576,921));
+            tokenPosition.add(new Tokens(470,891,500,891,470,921,500,921));
+            tokenPosition.add(new Tokens(394,891,424,891,394,921,424,921));
+            tokenPosition.add(new Tokens(318,891,348,891,318,921,348,921));
+            tokenPosition.add(new Tokens(242,891,272,891,242,921,272,921));
+            tokenPosition.add(new Tokens(166,891,196,891,166,921,196,921));
+            //second10
+            tokenPosition.add(new Tokens(49,891,79,891,49,921,79,921));
+            tokenPosition.add(new Tokens(49,774,79,774,49,804,79,804));
+            tokenPosition.add(new Tokens(49,698,79,698,49,728,79,728));
+            tokenPosition.add(new Tokens(49,622,79,622,49,652,79,652));
+            tokenPosition.add(new Tokens(49,546,79,546,49,576,79,576));
+            tokenPosition.add(new Tokens(49,470,79,470,49,500,79,500));
+            tokenPosition.add(new Tokens(49,394,79,394,49,424,79,424));
+            tokenPosition.add(new Tokens(49,318,79,318,49,348,79,348));
+            tokenPosition.add(new Tokens(49,242,79,242,49,272,79,272));
+            tokenPosition.add(new Tokens(49,166,79,166,49,196,79,196));
+            //third10
+            tokenPosition.add(new Tokens(49,49,79,49,49,79,79,79));
+            tokenPosition.add(new Tokens(166,49,196,49,166,79,196,79));
+            tokenPosition.add(new Tokens(242,49,272,49,242,79,272,79));
+            tokenPosition.add(new Tokens(318,49,348,49,318,79,348,79));
+            tokenPosition.add(new Tokens(394,49,424,49,394,79,424,79));
+            tokenPosition.add(new Tokens(470,49,500,49,470,79,500,79));
+            tokenPosition.add(new Tokens(546,49,576,49,546,79,576,79));
+            tokenPosition.add(new Tokens(622,49,652,49,622,79,652,79));
+            tokenPosition.add(new Tokens(698,49,728,49,698,79,728,79));
+            tokenPosition.add(new Tokens(774,49,804,49,774,79,804,79));
+            //last10
+            tokenPosition.add(new Tokens(891,49,921,49,891,79,921,79));
+            tokenPosition.add(new Tokens(891,166,921,166,891,196,921,196));
+            tokenPosition.add(new Tokens(891,242,921,242,891,272,921,272));
+            tokenPosition.add(new Tokens(891,318,921,318,891,348,921,348));
+            tokenPosition.add(new Tokens(891,394,921,394,891,424,921,424));
+            tokenPosition.add(new Tokens(891,470,921,470,891,500,921,500));
+            tokenPosition.add(new Tokens(891,546,921,546,891,576,921,576));
+            tokenPosition.add(new Tokens(891,622,921,622,891,652,921,652));
+            tokenPosition.add(new Tokens(891,698,921,698,891,728,921,728));
+            tokenPosition.add(new Tokens(891,774,921,774,891,804,921,804));
+            
         });
     }
 
@@ -770,28 +812,19 @@ public class Board extends JFrame implements ActionListener {
     public void playerLoan(Player player, int cost, boolean debtCheck) {
         SwingUtilities.invokeLater(() -> {
             if (!player.hasLoan) { // INTEGRATE WITH LOAN PANEL
-                System.out.println("Do you want to take a loan?");
-                System.out.println("Loan is subjected to be paid back in full by 3 rounds.");
-                System.out.print("Do you want to make a loan? (Y/N) :");
-                String choice = keyboard.nextLine();
-                if (choice.equalsIgnoreCase("Y")) {
-                    System.out.printf(Locale.US, "You have to take a loan of atleast RM%,d.\n", (cost - player.money));
-                    System.out.print("How much do you want to loan?: RM");
-                    player.loanAmount = keyboard.nextInt();
-                    keyboard.nextLine();
-                    while (player.loanAmount <= (cost - player.money)) {
-                        System.out.println("You have to request a bigger loan.");
-                        System.out.print("How much do you want to loan?: RM");
-                        player.loanAmount = keyboard.nextInt();
-                        keyboard.nextLine();
-                    }
-                    System.out.printf(Locale.US, "You have submitted a loan for RM%,d.\n", player.loanAmount);
-                    player.money += player.loanAmount;
-                    player.hasLoan = true;
-                    player.loanPeriod = 0;
-                    toString += String.format(player.name + " has taken a loan for RM%,d.\n", player.loanAmount);
-                    buttonRoll.setEnabled(true);
-                } else if (debtCheck) {
+                String choice = "";
+                JOptionPane optionPaneLoan = new JOptionPane();
+                do {
+                    choice = optionPaneLoan.showInputDialog( String.format("You need a minimum of RM%,d\nHow much do you want from the Creator ?", (cost - player.money)));
+                    player.loanAmount = Integer.parseInt(choice);
+                } while (player.loanAmount <= (cost - player.money));
+                System.out.printf(Locale.US, "You have submitted a loan for RM%,d.\n", player.loanAmount);
+                player.money += player.loanAmount;
+                player.hasLoan = true;
+                player.loanPeriod = 0;
+                toString += String.format(player.name + " has taken a loan for RM%,d.\n", player.loanAmount);
+                buttonRoll.setEnabled(true);
+                if (debtCheck) {
                     bankrupt(player);
                 }
             } else {
@@ -811,15 +844,17 @@ public class Board extends JFrame implements ActionListener {
                         player.hasLoan = false;
                         player.loanPeriod = 0;
                         System.out.printf(player.name + " now have RM%,d.\n", player.money);
-                        toString += player.name + " has paid the loan in full.\n";
+                        toString += player.name + " has paid the loan in full (3 round is up).\n";
                         buttonRoll.setEnabled(true);
                     }
                 } else {
+                    JOptionPane optionPanePayLoan = new JOptionPane();
+                    optionPanePayLoan.showConfirmDialog(null, "Do you want to pay the loan now ?");
                     System.out.print("Do you want to pay the loan now? (Y/N): ");
                     String choice = keyboard.nextLine();
                     if (choice.equalsIgnoreCase("Y")) {
                         if (player.money <= player.loanAmount && debtCheck) {
-                            System.out.println("You couldn't pay the loan and have a debt.");
+                            System.out.println("You couldn't pay the loan and have a debt with the Creator.");
                             bankrupt(player);
                         }
                         if (player.money <= player.loanAmount)
@@ -1142,6 +1177,7 @@ public class Board extends JFrame implements ActionListener {
                     }
                 }
             }
+            creatorDebt = false;
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
@@ -1304,6 +1340,7 @@ public class Board extends JFrame implements ActionListener {
         }
     
         if (e.getSource() == buttonLoan){
+
             buttonLoan.setEnabled(false);
             if (creatorDebt) {
                 playerLoan(currentPlayer, cost, creatorDebt);
@@ -1319,6 +1356,10 @@ public class Board extends JFrame implements ActionListener {
                 specialTile = (MiniSpecialTile) playerCurrentTile;
                 playerLoan(currentPlayer, specialTile.cost, false);
             }
+
+             else 
+                buttonLoan.setEnabled(true);
+
             currentPlayer.toString = toString;
             playerCardUpdate();
         }
