@@ -249,7 +249,6 @@ class playerDiceMove extends JPanel{
         this.setLayout(null);
         this.playerName = playerName;
         this.path = path;
-        System.out.println("this is inside the playerdicemove" + this.playerName);
 
         panelPlayerName.setBounds(0, 0, 135, 30);
         panelPlayerName.setBackground(Color.darkGray);

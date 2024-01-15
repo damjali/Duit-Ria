@@ -996,6 +996,14 @@ public class DuitRIa {
         boolean gameRunning = true;
         while (gameRunning) {
             Player currentPlayer = players.get(currentPlayerIndex);
+            if (onePlayerLeft() == 1) {
+                for (Player player : players) {
+                    if (!player.bankruptcy) {
+                        System.out.println(player.name + " wins!");
+                        gameRunning = false;
+                    }
+                }
+            }
             displayBoard();
             if (currentPlayer.jailCheck) {
                 System.out.print(currentPlayer.name + " is in the jail. Rolling doubles to get out of jail or pay RM250,000. Press Enter to roll the dice.");
@@ -1036,14 +1044,6 @@ public class DuitRIa {
                 System.out.println(count + " more player remaining in the game.");
             } else {
                 playerTurn(currentPlayer,0);
-            }
-            if (onePlayerLeft() == 1) {
-                for (Player player : players) {
-                    if (!player.bankruptcy) {
-                        System.out.println(player.name + " wins!");
-                        gameRunning = false;
-                    }
-                }
             }
             if (currentPlayer.hasLoan) {
                 currentPlayer.loanPeriodCheck = true;

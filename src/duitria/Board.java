@@ -304,7 +304,7 @@ public class Board extends JFrame implements ActionListener {
 
     public void playerLogHistory(Player player) {
         SwingUtilities.invokeLater(() -> {
-            System.out.println("Bruh Moment");
+    
             playerLogs.add(0, new PlayerLogHistory(1500, yCordsPlayerLog, this, player));
     
             // Update yCordsPlayerLog for each existing log
