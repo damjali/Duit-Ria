@@ -198,21 +198,21 @@ public class Board extends JFrame implements ActionListener {
             tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000,"src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\PAY TAX.png"));
             tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow", "src\\duitria.current.tiles\\28 SEPANG II CIRCUIT.png"));
 
-            token1.setBounds(880, 930, 30, 30);
-            token1.setIcon(imageicon.getResizedImage(playerTokenSmall1, 30, 30));
-            panelBoard.add(token1);
+            // token1.setBounds(880, 930, 30, 30);
+            // token1.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\DORAEMON.png", 30, 30));
+            // panelBoard.add(token1);
 
-            token2.setBounds(920, 930, 30, 30);
-            token2.setIcon(imageicon.getResizedImage(playerTokenSmall2, 30, 30));
-            panelBoard.add(token2);
+            // token2.setBounds(920, 930, 30, 30);
+            // token2.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\LUFFY.png", 30, 30));
+            // panelBoard.add(token2);
 
-            token3.setBounds(880, 965, 30, 30);
-            token3.setIcon(imageicon.getResizedImage(playerTokenSmall3, 30, 30));
-            panelBoard.add(token3);
+            // token3.setBounds(880, 965, 30, 30);
+            // token3.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\MARIO.png", 30, 30));
+            // panelBoard.add(token3);
 
-            token4.setBounds(920, 965, 30, 30);
-            token4.setIcon(imageicon.getResizedImage(playerTokenSmall4, 30, 30));
-            panelBoard.add(token4);
+            // token4.setBounds(920, 965, 30, 30);
+            // token4.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\POKEBALL.png", 30, 30));
+            // panelBoard.add(token4);
 
             revalidate();
 
@@ -847,28 +847,19 @@ public class Board extends JFrame implements ActionListener {
     public void playerLoan(Player player, int cost, boolean debtCheck) {
         SwingUtilities.invokeLater(() -> {
             if (!player.hasLoan) { // INTEGRATE WITH LOAN PANEL
-                System.out.println("Do you want to take a loan?");
-                System.out.println("Loan is subjected to be paid back in full by 3 rounds.");
-                System.out.print("Do you want to make a loan? (Y/N) :");
-                String choice = keyboard.nextLine();
-                if (choice.equalsIgnoreCase("Y")) {
-                    System.out.printf(Locale.US, "You have to take a loan of atleast RM%,d.\n", (cost - player.money));
-                    System.out.print("How much do you want to loan?: RM");
-                    player.loanAmount = keyboard.nextInt();
-                    keyboard.nextLine();
-                    while (player.loanAmount <= (cost - player.money)) {
-                        System.out.println("You have to request a bigger loan.");
-                        System.out.print("How much do you want to loan?: RM");
-                        player.loanAmount = keyboard.nextInt();
-                        keyboard.nextLine();
-                    }
-                    System.out.printf(Locale.US, "You have submitted a loan for RM%,d.\n", player.loanAmount);
-                    player.money += player.loanAmount;
-                    player.hasLoan = true;
-                    player.loanPeriod = 0;
-                    toString += String.format(player.name + " has taken a loan for RM%,d.\n", player.loanAmount);
-                    buttonRoll.setEnabled(true);
-                } else if (debtCheck) {
+                String choice = "";
+                JOptionPane optionPaneLoan = new JOptionPane();
+                do {
+                    choice = optionPaneLoan.showInputDialog( String.format("You need a minimum of RM%,d\nHow much do you want from the Creator ?", (cost - player.money)));
+                    player.loanAmount = Integer.parseInt(choice);
+                } while (player.loanAmount <= (cost - player.money));
+                System.out.printf(Locale.US, "You have submitted a loan for RM%,d.\n", player.loanAmount);
+                player.money += player.loanAmount;
+                player.hasLoan = true;
+                player.loanPeriod = 0;
+                toString += String.format(player.name + " has taken a loan for RM%,d.\n", player.loanAmount);
+                buttonRoll.setEnabled(true);
+                if (debtCheck) {
                     bankrupt(player);
                 }
             } else {
@@ -888,15 +879,17 @@ public class Board extends JFrame implements ActionListener {
                         player.hasLoan = false;
                         player.loanPeriod = 0;
                         System.out.printf(player.name + " now have RM%,d.\n", player.money);
-                        toString += player.name + " has paid the loan in full.\n";
+                        toString += player.name + " has paid the loan in full (3 round is up).\n";
                         buttonRoll.setEnabled(true);
                     }
                 } else {
+                    JOptionPane optionPanePayLoan = new JOptionPane();
+                    optionPanePayLoan.showConfirmDialog(null, "Do you want to pay the loan now ?");
                     System.out.print("Do you want to pay the loan now? (Y/N): ");
                     String choice = keyboard.nextLine();
                     if (choice.equalsIgnoreCase("Y")) {
                         if (player.money <= player.loanAmount && debtCheck) {
-                            System.out.println("You couldn't pay the loan and have a debt.");
+                            System.out.println("You couldn't pay the loan and have a debt with the Creator.");
                             bankrupt(player);
                         }
                         if (player.money <= player.loanAmount)
@@ -1224,6 +1217,7 @@ public class Board extends JFrame implements ActionListener {
                     }
                 }
             }
+            creatorDebt = false;
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
@@ -1282,6 +1276,8 @@ public class Board extends JFrame implements ActionListener {
                                 }
                             }
                         }
+
+                        
                         duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                         playerCardUpdate();
                         currentPlayer.toString = toString;
@@ -1289,6 +1285,8 @@ public class Board extends JFrame implements ActionListener {
                         System.out.println(currentPlayer.toString);
                         saveFile.saveGame(players, tiles, saveFileNameChoice);
                         buttonRoll.setEnabled(true);
+
+
 
                         revalidate();
 
@@ -1388,6 +1386,7 @@ public class Board extends JFrame implements ActionListener {
         }
     
         if (e.getSource() == buttonLoan){
+
             buttonLoan.setEnabled(false);
             if (creatorDebt) {
                 playerLoan(currentPlayer, cost, creatorDebt);
@@ -1403,6 +1402,10 @@ public class Board extends JFrame implements ActionListener {
                 specialTile = (MiniSpecialTile) playerCurrentTile;
                 playerLoan(currentPlayer, specialTile.cost, false);
             }
+
+             else 
+                buttonLoan.setEnabled(true);
+
             currentPlayer.toString = toString;
             playerCardUpdate();
         }

@@ -830,15 +830,22 @@ public class DuitRIa {
     }
     private void playerLoan(Player player, int cost, boolean debtCheck) {
         if (!player.hasLoan) {
+
+
+            //Asking player if they want to take a loan
             System.out.println("Do you want to take a loan?");
             System.out.println("Loan is subjected to be paid back in full by 3 rounds.");
             System.out.print("Do you want to make a loan? (Y/N) :");
             String choice = keyboard.nextLine();
             if (choice.equalsIgnoreCase("Y")) {
+
+                //Asking player how much they want to loan
                 System.out.printf(Locale.US, "You have to take a loan of atleast RM%,d.\n", (cost - player.money));
                 System.out.print("How much do you want to loan?: RM");
                 player.loanAmount = keyboard.nextInt();
                 keyboard.nextLine();
+
+                //to make sure the amount of money they wanna loan is more than the amount they have to pay
                 while (player.loanAmount <= (cost - player.money)) {
                     System.out.println("You have to request a bigger loan.");
                     System.out.print("How much do you want to loan?: RM");
