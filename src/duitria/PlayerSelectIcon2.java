@@ -28,8 +28,8 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
     Border border = BorderFactory.createLineBorder(Color.BLACK,1);
     JButton buttonStart = new JButton();
     
-    String player1;
-    String player2;
+    PlayerSelection player1;
+    PlayerSelection player2;
     String saveFileNameChoice;
 
     playerIcons playerIcon1;
@@ -69,10 +69,12 @@ public class PlayerSelectIcon2 extends JFrame implements ActionListener {
 public void actionPerformed(ActionEvent e){
     if(e.getSource()==buttonStart){
         this.dispose();
-        player1 = playerIcon1.playerNameTextField.getText();
-        player2 = playerIcon2.playerNameTextField.getText();
+        player1.name = playerIcon1.playerNameTextField.getText();
+        player1.path = "src\\PLAYER TOKENS\\DORAEMON.png";
+        player2.name = playerIcon2.playerNameTextField.getText();
+        player2.path = "src\\PLAYER TOKENS\\LUFFY.png";
         diceRoll diceroll = new diceRoll(2, saveFileNameChoice);
-        diceroll.getName(player1, player2);
+        diceroll.getName(player1.name, player2.name);
         diceroll.addGuiComponents(2);
 
     }

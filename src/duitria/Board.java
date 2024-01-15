@@ -55,6 +55,8 @@ public class Board extends JFrame implements ActionListener {
     JTextArea textPrompt = new JTextArea();
 
     String playerName1, playerName2, playerName3, playerName4;
+    String playerPath1, playerPath2, playerPath3, playerPath4;
+    String playerTokenSmall1 ,playerTokenSmall2 ,playerTokenSmall3 ,playerTokenSmall4 ;
     int playerNum;
 
     List<PlayerLogHistory> playerLogs;
@@ -78,6 +80,7 @@ public class Board extends JFrame implements ActionListener {
     int birthdayMoney;
     int generalRepairTotal;
     int cost;
+    int bankruptTurnCount;
     boolean creatorDebt;
     boolean playerDebt;
     boolean hasPaid;
@@ -98,11 +101,43 @@ public class Board extends JFrame implements ActionListener {
     MiniJail jail;
     SaveFile saveFile;
 
-    public void setName(String name1, String name2, String name3, String name4){
-        playerName1 = name1;
-        playerName2 = name2;
-        playerName3 = name3;
-        playerName4 = name4;
+    public void setName(PlayerSelection player1, PlayerSelection player2, PlayerSelection player3, PlayerSelection player4){
+        playerName1 = player1.name;
+        playerPath1 = player1.path;
+        playerName2 = player2.name;
+        playerPath2 = player2.path;
+        playerName3 = player3.name;
+        playerPath3 = player3.path;
+        playerName4 = player4.name;
+        playerPath4 = player4.path;
+        switch (playerPath1) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall1 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+        }
+        switch (playerPath2) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall2 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+        }
+        switch (playerPath3) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall3 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+        }
+        switch (playerPath4) {
+            case "src\\PLAYER TOKENS\\DORAEMON.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png";
+            case "src\\PLAYER TOKENS\\LUFFY.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png";
+            case "src\\PLAYER TOKENS\\MARIO.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL MARIO NORMAL.png";
+            case "src\\PLAYER TOKENS\\POKEBALL.png" -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+            default -> playerTokenSmall4 = "src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png";
+        }
     }
 
 
@@ -164,19 +199,19 @@ public class Board extends JFrame implements ActionListener {
             tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow", "src\\duitria.current.tiles\\28 SEPANG II CIRCUIT.png"));
 
             token1.setBounds(880, 930, 30, 30);
-            token1.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL DORAEMON NORMAL.png", 30, 30));
+            token1.setIcon(imageicon.getResizedImage(playerTokenSmall1, 30, 30));
             panelBoard.add(token1);
 
             token2.setBounds(920, 930, 30, 30);
-            token2.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL LUFFY NORMAL.png", 30, 30));
+            token2.setIcon(imageicon.getResizedImage(playerTokenSmall2, 30, 30));
             panelBoard.add(token2);
 
             token3.setBounds(880, 965, 30, 30);
-            token3.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL MARIO NORMAL.png", 30, 30));
+            token3.setIcon(imageicon.getResizedImage(playerTokenSmall3, 30, 30));
             panelBoard.add(token3);
 
             token4.setBounds(920, 965, 30, 30);
-            token4.setIcon(imageicon.getResizedImage("src\\SMALL TOKENS\\SMALL POKEBALL NORMAL.png", 30, 30));
+            token4.setIcon(imageicon.getResizedImage(playerTokenSmall4, 30, 30));
             panelBoard.add(token4);
 
             revalidate();
@@ -238,19 +273,19 @@ public class Board extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(() -> {
             switch (playerNum) {
                 case 2:
-                players.add(new Player(playerName1));
-                players.add(new Player(playerName2));
+                players.add(new Player(playerName1, playerPath1));
+                players.add(new Player(playerName2, playerPath2));
                 break;
                 case 3:
-                players.add(new Player(playerName1));
-                players.add(new Player(playerName2));
-                players.add(new Player(playerName3));
+                players.add(new Player(playerName1, playerPath1));
+                players.add(new Player(playerName2, playerPath2));
+                players.add(new Player(playerName3, playerPath3));
                 break;
                 default:
-                players.add(new Player(playerName1));
-                players.add(new Player(playerName2));
-                players.add(new Player(playerName3));
-                players.add(new Player(playerName4));
+                players.add(new Player(playerName1, playerPath1));
+                players.add(new Player(playerName2, playerPath2));
+                players.add(new Player(playerName3, playerPath3));
+                players.add(new Player(playerName4, playerPath4));
             }
         });
     }
@@ -906,10 +941,12 @@ public class Board extends JFrame implements ActionListener {
                 System.out.println(player.name + " has already declared bankruptcy.");
                 toString += player.name + " has already declared bankruptcy.\n";
             } else {
+                bankruptTurnCount--;
                 System.out.println(player.name + " has declared bankruptcy.");
                 toString += player.name + " has declared bankruptcy.\n";
                 player.bankruptcy = true;
                 player.propertySellCheck = false;
+                player.bankruptTurnCount = bankruptTurnCount;
                 for (Object currentTile : tiles) {
                     if (currentTile instanceof MiniTile) {
                         MiniTile currentPropertyTile = (MiniTile) currentTile;
@@ -955,6 +992,7 @@ public class Board extends JFrame implements ActionListener {
         rand = new Random();
         saveFile = new SaveFile();
         playerNum = playerNumber;
+        bankruptTurnCount = 3;
 
         //Frame Settings
         Border border = BorderFactory.createLineBorder(Color.BLACK,1);
@@ -1121,6 +1159,7 @@ public class Board extends JFrame implements ActionListener {
 
         
         // test comment
+        initializeTokenPosition();
         if (saveFile.newGame) {
             initializeTile(panelBoard);
             initializePlayer();
@@ -1173,7 +1212,8 @@ public class Board extends JFrame implements ActionListener {
             if (isOnePlayerLeft() == 1) {
                 for (Player player : players) {
                 if (!player.bankruptcy) { // GAMEWINNER
-                    
+                    PlayerWinner playerWinner = new PlayerWinner(players, playerNum);
+                    this.dispose();
                     }
                 }
             }
@@ -1182,6 +1222,8 @@ public class Board extends JFrame implements ActionListener {
             currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.toString = "";
             if (currentPlayer.jailCheck) {
+                String textPromptPlayer = "You are in jail.\nYou have to pull 2 same dice roll or pay RM250,000.";
+                textPrompt.setText(textPromptPlayer);
                 // SAY YOU HAVE TO PULL 2 SAME DICE ROLL OR PAY 250K
             }
             // roll for 3 seconds
@@ -1209,13 +1251,13 @@ public class Board extends JFrame implements ActionListener {
                         Object currentTile = tiles.get(currentPlayer.position);
                         if (currentPlayer.jailCheck) {
                             if (diceOne == diceTwo) {
-                                String textPrompt = "";
-                                textPrompt += currentPlayer.name + " has managed to roll a double!.\n";
+                                String textPromptPlayer = "You has managed to roll a double!.\n";
+                                textPrompt.setText(textPromptPlayer);
                                 currentPlayer.jailCheck = false;
                                 duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                             } else {
-                                    String textPrompt = "";
-                                    textPrompt += currentPlayer.name + " has to pay RM250,000 to get out of jail.\n";
+                                    String textPromptPlayer = "You has to pay RM250,000 to get out of jail.\n";
+                                    textPrompt.setText(textPromptPlayer);
                                     if (250000 >= currentPlayer.money) {
                                         buttonSell.setEnabled(true);
                                         System.out.println("You don't have enough money to pay the jail fines.");
@@ -1326,16 +1368,17 @@ public class Board extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonBuyHouse){
             buttonBuyHouse.setEnabled(false);
+            int numOfHouseCanBuy = Math.min((currentPlayer.money / 200000) - propertyTile.numOfHouse, 4);
             String houseNum;
             JOptionPane buyHousePopUp = new JOptionPane();
             do {
-                houseNum = buyHousePopUp.showInputDialog("Input how many houses you want to buy : ");
-            } while (Integer.parseInt(houseNum) <= 4 && Integer.parseInt(houseNum) >=0);
+                houseNum = buyHousePopUp.showInputDialog("You can buy " + numOfHouseCanBuy + " house(s)\nInput how many houses you want to buy : ");
+            } while (Integer.parseInt(houseNum) <= numOfHouseCanBuy && Integer.parseInt(houseNum) >= 0);
 
             int houseNumber = Integer.parseInt(houseNum);
             if (playerCurrentTile instanceof MiniTile) {
                 propertyTile = (MiniTile) playerCurrentTile; // PANEL BUY HOUSE
-                
+                propertyTile.numOfHouse += houseNumber;
             }
         }
     
