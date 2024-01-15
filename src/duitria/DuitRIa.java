@@ -4,12 +4,15 @@ import java.util.*;
 import java.io.*;
 
 public class DuitRIa {
+
+    
     private List<Player> players;
     private List<Object> tiles;
     private int currentPlayerIndex;
     private Scanner keyboard;
     private Random rand;
     private String saveFileNameChoice;
+
     public DuitRIa() {
         keyboard = new Scanner(System.in);
         players = new ArrayList<>();
@@ -860,9 +863,13 @@ public class DuitRIa {
                 bankrupt(player);
             }
         } else {
+
+            //if they already have a loan
             if (player.loanPeriodCheck)
                 player.loanPeriod++;
+                //output the amount of loan they have left
             System.out.printf(player.name + " has a loan of RM%,d.\n", player.loanAmount);
+            // loan is already on 3 round
             if (player.loanPeriod == 3) {
                 System.out.println("You have to pay the loan now, the loan period is up.");
                 System.out.printf("You have RM%,d.\n", player.money);
@@ -878,13 +885,17 @@ public class DuitRIa {
                     System.out.printf(player.name + " now have RM%,d.\n", player.money);
                 }
             } else {
+                //loan is on round 2 and before
                 System.out.print("Do you want to pay the loan now? (Y/N): ");
                 String choice = keyboard.nextLine();
                 if (choice.equalsIgnoreCase("Y")) {
+                    //still not enough to pay loan and need to pay more
                     if (player.money <= player.loanAmount && debtCheck) {
                         System.out.println("You couldn't pay the loan and have a debt.");
                         bankrupt(player);
                     }
+
+                    // still not enough to pay loan
                     if (player.money <= player.loanAmount)
                         System.out.println("You don't have enough money to pay your loan.");
                     else {
@@ -893,6 +904,8 @@ public class DuitRIa {
                             player.money -= player.loanAmount;
                             player.loanAmount = 0;
                         } else {
+
+                            //enter how much you want to pay
                             System.out.print("Please enter the amount you want to pay back : RM");
                             int payment = keyboard.nextInt();
                             keyboard.nextLine();
@@ -904,7 +917,7 @@ public class DuitRIa {
                             player.money -= payment;
                             player.loanAmount -= payment;
                             System.out.printf(player.name + " has successfully paid his loan for RM%,d.\n", payment);
-                        }
+                        }   //if loan is 0, then player has officially released from loan
                         if (player.loanAmount == 0) {
                             System.out.println(player.name + " has successfully paid the loan back in full.");
                             player.hasLoan = false;
