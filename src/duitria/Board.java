@@ -198,21 +198,21 @@ public class Board extends JFrame implements ActionListener {
             tiles.add(new MiniTax(842, 690, 158, 76, panelBoard,"src\\duitria.tiles\\TAX 2.png", "Tax",2000000,"src\\duitria.current.tiles\\CURRENT SPECIAL TILES\\PAY TAX.png"));
             tiles.add(new MiniTile(842, 766, 158, 76, panelBoard,"src\\duitria.tiles\\28 SEPANG II CIRCUIT.png", "Sepang II Circuit",4000000 ,400000, "Yellow", "src\\duitria.current.tiles\\28 SEPANG II CIRCUIT.png"));
 
-            token1.setBounds(880, 930, 30, 30);
-            token1.setIcon(imageicon.getResizedImage(playerTokenSmall1, 30, 30));
-            panelBoard.add(token1);
+            // token1.setBounds(880, 930, 30, 30);
+            // token1.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\DORAEMON.png", 30, 30));
+            // panelBoard.add(token1);
 
-            token2.setBounds(920, 930, 30, 30);
-            token2.setIcon(imageicon.getResizedImage(playerTokenSmall2, 30, 30));
-            panelBoard.add(token2);
+            // token2.setBounds(920, 930, 30, 30);
+            // token2.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\LUFFY.png", 30, 30));
+            // panelBoard.add(token2);
 
-            token3.setBounds(880, 965, 30, 30);
-            token3.setIcon(imageicon.getResizedImage(playerTokenSmall3, 30, 30));
-            panelBoard.add(token3);
+            // token3.setBounds(880, 965, 30, 30);
+            // token3.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\MARIO.png", 30, 30));
+            // panelBoard.add(token3);
 
-            token4.setBounds(920, 965, 30, 30);
-            token4.setIcon(imageicon.getResizedImage(playerTokenSmall4, 30, 30));
-            panelBoard.add(token4);
+            // token4.setBounds(920, 965, 30, 30);
+            // token4.setIcon(imageicon.getResizedImage("src\\PLAYER TOKENS\\POKEBALL.png", 30, 30));
+            // panelBoard.add(token4);
 
             revalidate();
 
@@ -1278,6 +1278,8 @@ public class Board extends JFrame implements ActionListener {
                             currentPlayer.loanPeriodCheck = true;
                             playerLoan(currentPlayer, 0, false);
                         }
+
+                        
                         duitriaBoard(currentPlayer, currentTile, previousPlayerPosition, sum);
                         playerCardUpdate();
                         currentPlayer.toString = toString;
@@ -1285,6 +1287,8 @@ public class Board extends JFrame implements ActionListener {
                         System.out.println(currentPlayer.toString);
                         saveFile.saveGame(players, tiles, saveFileNameChoice);
                         buttonRoll.setEnabled(true);
+
+
 
                         revalidate();
 
