@@ -20,10 +20,6 @@ import java.util.Comparator;
 
 public class diceRoll extends JFrame {
 
-public static void main(String[] args) {
-    System.setProperty("sun.java2d.uiScale", "1.0");
-    Board board = new Board();
-}
 
 
     int count = 0;
@@ -87,7 +83,25 @@ public static void main(String[] args) {
 
     }
 
+    public void getPath(String a, String b, String c, String d){
+        this.player1.path = a;
+        this.player2.path = b;
+        this.player3.path = c;
+        this.player4.path = d;
+    }
 
+    public void getPath(String a, String b, String c){
+        this.player1.path = a;
+        this.player2.path = b;
+        this.player3.path = c;
+
+    }
+
+    public void getPath(String a, String b){
+        this.player1.path = a;
+        this.player2.path = b;
+
+    }
     public void addGuiComponents(int playerNumber){
         
         JPanel jPanel = new JPanel();
@@ -136,44 +150,56 @@ public static void main(String[] args) {
         startGameButton.setEnabled(false);
         startGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-
                 if (playerNumbers == 4){
-                String newPlayer1 = arrayListPlayers.get(3).playerName;
-                String newPlayer2 = arrayListPlayers.get(2).playerName;
-                String newPlayer3 = arrayListPlayers.get(1).playerName;
-                String newPlayer4 = arrayListPlayers.get(0).playerName;
-                System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
+
+                player1.name = arrayListPlayers.get(3).playerName;
+                player1.path = arrayListPlayers.get(3).path;
+                player2.name = arrayListPlayers.get(2).playerName;
+                player2.path = arrayListPlayers.get(2).path;
+                player3.name = arrayListPlayers.get(1).playerName;
+                player3.path = arrayListPlayers.get(1).path;
+                player4.name = arrayListPlayers.get(0).playerName;
+                player4.path = arrayListPlayers.get(0).path;
+                System.out.println(player1.name + player2.name + player3.name + player4.name);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board(4);
                 board.setSaveFileNameChoice(saveFileNameChoice);
-                board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
+                board.setName(player1, player2, player3, player4);
                 }
 
                 else if (playerNumbers == 3){
-                String newPlayer1 = arrayListPlayers.get(2).playerName;
-                String newPlayer2 = arrayListPlayers.get(1).playerName;
-                String newPlayer3 = arrayListPlayers.get(0).playerName;
-                String newPlayer4 = "";
-                System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
+                player1.name = arrayListPlayers.get(2).playerName;
+                player1.path = arrayListPlayers.get(2).path;
+                player2.name = arrayListPlayers.get(1).playerName;
+                player2.path = arrayListPlayers.get(1).path;
+                player3.name = arrayListPlayers.get(0).playerName;
+                player3.path = arrayListPlayers.get(0).path;
+                player4.name = "";
+                player4.path = "";
+                System.out.println(player1.name + player2.name + player3.name + player4.name);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board(3);
                 board.setSaveFileNameChoice(saveFileNameChoice);
-                board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
+                board.setName(player1, player2, player3, player4);
                 }
 
                 else if (playerNumbers == 2){
-                String newPlayer1 = arrayListPlayers.get(1).playerName;
-                String newPlayer2 = arrayListPlayers.get(0).playerName;
-                String newPlayer3 = "";
-                String newPlayer4 = "";
-                System.out.println(newPlayer1 + newPlayer2 + newPlayer3 + newPlayer4);
+                player1.name = arrayListPlayers.get(1).playerName;
+                player1.path = arrayListPlayers.get(1).path;
+                player2.name = arrayListPlayers.get(0).playerName;
+                player2.path = arrayListPlayers.get(0).path;
+                player3.name = "";
+                player3.path = "";
+                player4.name = "";
+                player4.path = "";
+                System.out.println(player1.name + player2.name + player3.name + player4.name);
                 diceRoll.this.dispose();
 
-                Board board = new Board();
+                Board board = new Board(2);
                 board.setSaveFileNameChoice(saveFileNameChoice);
-                board.setName(newPlayer1, newPlayer2, newPlayer3, newPlayer4);
+                board.setName(player1, player2, player3, player4);
                 }
             }
         });
@@ -223,7 +249,6 @@ class playerDiceMove extends JPanel{
         this.setLayout(null);
         this.playerName = playerName;
         this.path = path;
-        System.out.println("this is inside the playerdicemove" + this.playerName);
 
         panelPlayerName.setBounds(0, 0, 135, 30);
         panelPlayerName.setBackground(Color.darkGray);
